@@ -40,14 +40,18 @@ public class MainActivity2 extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Log.d("YUDIT_GILAD", "DocumentSnapshot data: " + document.getData().toString());
+                        UserData userData = document.toObject(UserData.class);
+                        Log.d("YUDIT_GILAD", "uname: " + userData.username + "\tpass: " + userData.password);
                     } else {
-                        Log.d(TAG, "No such document");
+                        Log.d("YUDIT_GILAD", "No such document");
                     }
                 } else {
-                    Log.d(TAG, "get failed with ", task.getException());
+                    Log.d("YUDIT_GILAD", "get failed with ", task.getException());
                 }
             }
         });
+
+
 
         //admin and admin
         loginbtn.setOnClickListener(new View.OnClickListener(){
