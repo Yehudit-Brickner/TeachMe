@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "412440664362",
+    "project_id": "teachme-6a157",
+    "storage_bucket": "teachme-6a157.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:412440664362:android:6ac661e955e95161636653",
+        "android_client_info": {
+          "package_name": "com.example.loginpage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "412440664362-dp1pr6862t1iipo631qp8hm5pnp1qeu4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.loginpage",
+            "certificate_hash": "5f92b8c4d6a3281c26eafd5a7cfbd77591f6c584"
+          }
+        },
+        {
+          "client_id": "412440664362-aanm823vem6rrtcu7gs6nl6k8o4dva25.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBW7JZbRYNWv5PUUgwax8yqYPhpUxG40Y0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "412440664362-aanm823vem6rrtcu7gs6nl6k8o4dva25.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
