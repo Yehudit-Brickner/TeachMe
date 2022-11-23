@@ -3,6 +3,7 @@ package com.example.loginpage;
 public class UserData {
     String username;
     String password;
+    String me;
 
     public UserData()
     {
@@ -13,6 +14,12 @@ public class UserData {
     {
         this.username = username;
         this.password = password;
+    }
+
+    public void copy(UserData o)
+    {
+        this.username = o.username;
+        this.password = o.password;
     }
 
     public String getUsername() {
