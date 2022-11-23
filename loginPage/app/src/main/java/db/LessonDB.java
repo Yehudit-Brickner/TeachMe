@@ -51,7 +51,7 @@ public class LessonDB extends Lesson
     {
         String tag = "LESSONS_DEBUG";
         // for changeing option
-        final LessonDB[] lessonDB = new LessonDB[1];
+        final LessonDB[] lessonDB = new LessonDB[]{new LessonDB()};
         DocumentReference docRef = FirebaseFirestore.getInstance().collection("lessons").document("admint");
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -73,6 +73,7 @@ public class LessonDB extends Lesson
                 }
             }
         });
+
         return new Lesson(lessonDB[0].lessonId, lessonDB[0].meetings);
     }
 

@@ -18,13 +18,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import db.LessonDB;
 import impl.Lesson;
+import interfaces.ILesson;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,11 +48,16 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Log.d("LESSON_FUNC", getLessonsFromDB().toString());
+
 
         Button studentbtn=(Button) findViewById(R.id.student_button);
         Button tutorbutn=(Button) findViewById(R.id.tutor_button);
 
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        Date date = new Date();
+        Log.d("DATETIME", formatter.format(date));
+
+        Log.d("LESSON_FUNC", getLessonsFromDB().toString());
 
         studentbtn.setOnClickListener(new View.OnClickListener(){
             @Override

@@ -30,6 +30,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import impl.Lesson;
+import interfaces.ILesson;
+
 public class MainActivity2 extends AppCompatActivity {
 
     @Override
