@@ -52,7 +52,7 @@ public class LessonDB extends Lesson
         String tag = "LESSONS_DEBUG";
         // for changeing option
         final LessonDB[] lessonDB = new LessonDB[]{new LessonDB()};
-        DocumentReference docRef = FirebaseFirestore.getInstance().collection("lessons").document("admint");
+        DocumentReference docRef = FirebaseFirestore.getInstance().collection(DOCK_NAME).document(lessonId);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {

@@ -9,4 +9,5 @@ public interface ILesson
     static final String DOCK_NAME = "lessons";
     public String getLessonId();
     public ArrayList<Meeting> getMeetings();
+
 }
