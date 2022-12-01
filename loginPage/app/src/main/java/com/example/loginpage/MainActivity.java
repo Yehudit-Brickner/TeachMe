@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -31,6 +32,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import db.DataCenterDB;
 import db.LessonDB;
 import impl.Lesson;
 import interfaces.ILesson;
@@ -39,6 +41,7 @@ import interfaces.IMeeting;
 public class MainActivity extends AppCompatActivity {
 
     public FirebaseFirestore firestore;
+    private FirebaseAuth mAuth;
 
 
     @Override
@@ -46,16 +49,17 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        mAuth = FirebaseAuth.getInstance();
         //getLessonsFromDB();
-        try {
-            Method method1 = MainActivity.class.getMethod("me");
-            myMethod(this, method1);
-        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Method method1 = MainActivity.class.getMethod("me");
+//            myMethod(this, method1);
+//        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
+//
+//        runDBTest();
 
-        runDBTest();
 
         Button studentbtn=(Button) findViewById(R.id.student_button);
         Button tutorbutn=(Button) findViewById(R.id.tutor_button);
@@ -86,9 +90,9 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public static void runDBTest()
+    private void runDBTest()
     {
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        firestore = FirebaseFirestore.getInstance();
 
 //        Map<String, Object> users =new HashMap<>();
 //        users.put("firstName","Yehudit");
@@ -149,23 +153,10 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 //        });
 
-        CollectionReference citiesRef = firestore.collection("DataCenter");
-        Query myQuery = citiesRef.whereEqualTo("tutor", "Gilad");
-        myQuery.whereArrayContains("students", "David");
-        myQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("QUERY_TEST", document.getId() + " => " + document.getData());
-
-                            }
-                        } else {
-                            Log.d("QUERY_TEST", "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
+        new DataCenterDB("11", "aa", "gilad", "david").setRecordToDb();
+        new DataCenterDB("11", "aa", "gilad", "yehudit").setRecordToDb();
+        new DataCenterDB("22", "33", "gilad", "yosi").setRecordToDb();
+        new DataCenterDB("22", "33", "gilad", "david").setRecordToDb();
 
     }
 

@@ -51,7 +51,6 @@ public class MainActivity2 extends AppCompatActivity {
         loginbtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                MainActivity.runDBTest();
                 if(username.getText().toString().equals("admins") &&(password.getText().toString().equals("admins"))){
                     Intent i =new Intent(MainActivity2.this, MainActivity4.class);
                     startActivity(i);
