@@ -1,6 +1,12 @@
 package impl;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
+
+import db.DataCenterDB;
 
 
 public class Person
@@ -65,5 +71,20 @@ public class Person
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Map<String, Object> getPersonMap()
+    {
+        Map<String, Object> map = new HashMap<>();
+        // Use MyObject.class.getFields() instead of getDeclaredFields()
+        // If you are interested in public fields only
+        for (Field field : DataCenterDB.class.getDeclaredFields()) {
+            // Skip this if you intend to access to public fields only
+            try {
+                map.put(field.getName(), field.get(this));
+            } catch (IllegalAccessException e) {
+            }
+        }
+        return (map);
     }
 }
