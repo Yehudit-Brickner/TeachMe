@@ -7,11 +7,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import db.DataCenterDB;
+import interfaces.IPerson;
 
 
-public class Person
+public class Person implements IPerson
 {
-    protected String uID;
+    protected String uID = "";
     protected String firstName;
     protected String lastName;
     protected String email;
@@ -33,26 +34,32 @@ public class Person
         this.phoneNumber = phoneNumber;
     }
 
+    @Override
     public String getUID() {
         return uID;
     }
 
+    @Override
     public String getFirstName() {
         return firstName;
     }
 
+    @Override
     public String getLastName() {
         return lastName;
     }
 
+    @Override
     public String getEmail() {
         return email;
     }
 
+    @Override
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
+    @Override
     public void setUID(String uID) {
         this.uID = uID;
     }
@@ -73,18 +80,15 @@ public class Person
         this.phoneNumber = phoneNumber;
     }
 
+    @Override
     public Map<String, Object> getPersonMap()
     {
         Map<String, Object> map = new HashMap<>();
-        // Use MyObject.class.getFields() instead of getDeclaredFields()
-        // If you are interested in public fields only
-        for (Field field : DataCenterDB.class.getDeclaredFields()) {
-            // Skip this if you intend to access to public fields only
-            try {
-                map.put(field.getName(), field.get(this));
-            } catch (IllegalAccessException e) {
-            }
-        }
+        map.put("uID", uID);
+        map.put("firstName", firstName);
+        map.put("lastName", lastName);
+        map.put("email", email);
+        map.put("phoneNumber", phoneNumber);
         return (map);
     }
 }
