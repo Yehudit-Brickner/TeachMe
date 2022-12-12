@@ -35,13 +35,10 @@ import impl.User;
 public class SignUp extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private  FirebaseFirestore firestore;
-
+    private FirebaseFirestore firestore;
     private RadioButton radiobtnS;
     private RadioButton radiobtnT;
-    private Button signup;
-    private ImageButton gooogle;
-//    private ImageButton gooogle2;
+    private ImageButton googleSignup;
     private boolean isStudent =false;
     private boolean isTutor =false;
 
@@ -55,14 +52,10 @@ public class SignUp extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
-
-
         radiobtnS=(RadioButton)findViewById(R.id.radioButtonS) ;
         radiobtnT=(RadioButton)findViewById(R.id.radioButtonT) ;
-        signup=(Button)findViewById(R.id.signupbtn);
+        googleSignup=(ImageButton)findViewById(R.id.imageButton);
 
-        gooogle=(ImageButton)findViewById(R.id.imageButton);
-//        gooogle2=(ImageButton)findViewById(R.id.signinbtngoogle);
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
@@ -70,15 +63,7 @@ public class SignUp extends AppCompatActivity {
 
         EditText fname = (EditText) findViewById(R.id.editfName);
         EditText lname = (EditText) findViewById(R.id.editlName);
-
         EditText phone = (EditText) findViewById(R.id.editTel);
-        EditText email = (EditText) findViewById(R.id.editEmail);
-        EditText password = (EditText) findViewById(R.id.editpassword);
-        EditText vpassword =(EditText) findViewById(R.id.editpassword1);
-
-
-
-
 
 
         radiobtnS.setOnClickListener(new View.OnClickListener(){
@@ -87,16 +72,9 @@ public class SignUp extends AppCompatActivity {
                 if (isStudent) {
                     radiobtnS.setChecked(false);
                     isStudent=false;
-//                    type = 0;
-//                    String msg="not student to student" +type;
-//                    Log.d("AUTH_DEBUG", msg);
                 }
                 else{
                     isStudent=true;
-//                    radiobtnS.setChecked(false);
-//                    type=-1;
-//                    String msg="student to not student" +type;
-//                    Log.d("AUTH_DEBUG", msg);
                 }
             }
         });
@@ -107,22 +85,15 @@ public class SignUp extends AppCompatActivity {
                 if (isTutor) {
                     radiobtnT.setChecked(false);
                     isTutor=false;
-//                    type = 1;
-//                    String msg="not tutor to tutor "+type;
-//                    Log.d("AUTH_DEBUG", msg);
                 }
                 else{
                     isTutor =true;
-//                    radiobtnT.setChecked(false);
-//                    type=-1;
-//                    String msg="tutor to not tutor"+type;
-//                    Log.d("AUTH_DEBUG",msg );
                 }
             }
         });
 
 
-        gooogle.setOnClickListener(new View.OnClickListener() {
+        googleSignup.setOnClickListener(new View.OnClickListener() {
             @Override
 
             public void onClick(View view) {
@@ -140,64 +111,7 @@ public class SignUp extends AppCompatActivity {
             }
 
         });
-        signup.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-//                System.out.println("type="+type);
-//                Log.d("AUTH_DEBUG", "pressed signup"+type);
 
-                if (isStudent || isTutor) {
-                    Log.d("AUTH_DEBUG", "correct type");
-                    if (checkFillIn(fname, lname, phone, email, password, vpassword)) {
-                        Log.d("AUTH_DEBUG", "all fields are filled in");
-                        if (checkPassword(password, vpassword)) {
-                            Log.d("AUTH_DEBUG", "passwords match");
-                            mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                                    // Sign in success, update UI with the signed-in user's information
-                                                    Log.d("AUTH_DEBUG", "createUserWithEmail:success");
-                                                    FirebaseUser user = mAuth.getCurrentUser();
-                                                    updateUI(user);
-                                                    user.getUid();
-                                                    Person p = new Person(user.getUid().toString(), fname.getText().toString(), lname.getText().toString(),
-                                                            email.getText().toString(), phone.getText().toString(),String.valueOf(isStudent),String.valueOf(isTutor));
-                                                    firestore.collection("users").add(p);
-                                                    Intent i = new Intent(SignUp.this, NewLogin.class);
-                                                    startActivity(i);
-
-                                                    //                                            String s= String.valueOf(firestore.collection("users"));
-                                                    ////                                            String uID=String.valueOf(firestore.collection("users").get());
-                                                    //                                            Log.d("AUTH_DEBUG", "user ID is "+ s);
-                                                    //                                            if (type==0){
-                                                    //                                                Intent i = new Intent(SignUp.this, StudentHomePage.class);
-                                                    //                                                startActivity(i);
-                                                    //                                            } else if (type == 1) {
-                                                    //                                                Intent i = new Intent(SignUp.this, TutorHomePage.class);
-                                                    //                                                startActivity(i);
-                                                    //                                            }
-                                                }
-                                    else {
-                                                    // If sign in fails, display a message to the user.
-                                                    Log.w("AUTH_DEBUG", "createUserWithEmail:failure", task.getException());
-                                                    updateUI(null);
-                                                }
-                                }
-                            });
-                        }
-                    }
-                    else{
-                        Toast.makeText(getApplicationContext(),"Make sure you filled everything in",Toast.LENGTH_LONG).show();
-                    }
-                }
-                else{
-//                    System.out.println("something went wrong");
-                    Toast.makeText(getApplicationContext(),"please pick student or tutor",Toast.LENGTH_LONG).show();
-                }
-            }
-        });
 
     }
 
@@ -219,31 +133,10 @@ public class SignUp extends AppCompatActivity {
 
 
     public void SignIn(){
-
         Intent signInIntent =gsc.getSignInIntent();
         startActivityForResult(signInIntent,1000);
-//        this.OnActivityResult(signInIntent,1000);
     }
 
-
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-//        if (requestCode == 1000) {
-//            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-//            try {
-//                // Google Sign In was successful, authenticate with Firebase
-//                GoogleSignInAccount account = task.getResult(ApiException.class);
-//                Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
-//                firebaseAuthWithGoogle(account.getIdToken());
-//            } catch (ApiException e) {
-//                // Google Sign In failed, update UI appropriately
-//                Log.w(TAG, "Google sign in failed", e);
-//            }
-//        }
-//    }
-    // [END onactivityresult]
 
     // [START auth_with_google]
     private void firebaseAuthWithGoogle(String idToken) {
@@ -258,6 +151,13 @@ public class SignUp extends AppCompatActivity {
                             Log.d("AUTH_DEBUG", "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
+                            user.getUid();
+
+//                            Person p = new Person(user.getUid().toString(), fname.getText().toString(), lname.getText().toString(),
+//                                    email.getText().toString(), phone.getText().toString());
+                            //String.valueOf(isStudent),String.valueOf(isTutor)
+//                            firestore.collection("users").add(p);
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("AUTH_DEBUG", "signInWithCredential:failure", task.getException());
@@ -280,39 +180,35 @@ public class SignUp extends AppCompatActivity {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 Log.d("AUTH_DEBUG", "firebaseAuthWithGoogle:" + account.getId());
                 Log.d("AUTH_DEBUG", "firebaseAuthWithGoogle:" + account.getId()+" "+account.getIdToken());
-//
-//                Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId()+" "+account.getIdToken());
                 firebaseAuthWithGoogle(account.getIdToken());
-                Intent intent = new Intent(SignUp.this, SignedIn.class);
-                startActivity(intent);
+                signout();
+//                Intent intent = new Intent(SignUp.this, NewLogin.class);
+//                startActivity(intent);
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Log.w("AUTH_DEBUG", "Google sign in failed", e);
             }
-
         }
-
     }
 
 
 
-    public boolean checkPassword(EditText p1, EditText p2){
-        if (p1.getText().toString().equals(p2.getText().toString())){
-            Log.d("AUTH_DEBUG", "passwords equal");
-            return true;
-        }
-        Log.d("AUTH_DEBUG", "passwords not equal");
-        Toast.makeText(getApplicationContext(),"passwords don't match",Toast.LENGTH_LONG).show();
-        return false;
-    }
+//    public boolean checkPassword(EditText p1, EditText p2){
+//        if (p1.getText().toString().equals(p2.getText().toString())){
+//            Log.d("AUTH_DEBUG", "passwords equal");
+//            return true;
+//        }
+//        Log.d("AUTH_DEBUG", "passwords not equal");
+//        Toast.makeText(getApplicationContext(),"passwords don't match",Toast.LENGTH_LONG).show();
+//        return false;
+//    }
 
-    public boolean checkFillIn(EditText fn, EditText ln, EditText ph, EditText e, EditText p1, EditText p2){
+    public boolean checkFillIn(EditText fn, EditText ln, EditText ph){
 
         Log.d("AUTH_DEBUG", "first name="+fn.getText().toString()+"....");
 
         if (fn.getText().toString().length()>0 && ln.getText().toString().length()>0
-                && ph.getText().toString().length()>0 && e.getText().toString().length()>0
-                && p1.getText().toString().length()>0 && p2.getText().toString().length()>0){
+                && ph.getText().toString().length()>0 ){
             return true;
         }
 
@@ -322,6 +218,15 @@ public class SignUp extends AppCompatActivity {
     }
 
 
+    private void signout() {
+        gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete( Task<Void> task) {
+                finish();
+                startActivity(new Intent(SignUp.this,NewLogin.class));
+            }
+        });
+    }
 
 }
 

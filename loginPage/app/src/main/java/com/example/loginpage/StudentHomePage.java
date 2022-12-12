@@ -11,6 +11,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -25,6 +29,8 @@ import impl.Person;
 public class StudentHomePage extends AppCompatActivity {
 
     private FirebaseFirestore firestore;
+    GoogleSignInOptions gso;
+    GoogleSignInClient gsc;
 
 
 
@@ -34,26 +40,41 @@ public class StudentHomePage extends AppCompatActivity {
         setContentView(R.layout.activity_student_home_page);
 
 
-        TextView studentName = (TextView) findViewById(R.id.sName);
-        Intent intent=getIntent();
-        String str = intent.getStringExtra("uid");
-        Log.d("AUTH_DEBUG","uid = "+ str);
 
-//        String path = "users\\"+str+"\\firstName";
+        TextView studentName = (TextView) findViewById(R.id.name);
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if(acct!=null){
+            String personName = acct.getDisplayName();
+            String s=studentName.getText().toString()+personName;
+            studentName.setText(s);
+        }
 
-        firestore = FirebaseFirestore.getInstance();
-        Log.d("AUTH_DEBUG",firestore.toString());
-        DocumentReference docRef = firestore.collection("users").document(str);
-//        System.out.println(docRef.toString());
-        Log.d("AUTH_DEBUG",docRef.toString());
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                Person student = documentSnapshot.toObject(Person.class);
-//                Log.d("AUTH_DEBUG",student.getFirstName());
-//                studentName.setText(student.getFirstName());
-            }
-        });
+
+
+
+
+
+
+
+
+//        Intent intent=getIntent();
+//        String str = intent.getStringExtra("uid");
+//        Log.d("AUTH_DEBUG","uid = "+ str);
+
+
+//        firestore = FirebaseFirestore.getInstance();
+//        Log.d("AUTH_DEBUG",firestore.toString());
+//        DocumentReference docRef = firestore.collection("users").document(str);
+
+//        Log.d("AUTH_DEBUG",docRef.toString());
+//        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//            @Override
+//            public void onSuccess(DocumentSnapshot documentSnapshot) {
+////                Person student = documentSnapshot.toObject(Person.class);
+////                Log.d("AUTH_DEBUG",student.getFirstName());
+////                studentName.setText(student.getFirstName());
+//            }
+//        });
 
 
 
@@ -131,9 +152,20 @@ public class StudentHomePage extends AppCompatActivity {
         });
     }
 
+//    private void signOut() {
+//        FirebaseAuth.getInstance().signOut();
+//        Intent i =new Intent(StudentHomePage.this, NewLogin.class);
+//        startActivity(i);
+//    }
+
+
     private void signOut() {
-        FirebaseAuth.getInstance().signOut();
-        Intent i =new Intent(StudentHomePage.this, NewLogin.class);
-        startActivity(i);
+        gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete( Task<Void> task) {
+                finish();
+//                startActivity(new Intent(SignedIn.this,SignUp.class));
+            }
+        });
     }
 }

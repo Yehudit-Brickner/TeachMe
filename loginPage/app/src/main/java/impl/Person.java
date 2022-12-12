@@ -15,8 +15,7 @@ public class Person implements IPerson {
     protected String lastName;
     protected String email;
     protected String phoneNumber;
-    protected String isStudent;
-    protected String isTutor;
+
 
     public Person(String firstName, String lastName, String email, String phoneNumber, String isStudent, String isTutor) {
         this.firstName = firstName;
@@ -24,18 +23,15 @@ public class Person implements IPerson {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.uID = "";
-        this.isStudent = isStudent;
-        this.isTutor = isTutor;
     }
 
-    public Person(String uID, String firstName, String lastName, String email, String phoneNumber, String isStudent, String isTutor) {
+    public Person(String uID, String firstName, String lastName, String email, String phoneNumber) {
         this.uID = uID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.isStudent = isStudent;
-        this.isTutor = isTutor;
+
     }
 
     public String getUID() {
@@ -58,13 +54,7 @@ public class Person implements IPerson {
         return phoneNumber;
     }
 
-    public String getIsStudent() {
-        return isStudent;
-    }
 
-    public String getIsTutor() {
-        return isTutor;
-    }
 
     public void setUID(String uID) {
         this.uID = uID;
@@ -86,13 +76,7 @@ public class Person implements IPerson {
         this.phoneNumber = phoneNumber;
     }
 
-    public void setIsStudent(String isStudent) {
-        this.isStudent = isStudent;
-    }
 
-    public void setIsTutor(String isTutor) {
-        this.isTutor = isTutor;
-    }
 
     public Map<String, Object> getPersonMap()
     {

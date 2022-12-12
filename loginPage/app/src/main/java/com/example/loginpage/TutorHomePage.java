@@ -7,18 +7,39 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class TutorHomePage extends AppCompatActivity {
 
 
-
+    GoogleSignInOptions gso;
+    GoogleSignInClient gsc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutor_home_page);
+
+
+        TextView tutorname=(TextView)findViewById(R.id.name);
+
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if(acct!=null){
+            String personName = acct.getDisplayName();
+            String s=tutorname.getText().toString()+ personName;
+            tutorname.setText(s);
+        }
+
+
+
+
+
 
         Button add=(Button) findViewById(R.id.add);
         add.setOnClickListener(new View.OnClickListener(){
