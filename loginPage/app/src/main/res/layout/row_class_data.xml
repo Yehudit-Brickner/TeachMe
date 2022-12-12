@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:padding ="10dp"
+    android:background="@drawable/round1"
+    android:layout_gravity="center_horizontal"
+
+    >
+
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/ClassName"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:padding="5dp"
+            android:text="class name"
+            ></TextView>
+
+        <TextView
+            android:id="@+id/blank"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:padding="5dp"
+            android:text=""
+            ></TextView>
+
+        <TextView
+            android:id="@+id/TutorName"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:padding="5dp"
+            android:text="tutor name"
+            ></TextView>
+        ></TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/Date"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:padding="5dp"
+            android:text="date"
+            ></TextView>
+
+        <TextView
+            android:id="@+id/StartTime"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:padding="5dp"
+            android:text="start time"
+            ></TextView>
+
+        <TextView
+            android:id="@+id/EndTime"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:padding="5dp"
+            android:text="end time"
+            ></TextView>
+
+    </TableRow>
+
+
+
+
+</TableLayout>

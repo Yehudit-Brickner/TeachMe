@@ -35,6 +35,14 @@ public class MainActivity extends AppCompatActivity {
 
         firestore = FirebaseFirestore.getInstance();
 
+
+        Intent i =new Intent(MainActivity.this, NewLogin.class);
+        startActivity(i);
+
+
+
+
+
 //        Map<String, Object> users =new HashMap<>();
 //        users.put("firstName","Yehudit");
 //        users.put("lastName", "Brickner");
@@ -52,23 +60,25 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 //
-        Button studentbtn=(Button) findViewById(R.id.student_button);
-        Button tutorbutn=(Button) findViewById(R.id.tutor_button);
-
-
-        studentbtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Intent i =new Intent(MainActivity.this, MainActivity2.class);
-                startActivity(i);
-            }
-        });
-        tutorbutn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i =new Intent(MainActivity.this, MainActivity3.class);
-                startActivity(i);
-            }
-        });
+//        Button studentbtn=(Button) findViewById(R.id.student_button);
+//        Button tutorbutn=(Button) findViewById(R.id.tutor_button);
+//
+//
+//        studentbtn.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view) {
+////                Intent i =new Intent(MainActivity.this, StudentSignIn.class);
+//                Intent i =new Intent(MainActivity.this, NewLogin.class);
+//                startActivity(i);
+//            }
+//        });
+//        tutorbutn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                Intent i =new Intent(MainActivity.this, TutorSignIn.class);
+//                Intent i =new Intent(MainActivity.this, NewLogin.class);
+//                startActivity(i);
+//            }
+//        });
     }
 }
