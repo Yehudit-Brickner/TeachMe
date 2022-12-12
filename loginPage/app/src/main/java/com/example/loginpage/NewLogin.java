@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 
 import db.DataCenterDB;
+import db.PersonDataDB;
 
 public class NewLogin extends AppCompatActivity {
 
@@ -63,14 +64,17 @@ public class NewLogin extends AppCompatActivity {
         TextView email= (TextView) findViewById(R.id.email);
         TextView password= (TextView) findViewById(R.id.password);
 
-        DataCenterDB dataCenter = new DataCenterDB("a", "b", "c", "d");
-//        for (int j = 0; j < 5; j++)
-//        {
-//            dataCenter.setRecordToDb();
-//        }
-        dataCenter = new DataCenterDB("a", "", "", "");
-        ArrayList<DataCenterDB> dbRequests = DataCenterDB.queryGetRecords(dataCenter);
-        System.out.println(dbRequests);
+//        DataCenterDB dataCenter = new DataCenterDB("a", "b", "c", "d");
+////        for (int j = 0; j < 5; j++)
+////        {
+////            dataCenter.setRecordToDb();
+////        }
+//        dataCenter = new DataCenterDB("a", "", "", "");
+//        ArrayList<DataCenterDB> dbRequests = DataCenterDB.queryGetRecords(dataCenter);
+//        System.out.println(dbRequests);.
+        //"VHD5JzHfxydvjZfnMBveS0YE3X33"
+        System.out.println(PersonDataDB.getTutorFromDB("VHD5JzHfxydvjZfnMBveS0YE3X33"));
+        System.out.println(PersonDataDB.getStudentFromDB("VHD5JzHfxydvjZfnMBveS0YE3X33"));
 
         radiobtnS.setOnClickListener(new View.OnClickListener(){
             @Override

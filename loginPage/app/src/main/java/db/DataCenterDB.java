@@ -26,10 +26,10 @@ import java.util.Objects;
 
 public class DataCenterDB
 {
-    String lessonId = "";
-    String meetingId = "";
-    String tutorId = "";
-    String studentId = "";
+    public String lessonId = "";
+    public String meetingId = "";
+    public String tutorId = "";
+    public String studentId = "";
 
     private static final String DOCK_NAME = "DataCenter";
 
@@ -81,6 +81,7 @@ public class DataCenterDB
 
         Log.d("QUERY_DC", "try");
         Task<QuerySnapshot> task = query.get();
+
         while (!task.isComplete()) {
             try {
                 Thread.sleep(50);
@@ -91,22 +92,29 @@ public class DataCenterDB
 
         Log.d("QUERY_DC", "finished");
 
+        if (task.isSuccessful()) {
 
+            for (QueryDocumentSnapshot document : task.getResult()) {
+                Log.d("QUERY_TEST", document.getId() + " => " + document.getData());
+                dbRecords.add(document.toObject(DataCenterDB.class));
 
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
+            }
+        }
 
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Log.d("QUERY_TEST", document.getId() + " => " + document.getData());
-                        dbRecords.add(document.toObject(DataCenterDB.class));
-
-                    }
-                } else {
-                    Log.d("QUERY_TEST", "Error getting documents: ", task.getException());
-                }
-            }});
+//        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if (task.isSuccessful()) {
+//
+//                    for (QueryDocumentSnapshot document : task.getResult()) {
+//                        Log.d("QUERY_TEST", document.getId() + " => " + document.getData());
+//                        dbRecords.add(document.toObject(DataCenterDB.class));
+//
+//                    }
+//                } else {
+//                    Log.d("QUERY_TEST", "Error getting documents: ", task.getException());
+//                }
+//            }});
         return dbRecords;
     }
 
