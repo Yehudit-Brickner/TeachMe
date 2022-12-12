@@ -12,6 +12,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Map;
+
 import interfaces.IPerson;
 
 public class SignUpDB  {
@@ -66,6 +68,18 @@ public class SignUpDB  {
             return;
 
         CollectionReference usersCollection = FirebaseFirestore.getInstance().collection(COLL_NAME);
+        usersCollection.document(person.getUID()).set(person.getPersonMap());
+    }
+
+    public static void setPersonData(IPerson person, boolean is_totor, boolean is_student)
+    {
+        if (person.getUID() == null || person.getUID().isEmpty())
+            return;
+
+        CollectionReference usersCollection = FirebaseFirestore.getInstance().collection(COLL_NAME);
+        Map<String, Object> map = person.getPersonMap();
+        map.put("is_totor", is_totor);
+        map.put("is_student", is_student);
         usersCollection.document(person.getUID()).set(person.getPersonMap());
     }
 

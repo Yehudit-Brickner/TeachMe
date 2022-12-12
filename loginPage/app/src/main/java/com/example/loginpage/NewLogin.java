@@ -24,6 +24,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+
+import db.DataCenterDB;
+
 public class NewLogin extends AppCompatActivity {
 
     public FirebaseFirestore firestore;
@@ -58,6 +62,15 @@ public class NewLogin extends AppCompatActivity {
 
         TextView email= (TextView) findViewById(R.id.email);
         TextView password= (TextView) findViewById(R.id.password);
+
+        DataCenterDB dataCenter = new DataCenterDB("a", "b", "c", "d");
+//        for (int j = 0; j < 5; j++)
+//        {
+//            dataCenter.setRecordToDb();
+//        }
+        dataCenter = new DataCenterDB("a", "", "", "");
+        ArrayList<DataCenterDB> dbRequests = DataCenterDB.queryGetRecords(dataCenter);
+        System.out.println(dbRequests);
 
         radiobtnS.setOnClickListener(new View.OnClickListener(){
             @Override
