@@ -80,7 +80,7 @@ public class SignUpDB  {
         Map<String, Object> map = person.getPersonMap();
         map.put("is_tutor", is_tutor);
         map.put("is_student", is_student);
-        usersCollection.document(person.getUID()).set(person.getPersonMap());
+        usersCollection.document(person.getUID()).set(map);
     }
 
     public static boolean isGoodPersonData(IPerson person)
