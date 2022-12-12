@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:padding="10dp"
+    android:layout_height="120dp">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round1"
+        android:gravity="center"
+        android:padding="10dp">
+
+
+
+            <TextView
+                android:id="@+id/ClassName_sr"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:gravity="left"
+                android:padding="5dp"
+                android:textSize="25dp"
+                android:text="class name"></TextView>
+
+
+            <TextView
+                android:id="@+id/TutorName_sr"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:textSize="25dp"
+                android:padding="5dp"
+                android:text="tutor name"></TextView>
+
+        <ImageView
+            android:id="@+id/moreinfo_sr"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:gravity="right"
+            android:padding="5dp"
+            android:scaleX="2"
+            android:scaleY="2"
+            tools:srcCompat="@drawable/ic_baseline_arrow_right_24"
+            app:tint="@color/black"
+            android:backgroundTint="@color/white"/>
+
+    </LinearLayout>
+
+</LinearLayout>

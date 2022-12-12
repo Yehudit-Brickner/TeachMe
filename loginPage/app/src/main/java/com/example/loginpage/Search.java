@@ -88,6 +88,7 @@ public class Search extends AppCompatActivity {
 
                 //ArrayList<Meeting> ans=searchForClasses(pickedClass,date.getText().toString(),pickedCity,zoom.getText().toString(),inperson.getText().toString());
                 Intent i =new Intent(Search.this, SearchResults.class);
+//                i.putExtra("result", ans);
                 startActivity(i);
             }
         });

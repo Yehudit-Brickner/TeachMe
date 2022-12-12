@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/date_cir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="13dp"
+        android:gravity="left"
+        android:padding="10dp"
+        android:text="date"
+        app:layout_constraintBottom_toTopOf="@+id/inperson_cir"
+        app:layout_constraintEnd_toStartOf="@+id/starttime_cir"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/starttime_cir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:padding="10dp"
+        android:text="starttime"
+        app:layout_constraintBottom_toTopOf="@+id/inperson_cir"
+        app:layout_constraintEnd_toStartOf="@+id/endtime_cir"
+        app:layout_constraintStart_toEndOf="@+id/date_cir"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/endtime_cir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:padding="10dp"
+        android:text="endtime"
+        app:layout_constraintBottom_toTopOf="@+id/zoom_cir"
+        app:layout_constraintEnd_toStartOf="@+id/city_cir"
+        app:layout_constraintStart_toEndOf="@+id/starttime_cir"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/city_cir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="113dp"
+        android:gravity="right"
+        android:padding="10dp"
+        android:text="city"
+        app:layout_constraintBottom_toTopOf="@+id/zoom_cir"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/endtime_cir"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/zoom_cir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="74dp"
+        android:gravity="left"
+        android:padding="10dp"
+        android:text="can be on zoom:"
+        app:layout_constraintBottom_toTopOf="@+id/signupToClass"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/inperson_cir"
+        app:layout_constraintTop_toBottomOf="@+id/endtime_cir" />
+
+    <TextView
+        android:id="@+id/inperson_cir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="can be in person:"
+        app:layout_constraintBottom_toTopOf="@+id/signupToClass"
+        app:layout_constraintEnd_toStartOf="@+id/zoom_cir"
+        app:layout_constraintStart_toEndOf="@+id/price_cir"
+        app:layout_constraintTop_toBottomOf="@+id/date_cir" />
+
+    <TextView
+        android:id="@+id/price_cir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="75dp"
+        android:layout_marginBottom="640dp"
+        android:gravity="right"
+        android:padding="10dp"
+        android:text="price"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/inperson_cir"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date_cir" />
+
+    <Button
+        android:id="@+id/signupToClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="592dp"
+        android:gravity="center_horizontal"
+        android:padding="5dp"
+        android:text="sign up to this class"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/zoom_cir" />
+</androidx.constraintlayout.widget.ConstraintLayout>
