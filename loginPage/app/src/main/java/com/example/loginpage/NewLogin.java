@@ -130,6 +130,7 @@ public class NewLogin extends AppCompatActivity {
                                 }
 
                             });
+
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "you need to choose student or tutor", Toast.LENGTH_SHORT).show();
