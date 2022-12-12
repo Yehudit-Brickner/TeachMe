@@ -19,7 +19,7 @@ public class MainActivity4 extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent i =new Intent(MainActivity4.this, MainActivity6.class);
+                Intent i =new Intent(MainActivity4.this, StudentUpdateInfo.class);
                 startActivity(i);
             }
         });

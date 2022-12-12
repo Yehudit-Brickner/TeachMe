@@ -15,6 +15,13 @@
         android:theme="@style/Theme.LoginPage"
         tools:targetApi="31">
         <activity
+            android:name=".SearchResults"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ClassList"
             android:exported="false">
             <meta-data
@@ -85,7 +92,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity6"
+            android:name=".StudentUpdateInfo"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

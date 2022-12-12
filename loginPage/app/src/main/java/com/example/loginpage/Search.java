@@ -2,8 +2,11 @@ package com.example.loginpage;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -13,17 +16,24 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import impl.Meeting;
+
 public class Search extends AppCompatActivity {
 
 
-//    Spinner classes;
-//    public EditText date;
-//    Spinner city;
-//    public CheckBox zoom;
-//    public CheckBox inperson;
+    private Spinner classlist;
+    private EditText date;
+    private Spinner citylist;
+    private CheckBox zoom;
+    private CheckBox inperson;
+    private String pickedClass;
+    private String pickedCity;
+    private Button searchbtn;
 
-    ArrayList<String> pickclasses=new ArrayList<String>();
-    ArrayList<String> pickcities=new ArrayList<String>();
+
+
+    private ArrayList<String> pickclasses=new ArrayList<String>();
+    private ArrayList<String> pickcities=new ArrayList<String>();
 
 
     @Override
@@ -56,15 +66,34 @@ public class Search extends AppCompatActivity {
         Collections.sort(pickcities);
         pickcities.add(0,"city");
 
-        Spinner classlist =(Spinner)findViewById(R.id.classes_search_spinner);
+        classlist =(Spinner)findViewById(R.id.classes_search_spinner);
         ArrayAdapter classesAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item,pickclasses);
         classlist.setAdapter(classesAdapter);
 
-        Spinner citylist =(Spinner)findViewById(R.id.city_search_spinner);
+        citylist =(Spinner)findViewById(R.id.city_search_spinner);
         ArrayAdapter cityAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item,pickcities);
         citylist.setAdapter(cityAdapter);
+
+
+        pickedClass = classlist.getSelectedItem().toString();
+        pickedCity = citylist.getSelectedItem().toString();
+
+        searchbtn=(Button)findViewById(R.id.searchbtn_search);
+
+        searchbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //ArrayList<Meeting> ans=searchForClasses(pickedClass,date.getText().toString(),pickedCity,zoom.getText().toString(),inperson.getText().toString());
+                Intent i =new Intent(Search.this, SearchResults.class);
+                startActivity(i);
+            }
+        });
+
+//        serchForClasses()
+
 
     }
 }

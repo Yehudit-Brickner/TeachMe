@@ -1,11 +1,9 @@
 package com.example.loginpage;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -16,15 +14,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import impl.Person;
 
 public class StudentHomePage extends AppCompatActivity {
 
@@ -39,6 +30,8 @@ public class StudentHomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_home_page);
 
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gsc = GoogleSignIn.getClient(StudentHomePage.this,gso);
 
 
         TextView studentName = (TextView) findViewById(R.id.name);
@@ -108,7 +101,7 @@ public class StudentHomePage extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent i =new Intent(StudentHomePage.this, MainActivity6.class);
+                Intent i =new Intent(StudentHomePage.this, StudentUpdateInfo.class);
                 startActivity(i);
             }
         });
