@@ -7,21 +7,6 @@
     android:background="@drawable/background1"
     tools:context=".SignUp">
 
-<!--    <TextView-->
-<!--        android:id="@+id/signup"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_centerHorizontal="true"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:text="Sign up"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:textSize="25sp"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/radioButtonS"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"></TextView>-->
-
-
     <RadioButton
         android:id="@+id/radioButtonS"
         android:layout_width="wrap_content"
@@ -33,7 +18,8 @@
         app:layout_constraintBottom_toTopOf="@+id/fields"
         app:layout_constraintEnd_toStartOf="@+id/radioButtonT"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.607" />
 
     <RadioButton
         android:id="@+id/radioButtonT"
@@ -47,7 +33,8 @@
         app:layout_constraintBottom_toTopOf="@+id/fields"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/radioButtonS"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.607" />
 
     <LinearLayout
         android:id="@+id/fields"
@@ -59,6 +46,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.352"
         app:layout_constraintTop_toTopOf="parent">
 
 
@@ -150,95 +138,96 @@
         </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="15dp"
-            android:paddingTop="15dp"
-            android:orientation="horizontal">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:paddingBottom="15dp"-->
+<!--            android:paddingTop="15dp"-->
+<!--            android:orientation="horizontal">-->
 
-            <TextView
-                android:id="@+id/textEmail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="email"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+<!--            <TextView-->
+<!--                android:id="@+id/textEmail"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="email"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="18sp" />-->
 
-            <EditText
-                android:id="@+id/editEmail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5"
-                android:hint="your email"
-                android:ems="10"
-                android:inputType="textEmailAddress"
-                android:textColor="@color/white"
-                android:textColorHint="@android:color/darker_gray"
-                android:textSize="15sp" />
-        </LinearLayout>
+<!--            <EditText-->
+<!--                android:id="@+id/editEmail"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1.5"-->
+<!--                android:hint="your email"-->
+<!--                android:ems="10"-->
+<!--                android:inputType="textEmailAddress"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textColorHint="@android:color/darker_gray"-->
+<!--                android:textSize="15sp" />-->
+<!--        </LinearLayout>-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="15dp"
-            android:paddingTop="15dp"
-            android:orientation="horizontal">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:paddingBottom="15dp"-->
+<!--            android:paddingTop="15dp"-->
+<!--            android:orientation="horizontal">-->
 
-            <TextView
-                android:id="@+id/textpassword1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="password"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
+<!--            <TextView-->
+<!--                android:id="@+id/textpassword1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="password"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="16sp" />-->
 
-            <EditText
-                android:id="@+id/editpassword"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5"
-                android:ems="10"
-                android:hint="password"
-                android:inputType="textPassword"
-                android:textColor="@color/white"
-                android:textColorHint="@android:color/darker_gray"
-                android:textSize="15sp" />
-        </LinearLayout>
+<!--            <EditText-->
+<!--                android:id="@+id/editpassword"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1.5"-->
+<!--                android:ems="10"-->
+<!--                android:hint="password"-->
+<!--                android:inputType="textPassword"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textColorHint="@android:color/darker_gray"-->
+<!--                android:textSize="15sp" />-->
+<!--        </LinearLayout>-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="20dp"
-            android:paddingTop="20dp"
-            android:orientation="horizontal">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:paddingBottom="20dp"-->
+<!--            android:paddingTop="20dp"-->
+<!--            android:orientation="horizontal">-->
 
-            <TextView
-                android:id="@+id/textpassword"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:elegantTextHeight="true"
-                android:text="validate password"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+<!--            <TextView-->
+<!--                android:id="@+id/textpassword"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:elegantTextHeight="true"-->
+<!--                android:text="validate password"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="18sp" />-->
 
-            <EditText
-                android:id="@+id/editpassword1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5"
-                android:ems="10"
-                android:hint="password"
-                android:inputType="textPassword"
-                android:textColor="@color/white"
-                android:textColorHint="@android:color/darker_gray"
-                android:textSize="15sp" />
-        </LinearLayout>
+<!--            <EditText-->
+<!--                android:id="@+id/editpassword1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1.5"-->
+<!--                android:ems="10"-->
+<!--                android:hint="password"-->
+<!--                android:inputType="textPassword"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textColorHint="@android:color/darker_gray"-->
+<!--                android:textSize="15sp" />-->
+<!--        </LinearLayout>-->
 
     </LinearLayout>
+
 
     <Button
         android:id="@+id/signupbtn"
@@ -254,7 +243,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fields"
-        app:layout_constraintVertical_bias="0.054" />
+        app:layout_constraintVertical_bias="0.195" />
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -262,13 +251,13 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signupbtn"
-        app:layout_constraintVertical_bias="0.466"
+        app:layout_constraintVertical_bias="0.15"
         app:srcCompat="@drawable/googlepic1" />
 
 
