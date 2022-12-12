@@ -32,7 +32,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import db.PersonDataDB;
 import impl.Person;
+import impl.Student;
+import impl.Tutor;
 
 
 public class NewLogin extends AppCompatActivity {
@@ -45,7 +48,9 @@ public class NewLogin extends AppCompatActivity {
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
 
-    private int type = -1;
+//    private int type = -1;
+    private boolean isStudent=false;
+    private boolean isTutor=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,12 +76,13 @@ public class NewLogin extends AppCompatActivity {
         radiobtnS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (type != 0) {
+                if (!isStudent) {
                     radiobtnT.setChecked(false);
-                    type = 0;
+                    radiobtnS.setChecked(true);
+                    isStudent=true;
                 } else {
                     radiobtnS.setChecked(false);
-                    type = -1;
+                    isStudent=false;
                 }
                 Log.d("AUTH_DEBUG", "student clicked");
             }
@@ -85,12 +91,13 @@ public class NewLogin extends AppCompatActivity {
         radiobtnT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (type != 1) {
+                if (!isTutor) {
                     radiobtnS.setChecked(false);
-                    type = 1;
+                    radiobtnT.setChecked(true);
+                    isTutor=true;
                 } else {
                     radiobtnT.setChecked(false);
-                    type = -1;
+                    isTutor = false;
                 }
                 Log.d("AUTH_DEBUG", "tutor clicked");
             }
@@ -102,7 +109,7 @@ public class NewLogin extends AppCompatActivity {
             @Override
 
             public void onClick(View view) {
-                if (type == 0 || type == 1) {
+                if (isStudent || isTutor) {
                     System.out.println("pressed the google button");
                     Log.d("AUTH_DEBUG", "pressed the google button");
                     SignIn();
@@ -113,6 +120,31 @@ public class NewLogin extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void SignIn() {
+        Intent signInIntent = gsc.getSignInIntent();
+        startActivityForResult(signInIntent, 1000);
+    }
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultcode, Intent data) {
+        super.onActivityResult(requestCode, resultcode, data);
+        if (requestCode == 1000) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                Log.d("AUTH_DEBUG", "firebaseAuthWithGoogle:" + account.getId());
+                firebaseAuthWithGoogle(account.getIdToken());
+
+            } catch (ApiException e) {
+                // Google Sign In failed, update UI appropriately
+                Log.w("AUTH_DEBUG", "Google sign in failed", e);
+            }
+        }
     }
 
     // firebase authentication
@@ -129,55 +161,44 @@ public class NewLogin extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                             String UID = user.getUid();
+                            // check if the person has a user in the db and is the type matches
 
                             Log.d("AUTH_DEBUG", "user= "+ UID);
-
-                            if (type == 0) {
-                                Intent intent = new Intent(NewLogin.this, StudentHomePage.class);
-                                intent.putExtra("uid",UID);
-                                startActivity(intent);
+                            Student s = PersonDataDB.getStudentFromDB(UID);
+                            Tutor t = PersonDataDB.getTutorFromDB(UID);
+                            if (t!=null || s!=null) {
+                                if (isStudent && s!=null) {
+                                    Intent intent = new Intent(NewLogin.this, StudentHomePage.class);
+                                    intent.putExtra("uid", UID);
+                                    startActivity(intent);
+                                } else if (isTutor && t!=null) {
+                                    Intent intent = new Intent(NewLogin.this, TutorHomePage.class);
+                                    intent.putExtra("uid", UID);
+                                    startActivity(intent);
+                                }
+                                else{
+                                    Toast.makeText(getApplicationContext(), "you tried logging in with the wrong permission", Toast.LENGTH_SHORT).show();
+                                }
                             }
-                            if (type == 1) {
-                                Intent intent = new Intent(NewLogin.this, TutorHomePage.class);
-                                intent.putExtra("uid",UID);
+                            else{
+                                Intent intent = new Intent(NewLogin.this, SignUp.class);
                                 startActivity(intent);
                             }
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("AUTH_DEBUG", "signInWithCredential:failure", task.getException());
                             updateUI(null);
-                            Intent intent = new Intent(NewLogin.this, SignUp.class);
-                            startActivity(intent);
+
                         }
                     }
                 });
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultcode, Intent data) {
-        super.onActivityResult(requestCode, resultcode, data);
-        if (requestCode == 1000) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                // Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                Log.d("AUTH_DEBUG", "firebaseAuthWithGoogle:" + account.getId());
-                Log.d("AUTH_DEBUG", "firebaseAuthWithGoogle:" + account.getId() + " " + account.getIdToken());
-                firebaseAuthWithGoogle(account.getIdToken());
-
-            } catch (ApiException e) {
-                // Google Sign In failed, update UI appropriately
-                Log.w("AUTH_DEBUG", "Google sign in failed", e);
-            }
-        }
-    }
 
 
-    public void SignIn() {
-        Intent signInIntent = gsc.getSignInIntent();
-        startActivityForResult(signInIntent, 1000);
-    }
+
+
 
 
     {

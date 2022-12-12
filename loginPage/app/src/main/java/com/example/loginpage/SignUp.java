@@ -2,6 +2,8 @@ package com.example.loginpage;
 
 import static android.content.ContentValues.TAG;
 
+import static db.SignUpDB.setPersonData;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,6 +33,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import impl.Person;
 import impl.User;
+import interfaces.IPerson;
 
 public class SignUp extends AppCompatActivity {
 
@@ -41,9 +44,13 @@ public class SignUp extends AppCompatActivity {
     private ImageButton googleSignup;
     private boolean isStudent =false;
     private boolean isTutor =false;
+    private EditText fname;
+    private EditText lname;
+    private EditText phone;
 
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
+    GoogleSignInAccount acct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +67,11 @@ public class SignUp extends AppCompatActivity {
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
         gsc = GoogleSignIn.getClient(SignUp.this,gso);
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
 
-        EditText fname = (EditText) findViewById(R.id.editfName);
-        EditText lname = (EditText) findViewById(R.id.editlName);
-        EditText phone = (EditText) findViewById(R.id.editTel);
+        fname = (EditText) findViewById(R.id.editfName);
+        lname = (EditText) findViewById(R.id.editlName);
+        phone = (EditText) findViewById(R.id.editTel);
 
 
         radiobtnS.setOnClickListener(new View.OnClickListener(){
@@ -100,8 +108,15 @@ public class SignUp extends AppCompatActivity {
                 if (isStudent || isTutor) {
                     System.out.println("pressed the google button");
                     Log.d("AUTH_DEBUG", "pressed the google button");
-                    SignIn();
-
+//                    SignIn();
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    updateUI(user);
+                    String UID=user.getUid();
+                    IPerson p = new Person(UID,fname.getText().toString(),
+                            lname.getText().toString(),
+                            phone.getText().toString(),acct.getEmail());
+                    setPersonData(p,isTutor,isStudent);
+                    startActivity(new Intent(SignUp.this,NewLogin.class));
                 }
                 else{
                     System.out.println("pressed the google button");
@@ -151,13 +166,11 @@ public class SignUp extends AppCompatActivity {
                             Log.d("AUTH_DEBUG", "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
-                            user.getUid();
-
-//                            Person p = new Person(user.getUid().toString(), fname.getText().toString(), lname.getText().toString(),
-//                                    email.getText().toString(), phone.getText().toString());
-                            //String.valueOf(isStudent),String.valueOf(isTutor)
-//                            firestore.collection("users").add(p);
-
+                            String UID=user.getUid();
+                            IPerson p = new Person(UID,fname.getText().toString(),
+                                    lname.getText().toString(),
+                                    phone.getText().toString(),acct.getEmail());
+                            setPersonData(p,isTutor,isStudent);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("AUTH_DEBUG", "signInWithCredential:failure", task.getException());

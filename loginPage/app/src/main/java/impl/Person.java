@@ -34,6 +34,9 @@ public class Person implements IPerson
         this.phoneNumber = phoneNumber;
     }
 
+    public Person() {
+    }
+
     @Override
     public String getUID() {
         return uID;
