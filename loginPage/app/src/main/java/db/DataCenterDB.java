@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -21,15 +22,18 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class DataCenterDB
 {
-    String lessonId;
-    String meetingId;
-    String tutorId;
-    String studentId;
+    String lessonId = "";
+    String meetingId = "";
+    String tutorId = "";
+    String studentId = "";
 
-    static final String DOCK_NAME = "DataCenter";
+    private static final String DOCK_NAME = "DataCenter";
+
+    private static final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
     public DataCenterDB()
     {
@@ -43,15 +47,25 @@ public class DataCenterDB
         this.studentId = studentId;
     }
 
-    public ArrayList<DataCenterDB> queryGetRecords(DataCenterDB record)
+    @Override
+    public String toString() {
+        return "DataCenterDB{" +
+                "lessonId='" + lessonId + '\'' +
+                ", meetingId='" + meetingId + '\'' +
+                ", tutorId='" + tutorId + '\'' +
+                ", studentId='" + studentId + '\'' +
+                '}';
+    }
+
+    public static ArrayList<DataCenterDB> queryGetRecords(DataCenterDB record)
     {
         Query query = null;
-        CollectionReference dbCenterColl = FirebaseFirestore.getInstance().collection(DOCK_NAME);
-        Map<String, Object> map = this.getDBasMap();
+        CollectionReference dbCenterColl = firestore.collection(DOCK_NAME);
+        Map<String, Object> map = record.getDBasMap();
         for (String field: map.keySet())
         {
             // if the field of record is null then continue to thr next
-            if (map.get(field) == null)
+            if (Objects.equals(map.get(field), ""))
                 continue;
 
             if (query == null)
@@ -64,6 +78,20 @@ public class DataCenterDB
 
         if (query == null)
             return dbRecords;
+
+        Log.d("QUERY_DC", "try");
+        Task<QuerySnapshot> task = query.get();
+        while (!task.isComplete()) {
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        Log.d("QUERY_DC", "finished");
+
+
 
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -86,37 +114,29 @@ public class DataCenterDB
     {
         Map<String, Object> recordMap = this.getDBasMap();
 
-        FirebaseFirestore.getInstance().collection(DOCK_NAME).add(recordMap)
+        firestore.collection(DOCK_NAME).add(recordMap)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                @Override
-                public void onSuccess(DocumentReference documentReference) {
-                    // TODO:
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        // TODO:
 
-                }})
+                    }})
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                       // TODO:
+                        // TODO:
                     }
-        });
+                });
     }
 
     public Map<String, Object> getDBasMap() {
         Map<String, Object> map = new HashMap<>();
         // Use MyObject.class.getFields() instead of getDeclaredFields()
         // If you are interested in public fields only
-        for (Field field : DataCenterDB.class.getDeclaredFields()) {
-            // Skip this if you intend to access to public fields only
-            if ((field.getModifiers() & Modifier.FINAL) == Modifier.FINAL)
-                continue;
-            if (!field.isAccessible()) {
-                field.setAccessible(true);
-            }
-            try {
-                map.put(field.getName(), field.get(this));
-            } catch (IllegalAccessException e) {
-            }
-        }
+        map.put("lessonId", (this.lessonId == null) ? "" : this.lessonId);
+        map.put("meetingId", (this.meetingId == null) ? "" : this.meetingId);
+        map.put("tutorId", (this.tutorId == null) ? "" : this.tutorId);
+        map.put("studentId", (this.studentId == null) ? "" : this.studentId);
         return (map);
     }
 }

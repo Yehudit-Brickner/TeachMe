@@ -76,4 +76,3 @@ public class Meeting implements IMeeting, Comparable<Meeting>
         return dateTimeThis.compareTo(dateTimeOther);
     }
 }
-

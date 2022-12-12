@@ -74,6 +74,7 @@ public class LessonDB extends Lesson
             }
         });
 
+
         return new Lesson(lessonDB[0].lessonId, lessonDB[0].meetings);
     }
 
