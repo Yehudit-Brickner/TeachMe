@@ -7,8 +7,14 @@ import interfaces.ILesson;
 
 public class Lesson implements ILesson
 {
+
     protected String lessonId = "";
+    protected String tutorId = "";
+    protected String lessonName = "";
+    protected String price = "";
+    protected String freeText = "";
     protected ArrayList<Meeting> meetings = new ArrayList<>();
+
 
     public Lesson()
     {
@@ -16,6 +22,19 @@ public class Lesson implements ILesson
 
     public Lesson(String lessonId, ArrayList<Meeting> meetings) {
         this.lessonId = lessonId;
+        this.meetings = meetings;
+    }
+
+    public Lesson(String lessonId, String tutorId, String lessonName, String price, String freeText) {
+        this(lessonId, tutorId, lessonName, price, freeText, new ArrayList<>());
+    }
+
+    public Lesson(String lessonId, String tutorId, String lessonName, String price, String freeText, ArrayList<Meeting> meetings) {
+        this.lessonId = lessonId;
+        this.tutorId = tutorId;
+        this.lessonName = lessonName;
+        this.price = price;
+        this.freeText = freeText;
         this.meetings = meetings;
     }
 

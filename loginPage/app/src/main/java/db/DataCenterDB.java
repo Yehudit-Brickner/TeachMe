@@ -82,13 +82,7 @@ public class DataCenterDB
         Log.d("QUERY_DC", "try");
         Task<QuerySnapshot> task = query.get();
 
-        while (!task.isComplete()) {
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        waitTaskComplete(task);
 
         Log.d("QUERY_DC", "finished");
 
@@ -146,5 +140,16 @@ public class DataCenterDB
         map.put("tutorId", (this.tutorId == null) ? "" : this.tutorId);
         map.put("studentId", (this.studentId == null) ? "" : this.studentId);
         return (map);
+    }
+
+    public static<T> void waitTaskComplete(Task<T> task)
+    {
+        while (!task.isComplete()) {
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

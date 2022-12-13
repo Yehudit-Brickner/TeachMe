@@ -9,6 +9,7 @@ import interfaces.IMeeting;
 public class Meeting implements IMeeting, Comparable<Meeting>
 {
     protected String meetingId;
+    protected String lessonId;
     protected String dateStart;
     protected String timeStart;
     protected String dateEnd;
@@ -59,7 +60,14 @@ public class Meeting implements IMeeting, Comparable<Meeting>
 
     @Override
     public String toString() {
-        return "Meeting{" + meetingId + '}';
+        return "Meeting{" +
+                "meetingId='" + meetingId + '\'' +
+                ", lessonId='" + lessonId + '\'' +
+                ", dateStart='" + dateStart + '\'' +
+                ", timeStart='" + timeStart + '\'' +
+                ", dateEnd='" + dateEnd + '\'' +
+                ", timeEnd='" + timeEnd + '\'' +
+                '}';
     }
 
     @Override
