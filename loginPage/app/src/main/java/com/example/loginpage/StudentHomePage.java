@@ -130,7 +130,7 @@ public class StudentHomePage extends AppCompatActivity {
         passed.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent i =new Intent(StudentHomePage.this, ClassList.class);
+                Intent i =new Intent(StudentHomePage.this, PassedClassesStudent.class);
                 startActivity(i);
             }
         });

@@ -13,12 +13,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
-import impl.Lesson;
 import impl.Meeting;
 
-public class ClassList extends AppCompatActivity {
+public class PassedClassesStudent extends AppCompatActivity {
 
 
 
@@ -35,7 +33,7 @@ public class ClassList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_class_list);
+        setContentView(R.layout.activity_passed_classes_student);
 
 
 

@@ -36,7 +36,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ClassList"
+            android:name=".PassedClassesStudent"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -85,7 +85,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity9"
+            android:name=".TutorUpdateInfo"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

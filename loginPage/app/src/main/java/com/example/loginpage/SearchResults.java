@@ -83,12 +83,10 @@ public class SearchResults extends AppCompatActivity {
 
     public void addView(Lesson l){
         View myview = getLayoutInflater().inflate(R.layout.row_search_results,null,false);
-
         TextView cn= (TextView)myview.findViewById(R.id.ClassName_sr);
         cn.setText(l.getLessonId());
         TextView tn=(TextView)myview.findViewById(R.id.TutorName_sr);
         ImageView moreinfo=(ImageView) myview.findViewById(R.id.moreinfo_sr);
-
         moreinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,8 +95,6 @@ public class SearchResults extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
-
         layoutlist.addView(myview);
     }
 }

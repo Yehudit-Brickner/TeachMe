@@ -109,7 +109,7 @@ public class NewLogin extends AppCompatActivity {
             @Override
 
             public void onClick(View view) {
-                if (isStudent || isTutor) {
+                if (/*isStudent*/ radiobtnS.isChecked() || /*isTutor*/radiobtnT.isChecked()) {
                     System.out.println("pressed the google button");
                     Log.d("AUTH_DEBUG", "pressed the google button");
                     Log.d("AUTH_DEBUG", "isStudent="+isStudent+" istutor="+isTutor);
@@ -168,11 +168,11 @@ public class NewLogin extends AppCompatActivity {
                             Student s = PersonDataDB.getStudentFromDB(UID);
                             Tutor t = PersonDataDB.getTutorFromDB(UID);
                             if (t!=null || s!=null) {
-                                if (isStudent && s!=null) {
+                                if (/*isStudent*/radiobtnS.isChecked() && s!=null) {
                                     Intent intent = new Intent(NewLogin.this, StudentHomePage.class);
                                     intent.putExtra("uid", UID);
                                     startActivity(intent);
-                                } else if (isTutor && t!=null) {
+                                } else if (/*isTutor*/radiobtnT.isChecked() && t!=null) {
                                     Intent intent = new Intent(NewLogin.this, TutorHomePage.class);
                                     intent.putExtra("uid", UID);
                                     startActivity(intent);

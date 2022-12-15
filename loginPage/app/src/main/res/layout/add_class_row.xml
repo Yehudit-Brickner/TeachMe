@@ -10,8 +10,9 @@
         android:id="@+id/layout_list_acr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="15dp"
         android:layout_marginBottom="590dp"
         android:background="@drawable/round1"
         android:orientation="vertical"
@@ -21,56 +22,56 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp">
+        <!--        <LinearLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            android:padding="5dp">-->
 
-            <TextView
-                android:id="@+id/date_acr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:padding="5dp"
-                android:text="date:"
-                tools:layout_editor_absoluteX="71dp"
-                tools:layout_editor_absoluteY="35dp" />
+        <!--            <TextView-->
+        <!--                android:id="@+id/date_acr"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_weight="0.5"-->
+        <!--                android:padding="5dp"-->
+        <!--                android:text="date:"-->
+        <!--                tools:layout_editor_absoluteX="71dp"-->
+        <!--                tools:layout_editor_absoluteY="35dp" />-->
 
-            <EditText
-                android:id="@+id/Edate_acr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="01/01/2020"
-                android:inputType="date"
-                android:textColorHint="@color/white"
-                android:padding="5dp"
-                tools:layout_editor_absoluteX="102dp"
-                tools:layout_editor_absoluteY="26dp" />
+        <!--            <EditText-->
+        <!--                android:id="@+id/Edate_acr"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:hint="01/01/2020"-->
+        <!--                android:inputType="date"-->
+        <!--                android:textColorHint="@color/white"-->
+        <!--                android:padding="5dp"-->
+        <!--                tools:layout_editor_absoluteX="102dp"-->
+        <!--                tools:layout_editor_absoluteY="26dp" />-->
 
-            <TextView
-                android:id="@+id/price_acr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:padding="5dp"
-                android:text="price:"
-                tools:layout_editor_absoluteX="225dp"
-                tools:layout_editor_absoluteY="35dp" />
+        <!--            <TextView-->
+        <!--                android:id="@+id/price_acr"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_weight="0.5"-->
+        <!--                android:padding="5dp"-->
+        <!--                android:text="price:"-->
+        <!--                tools:layout_editor_absoluteX="225dp"-->
+        <!--                tools:layout_editor_absoluteY="35dp" />-->
 
-            <EditText
-                android:id="@+id/Ecity_acr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5"
-                android:inputType="numberDecimal"
-                android:hint="price per hour"
-                android:padding="5dp"
-                android:textColorHint="@color/white"
-                tools:layout_editor_absoluteX="253dp"
-                tools:layout_editor_absoluteY="26dp" />
-        </LinearLayout>
+        <!--            <EditText-->
+        <!--                android:id="@+id/Eprice_acr"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_weight="1.5"-->
+        <!--                android:inputType="numberDecimal"-->
+        <!--                android:hint="price per hour"-->
+        <!--                android:padding="5dp"-->
+        <!--                android:textColorHint="@color/white"-->
+        <!--                tools:layout_editor_absoluteX="253dp"-->
+        <!--                tools:layout_editor_absoluteY="26dp" />-->
+        <!--        </LinearLayout>-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -85,6 +86,8 @@
                 android:layout_weight="1"
                 android:padding="5dp"
                 android:text="start time:"
+                android:textColor="@color/black"
+                android:textSize="13sp"
                 tools:layout_editor_absoluteX="71dp"
                 tools:layout_editor_absoluteY="82dp" />
 
@@ -94,9 +97,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1.25"
                 android:hint="16:00"
-                android:textColorHint="@color/white"
                 android:inputType="time"
                 android:padding="5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/white"
+                android:textSize="13sp"
                 tools:layout_editor_absoluteX="132dp"
                 tools:layout_editor_absoluteY="71dp" />
 
@@ -107,6 +112,8 @@
                 android:layout_weight="1"
                 android:padding="5dp"
                 android:text="end time:"
+                android:textColor="@color/black"
+                android:textSize="12sp"
                 tools:layout_editor_absoluteX="183dp"
                 tools:layout_editor_absoluteY="82dp" />
 
@@ -116,9 +123,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="18:00"
-                android:textColorHint="@color/white"
                 android:inputType="time"
                 android:padding="5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/white"
+                android:textSize="13sp"
                 tools:layout_editor_absoluteX="241dp"
                 tools:layout_editor_absoluteY="71dp" />
         </LinearLayout>
@@ -128,12 +137,39 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <TextView
+                android:id="@+id/date_acr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:padding="5dp"
+                android:text="date:"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="35dp" />
+
+            <EditText
+                android:id="@+id/Edate_acr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="01/01/2020"
+                android:inputType="date"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/white"
+                android:textSize="13sp"
+                tools:layout_editor_absoluteX="102dp"
+                tools:layout_editor_absoluteY="26dp" />
+
             <CheckBox
                 android:id="@+id/checkBox_zoom_acr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Zoom"
+                android:textSize="13sp"
                 tools:layout_editor_absoluteX="90dp"
                 tools:layout_editor_absoluteY="116dp" />
 
@@ -142,14 +178,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="in person"
+                android:text="In person"
+                android:textSize="13sp"
                 tools:layout_editor_absoluteX="173dp"
                 tools:layout_editor_absoluteY="116dp" />
         </LinearLayout>
     </LinearLayout>
 
-
-
+<!--    <Button-->
+<!--        android:id="@+id/buttonremove"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="47dp"-->
+<!--        android:layout_marginBottom="623dp"-->
+<!--        android:text="remove"-->
+<!--        android:textSize="10sp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="1.0"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/layout_list_acr"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.0" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
