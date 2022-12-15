@@ -10,9 +10,8 @@
         android:id="@+id/layout_list_acr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="40dp"
         android:layout_marginBottom="590dp"
         android:background="@drawable/round1"
         android:orientation="vertical"
@@ -23,18 +22,18 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:padding="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/date_acr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="date:"
                 android:padding="5dp"
+                android:text="date:"
                 tools:layout_editor_absoluteX="71dp"
                 tools:layout_editor_absoluteY="35dp" />
 
@@ -45,17 +44,18 @@
                 android:layout_weight="1"
                 android:hint="01/01/2020"
                 android:inputType="date"
+                android:textColorHint="@color/white"
                 android:padding="5dp"
                 tools:layout_editor_absoluteX="102dp"
                 tools:layout_editor_absoluteY="26dp" />
 
             <TextView
-                android:id="@+id/city_acr"
+                android:id="@+id/price_acr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="city:"
                 android:padding="5dp"
+                android:text="price:"
                 tools:layout_editor_absoluteX="225dp"
                 tools:layout_editor_absoluteY="35dp" />
 
@@ -63,8 +63,11 @@
                 android:id="@+id/Ecity_acr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
+                android:inputType="numberDecimal"
+                android:hint="price per hour"
                 android:padding="5dp"
+                android:textColorHint="@color/white"
                 tools:layout_editor_absoluteX="253dp"
                 tools:layout_editor_absoluteY="26dp" />
         </LinearLayout>
@@ -72,8 +75,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/starttime_acr"
@@ -90,9 +93,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.25"
-                android:padding="5dp"
                 android:hint="16:00"
+                android:textColorHint="@color/white"
                 android:inputType="time"
+                android:padding="5dp"
                 tools:layout_editor_absoluteX="132dp"
                 tools:layout_editor_absoluteY="71dp" />
 
@@ -101,8 +105,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="end time:"
                 android:padding="5dp"
+                android:text="end time:"
                 tools:layout_editor_absoluteX="183dp"
                 tools:layout_editor_absoluteY="82dp" />
 
@@ -112,8 +116,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="18:00"
-                android:padding="5dp"
+                android:textColorHint="@color/white"
                 android:inputType="time"
+                android:padding="5dp"
                 tools:layout_editor_absoluteX="241dp"
                 tools:layout_editor_absoluteY="71dp" />
         </LinearLayout>

@@ -49,8 +49,8 @@ public class NewLogin extends AppCompatActivity {
     GoogleSignInClient gsc;
 
 //    private int type = -1;
-    private boolean isStudent=false;
-    private boolean isTutor=false;
+    private boolean isStudent;
+    private boolean isTutor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,16 +61,16 @@ public class NewLogin extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
         radiobtnS = (RadioButton) findViewById(R.id.radioButtonS);
+        radiobtnS.setChecked(false);
         radiobtnT = (RadioButton) findViewById(R.id.radioButtonT);
+        radiobtnT.setChecked(false);
         googleLogin = (ImageButton) (findViewById(R.id.googleBtnLogin));
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
         gsc = GoogleSignIn.getClient(NewLogin.this, gso);
+        isStudent=false;
+        isTutor=false;
 
-//        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-//        if (acct!=null){
-//           signout();
-//        }
 
         // check which permission is being used
         radiobtnS.setOnClickListener(new View.OnClickListener() {
@@ -112,6 +112,7 @@ public class NewLogin extends AppCompatActivity {
                 if (isStudent || isTutor) {
                     System.out.println("pressed the google button");
                     Log.d("AUTH_DEBUG", "pressed the google button");
+                    Log.d("AUTH_DEBUG", "isStudent="+isStudent+" istutor="+isTutor);
                     SignIn();
                 } else {
                     System.out.println("pressed the google button");
@@ -267,7 +268,7 @@ public class NewLogin extends AppCompatActivity {
             @Override
             public void onComplete( Task<Void> task) {
                 finish();
-//                startActivity(new Intent(SignedIn.this,SignUp.class));
+
             }
         });
     }

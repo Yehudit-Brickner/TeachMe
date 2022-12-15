@@ -15,6 +15,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class StudentHomePage extends AppCompatActivity {
@@ -141,6 +142,8 @@ public class StudentHomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 signOut();
+                Intent i =new Intent(StudentHomePage.this, NewLogin.class);
+                startActivity(i);
             }
         });
     }
@@ -153,11 +156,11 @@ public class StudentHomePage extends AppCompatActivity {
 
 
     private void signOut() {
+        FirebaseAuth.getInstance().signOut();
         gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete( Task<Void> task) {
                 finish();
-//                startActivity(new Intent(SignedIn.this,SignUp.class));
             }
         });
     }
