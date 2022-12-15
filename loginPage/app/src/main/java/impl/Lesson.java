@@ -10,10 +10,9 @@ public class Lesson implements ILesson
 
     protected String lessonId = "";
     protected String tutorId = "";
-    protected String lessonName = "";
     protected String price = "";
     protected String freeText = "";
-    protected ArrayList<Meeting> meetings = new ArrayList<>();
+    protected ArrayList<Meeting> meetings = null;
 
 
     public Lesson()
@@ -25,18 +24,21 @@ public class Lesson implements ILesson
         this.meetings = meetings;
     }
 
-    public Lesson(String lessonId, String tutorId, String lessonName, String price, String freeText) {
-        this(lessonId, tutorId, lessonName, price, freeText, new ArrayList<>());
+    public Lesson(String lessonId, String tutorId, String price, String freeText) {
+        this(lessonId, tutorId, price, freeText, null);
     }
 
-    public Lesson(String lessonId, String tutorId, String lessonName, String price, String freeText, ArrayList<Meeting> meetings) {
+    public Lesson(String lessonId, String tutorId, String price, String freeText, ArrayList<Meeting> meetings) {
         this.lessonId = lessonId;
         this.tutorId = tutorId;
-        this.lessonName = lessonName;
         this.price = price;
         this.freeText = freeText;
         this.meetings = meetings;
     }
+
+
+
+
 
     @Override
     public String getLessonId() {
@@ -54,6 +56,14 @@ public class Lesson implements ILesson
 
     public void setMeetings(ArrayList<Meeting> meetings) {
         this.meetings = meetings;
+    }
+
+    public String getTutorId() {
+        return tutorId;
+    }
+
+    public void setTutorId(String tutorId) {
+        this.tutorId = tutorId;
     }
 
     @Override

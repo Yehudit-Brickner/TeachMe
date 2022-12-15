@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import db.DataCenterDB;
+import db.LessonDB;
 import db.PersonDataDB;
 import impl.Lesson;
 import impl.Meeting;
@@ -62,7 +63,6 @@ public class NewLogin extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
 
-
         radiobtnS=(RadioButton)findViewById(R.id.radioButtonS) ;
         radiobtnT=(RadioButton)findViewById(R.id.radioButtonT) ;
         login=(Button)findViewById(R.id.loginbtn);
@@ -73,63 +73,9 @@ public class NewLogin extends AppCompatActivity {
         TextView email= (TextView) findViewById(R.id.email);
         TextView password= (TextView) findViewById(R.id.password);
 
-//        DataCenterDB dataCenter = new DataCenterDB("a", "b", "c", "d");
-////        for (int j = 0; j < 5; j++)
-////        {
-////            dataCenter.setRecordToDb();
-////        }
-//        dataCenter = new DataCenterDB("a", "", "", "");
-//        ArrayList<DataCenterDB> dbRequests = DataCenterDB.queryGetRecords(dataCenter);
-//        System.out.println(dbRequests);.
-        //"VHD5JzHfxydvjZfnMBveS0YE3X33"
-//        System.out.println(PersonDataDB.getTutorFromDB("VHD5JzHfxydvjZfnMBveS0YE3X33"));
-//        System.out.println(PersonDataDB.getStudentFromDB("VHD5JzHfxydvjZfnMBveS0YE3X33"));
+        // try place
+        try_things();
 
-//        Meeting[] me = {new Meeting("1", "a", "a", "a", "a"),
-//                new Meeting("2", "b", "b", "b", "b")};
-//
-//        ArrayList<Meeting> meetings = new ArrayList<>(Arrays.asList(me));
-//        Lesson lesson = new Lesson("111", meetings);
-//        CollectionReference cities = firestore.collection("cities");
-//        cities.document("22").set(lesson);
-//        DocumentReference docRef = cities.document("22");
-//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    DocumentSnapshot document = task.getResult();
-//                    if (document.exists()) {
-//                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-//                        Lesson lesson = document.toObject(Lesson.class);
-//                        System.out.println(lesson);
-//                    } else {
-//                        Log.d(TAG, "No such document");
-//                    }
-//                } else {
-//                    Log.d(TAG, "get failed with ", task.getException());
-//                }
-//            }
-//        });
-        //CollectionReference cities = firestore.collection("cities");
-//        firestore.collection("cities").whereEqualTo("a", "b").getFirestore().collectionGroup("")
-        firestore.collection("cities").whereEqualTo("lessonName", "11").getFirestore()
-                .collectionGroup("hello").whereEqualTo("start", "2").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful())
-                {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Log.d("COLL_ME", document.getId() + " => " + document.getData());
-                        System.out.println(document.getReference().getPath());
-                    }
-                }
-                else
-                {
-                    System.out.println("failed to find query");
-                }
-            }
-        });
 
 
         radiobtnS.setOnClickListener(new View.OnClickListener(){
@@ -255,5 +201,83 @@ public class NewLogin extends AppCompatActivity {
     }
 
     private void updateUI(FirebaseUser user) {
+    }
+
+    private void try_things()
+    {
+//        Lesson lesson = new Lesson("infi", "3FfLFX2iIY0rk68kGJk7", "50", "");
+//        LessonDB.setLessonData(lesson);
+
+         firestore.collectionGroup("lessons").whereEqualTo("lessonId", "infi")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful())
+                {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Log.d("DOCS_FIND", document.getId() + " => " + document.getData());
+                        System.out.println(document.getReference().getPath());
+                    }
+                }
+            }
+        });
+
+        //        DataCenterDB dataCenter = new DataCenterDB("a", "b", "c", "d");
+////        for (int j = 0; j < 5; j++)
+////        {
+////            dataCenter.setRecordToDb();
+////        }
+//        dataCenter = new DataCenterDB("a", "", "", "");
+//        ArrayList<DataCenterDB> dbRequests = DataCenterDB.queryGetRecords(dataCenter);
+//        System.out.println(dbRequests);.
+        //"VHD5JzHfxydvjZfnMBveS0YE3X33"
+//        System.out.println(PersonDataDB.getTutorFromDB("VHD5JzHfxydvjZfnMBveS0YE3X33"));
+//        System.out.println(PersonDataDB.getStudentFromDB("VHD5JzHfxydvjZfnMBveS0YE3X33"));
+
+//        Meeting[] me = {new Meeting("1", "a", "a", "a", "a"),
+//                new Meeting("2", "b", "b", "b", "b")};
+//
+//        ArrayList<Meeting> meetings = new ArrayList<>(Arrays.asList(me));
+//        Lesson lesson = new Lesson("111", meetings);
+//        CollectionReference cities = firestore.collection("cities");
+//        cities.document("22").set(lesson);
+//        DocumentReference docRef = cities.document("22");
+//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    DocumentSnapshot document = task.getResult();
+//                    if (document.exists()) {
+//                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+//                        Lesson lesson = document.toObject(Lesson.class);
+//                        System.out.println(lesson);
+//                    } else {
+//                        Log.d(TAG, "No such document");
+//                    }
+//                } else {
+//                    Log.d(TAG, "get failed with ", task.getException());
+//                }
+//            }
+//        });
+        //CollectionReference cities = firestore.collection("cities");
+//        firestore.collection("cities").whereEqualTo("a", "b").getFirestore().collectionGroup("")
+//        firestore.collection("cities").whereEqualTo("lessonName", "11").getFirestore()
+//                .collectionGroup("hello").whereEqualTo("start", "2").get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful())
+//                        {
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                Log.d("COLL_ME", document.getId() + " => " + document.getData());
+//                                System.out.println(document.getReference().getPath());
+//                            }
+//                        }
+//                        else
+//                        {
+//                            System.out.println("failed to find query");
+//                        }
+//                    }
+//                });
     }
 }

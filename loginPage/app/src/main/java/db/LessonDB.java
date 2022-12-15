@@ -53,6 +53,24 @@ public class LessonDB extends Lesson
         }
     }
 
+    public static boolean setLessonData(Lesson lesson)
+    {
+        // TODO: check if the tutor exists
+        if (lesson.getTutorId() == null || lesson.getTutorId().isEmpty())
+            return false;
+
+        // TODO: check if the lesson exists
+        if (lesson.getLessonId() == null || lesson.getLessonId().isEmpty())
+            return false;
+
+        CollectionReference lessonsColl = firestore.collection(PersonDataDB.COLL_NAME).document(lesson.getTutorId()).collection(Lesson.DOCK_NAME);
+        lessonsColl.document(lesson.getLessonId()).set(lesson);
+
+        // TODO: add if document added successfully
+
+        return true;
+    }
+
     public static Lesson getLessonFromDB(String lessonId)
     {
         String tag = "LESSONS_DEBUG";
