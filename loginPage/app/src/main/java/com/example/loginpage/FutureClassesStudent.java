@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,24 +17,15 @@ import java.util.Date;
 
 import impl.Meeting;
 
-public class PassedClassesStudent extends AppCompatActivity {
-
-
+public class FutureClassesStudent extends AppCompatActivity {
 
 
     public LinearLayout layoutlist;
-//    public TextView cn;
-//    public TextView tn;
-//    public TextView date;
-//    public TextView st;
-//    public TextView et;
-//    public ImageButton moreinfo;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_passed_classes_student);
+        setContentView(R.layout.activity_future_classes_student);
 
 
 
@@ -65,18 +55,14 @@ public class PassedClassesStudent extends AppCompatActivity {
 
         Collections.sort(myMeetings);
 
-
-
-
-
         layoutlist=findViewById(R.id.layout_list);
         for (int i=0; i<myMeetings.size();i++){
             Log.d("AUTH_DEBUG", myMeetings.get(i).getMeetingId()+myMeetings.get(i).getDateStart()+myMeetings.get(i).getTimeStart()+myMeetings.get(i).getDateEnd()+myMeetings.get(i).getTimeEnd());
             addView(myMeetings.get(i));
         }
 
-
     }
+
 
     public void addView(Meeting m){
         View myview = getLayoutInflater().inflate(R.layout.row_class_data2,null,false);
@@ -100,9 +86,8 @@ public class PassedClassesStudent extends AppCompatActivity {
         moreinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i =new Intent(PassedClassesStudent.this, PastClassMoreInfo.class);
+                Intent i =new Intent(FutureClassesStudent.this, FutureClassMoreInfo.class);
                 startActivity(i);
-            }
-        });
+            }      });
     }
 }

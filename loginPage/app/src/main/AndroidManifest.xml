@@ -15,6 +15,27 @@
         android:theme="@style/Theme.LoginPage"
         tools:targetApi="31">
         <activity
+            android:name=".FutureClassMoreInfo"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".FutureClassesStudent"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".PastClassMoreInfo"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".AddClass"
             android:exported="false">
             <meta-data
