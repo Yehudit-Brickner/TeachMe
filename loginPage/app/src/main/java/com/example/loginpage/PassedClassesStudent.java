@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -79,20 +78,20 @@ public class PassedClassesStudent extends AppCompatActivity {
     }
 
     public void addView(Meeting m){
-        View myview = getLayoutInflater().inflate(R.layout.row_class_data2,null,false);
+        View myview = getLayoutInflater().inflate(R.layout.row_class_data_student,null,false);
 
-        TextView cn= (TextView)myview.findViewById(R.id.ClassName_rcd2);
+        TextView cn= (TextView)myview.findViewById(R.id.ClassName_rcds);
         cn.setText(m.getMeetingId());
-        TextView tn= (TextView)myview.findViewById(R.id.TutorName_rcd2);
-        TextView date= (TextView)myview.findViewById(R.id.Date_rcd2);
+        TextView tn= (TextView)myview.findViewById(R.id.TutorName_rcds);
+        TextView date= (TextView)myview.findViewById(R.id.Date_rcds);
         date.setText(m.getDateStart());
 
-        TextView st= (TextView)myview.findViewById(R.id.StartTime_rcd2);
+        TextView st= (TextView)myview.findViewById(R.id.StartTime_rcds);
         st.setText(m.getTimeStart());
 
-        TextView et= (TextView)myview.findViewById(R.id.EndTime_rcd2);
+        TextView et= (TextView)myview.findViewById(R.id.EndTime_rcds);
         et.setText(m.getTimeEnd());
-        Button moreinfo=(Button)myview.findViewById(R.id.moreinfo_rcd2);
+        Button moreinfo=(Button)myview.findViewById(R.id.moreinfo_rcds);
 
 
         layoutlist.addView(myview);
@@ -101,6 +100,8 @@ public class PassedClassesStudent extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i =new Intent(PassedClassesStudent.this, PastClassMoreInfo.class);
+//                i.putExtra("mID",MID);
+//                i.putExtra("Lid",LID);
                 startActivity(i);
             }
         });

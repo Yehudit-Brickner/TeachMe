@@ -10,5 +10,7 @@ public class FutureClassMoreInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_future_class_more_info);
+
+        // need to fill in all the info
     }
 }
