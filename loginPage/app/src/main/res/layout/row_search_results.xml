@@ -61,6 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="more info"
+        android:backgroundTint="@color/design_default_color_secondary"
         android:padding="5dp"/>
 
     </LinearLayout>

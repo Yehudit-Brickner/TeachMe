@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -101,6 +102,7 @@ public class StudentHomePage extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                Log.d("AUTH_DEBUG","pressed button profile - student");
                 Intent i =new Intent(StudentHomePage.this, StudentUpdateInfo.class);
                 startActivity(i);
             }
@@ -111,6 +113,7 @@ public class StudentHomePage extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                Log.d("AUTH_DEBUG","pressed button search");
                 Intent i =new Intent(StudentHomePage.this, Search.class);
                 startActivity(i);
             }
@@ -120,6 +123,7 @@ public class StudentHomePage extends AppCompatActivity {
         upcoming.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                Log.d("AUTH_DEBUG","pressed button upcoming classes - student");
                 Intent i =new Intent(StudentHomePage.this, FutureClassesStudent.class);
                 startActivity(i);
             }
@@ -129,6 +133,7 @@ public class StudentHomePage extends AppCompatActivity {
         passed.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                Log.d("AUTH_DEBUG","pressed button passed classes - student");
                 Intent i =new Intent(StudentHomePage.this, PassedClassesStudent.class);
                 startActivity(i);
             }
@@ -140,6 +145,7 @@ public class StudentHomePage extends AppCompatActivity {
         signout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("AUTH_DEBUG","pressed button signout- student");
                 signOut();
                 Intent i =new Intent(StudentHomePage.this, NewLogin.class);
                 startActivity(i);

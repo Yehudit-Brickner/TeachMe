@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -26,11 +27,11 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more_info_about_class_search);
-
-//        classname=(TextView)findViewById(R.id.classname_moreinfo);
-//        classname.setText("myclass");
-//        tutorname=(TextView)findViewById(R.id.tutorname_moreinfo);
-//        tutorname.setText("mytutor");
+        Log.d("AUTH_DEBUG","got to here");
+        classname=(TextView)findViewById(R.id.classname_moreinfo);
+        classname.setText("myclass");
+        tutorname=(TextView)findViewById(R.id.tutorname_moreinfo);
+        tutorname.setText("mytutor");
 //
 //        Date now=new Date();
 //        Calendar cal = Calendar.getInstance();
@@ -77,46 +78,47 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
 
 
 
-    public void addView(Meeting m){
+//    public void addView(Meeting m){
+//
+//        View myview = getLayoutInflater().inflate(R.layout.more_info_about_class_search_row,null,false);
+//
+//        TextView date = (TextView)myview.findViewById(R.id.date_cir);
+//        date.setText(m.getDateStart());
+//
+//        TextView starttime = (TextView)myview.findViewById(R.id.starttime_cir);
+//        starttime.setText(m.getTimeStart());
+//
+//        TextView endtime = (TextView)myview.findViewById(R.id.endtime_cir);
+//        date.setText(m.getTimeEnd());
+//
+//
+//
+//        TextView iszoom = (TextView)myview.findViewById(R.id.zoom_cir);
+//        String z=iszoom.getText().toString()+"yes";
+//        iszoom.setText(z);
+//
+//
+//        TextView isinperson = (TextView)myview.findViewById(R.id.inperson_cir);
+//        String p=iszoom.getText().toString()+"yes";
+//        isinperson.setText(p);
+//
+//        TextView price = (TextView)myview.findViewById(R.id.price_cir);
+//        price.setText("100");
+//
+//
+//
+//        Button acceptclass=(Button) myview.findViewById(R.id.signupToClass);
+//
+//        layoutlist.addView(myview);
+//
+//
+//        acceptclass.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+//    }
 
-        View myview = getLayoutInflater().inflate(R.layout.more_info_about_class_search_row,null,false);
 
-        TextView date = (TextView)myview.findViewById(R.id.date_cir);
-        date.setText(m.getDateStart());
-
-        TextView starttime = (TextView)myview.findViewById(R.id.starttime_cir);
-        starttime.setText(m.getTimeStart());
-
-        TextView endtime = (TextView)myview.findViewById(R.id.endtime_cir);
-        date.setText(m.getTimeEnd());
-
-
-
-        TextView iszoom = (TextView)myview.findViewById(R.id.zoom_cir);
-        String z=iszoom.getText().toString()+"yes";
-        iszoom.setText(z);
-
-
-        TextView isinperson = (TextView)myview.findViewById(R.id.inperson_cir);
-        String p=iszoom.getText().toString()+"yes";
-        isinperson.setText(p);
-
-        TextView price = (TextView)myview.findViewById(R.id.price_cir);
-        price.setText("100");
-
-
-
-        Button acceptclass=(Button) myview.findViewById(R.id.signupToClass);
-
-        layoutlist.addView(myview);
-
-
-        acceptclass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-    }
 }

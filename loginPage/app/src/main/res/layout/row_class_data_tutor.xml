@@ -11,7 +11,7 @@
     <LinearLayout
         android:id="@+id/layout_list_tutor"
         android:orientation="vertical"
-        android:layout_width="320dp"
+        android:layout_width="300dp"
         android:layout_height="100dp"
         android:background="@drawable/round1"
         android:gravity="center"
@@ -96,6 +96,7 @@
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
             android:text="more info"
+            android:backgroundTint="@color/design_default_color_secondary"
             android:textSize="10sp">
 
         </Button>

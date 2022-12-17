@@ -22,10 +22,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.083">
 
-        <!--        <LinearLayout-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:orientation="horizontal">-->
+
 
         <TextView
             android:id="@+id/fcmi_classname"
@@ -33,14 +30,10 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="10dp"
+            android:textSize="20sp"
             android:text="class name: "
             android:textColor="@color/white"></TextView>
-        <!--        </LinearLayout>-->
 
-        <!--        <LinearLayout-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:orientation="horizontal">-->
 
         <TextView
             android:id="@+id/fcmi_tutorname"
@@ -48,14 +41,10 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="10dp"
+            android:textSize="20sp"
             android:text="tutor name: "
             android:textColor="@color/white"></TextView>
-        <!--        </LinearLayout>-->
 
-        <!--        <LinearLayout-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:orientation="horizontal">-->
 
         <TextView
             android:id="@+id/fcmi_date"
@@ -63,14 +52,9 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="10dp"
+            android:textSize="20sp"
             android:text="date: "
             android:textColor="@color/white"></TextView>
-        <!--        </LinearLayout>-->
-
-        <!--        <LinearLayout-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:orientation="horizontal">-->
 
         <TextView
             android:id="@+id/fcmi_starttime"
@@ -78,29 +62,21 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="10dp"
+            android:textSize="20sp"
             android:text="start time: "
             android:textColor="@color/white"></TextView>
-        <!--        </LinearLayout>-->
 
-        <!--        <LinearLayout-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:orientation="horizontal">-->
 
         <TextView
             android:id="@+id/fcmi_endtime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            android:textSize="20sp"
             android:text="end time: "
             android:gravity="center"
             android:textColor="@color/white"></TextView>
-        <!--        </LinearLayout>-->
 
-        <!--        <LinearLayout-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:orientation="horizontal">-->
 
         <TextView
             android:id="@+id/fcmi_price_per_hour"
@@ -108,25 +84,9 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="10dp"
+            android:textSize="20sp"
             android:text="price per hour: "
             android:textColor="@color/white"></TextView>
-        <!--        </LinearLayout>-->
-
-        <!--        <LinearLayout-->
-        <!--            android:id="@+id/linearLayout"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:orientation="horizontal">-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/fcmi_class_summary"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:gravity="center"-->
-<!--            android:padding="10dp"-->
-<!--            android:text="class summary:\n"-->
-<!--            android:textColor="@color/white"></TextView>-->
-        <!--        </LinearLayout>-->
 
 
     </LinearLayout>

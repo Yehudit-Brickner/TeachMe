@@ -106,6 +106,7 @@
         android:padding="5dp"
         android:text="sign up to this class"
         android:textSize="14sp"
+        android:backgroundTint="@color/design_default_color_secondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.484"
