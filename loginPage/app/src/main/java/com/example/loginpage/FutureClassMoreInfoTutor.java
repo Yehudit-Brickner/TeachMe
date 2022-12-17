@@ -4,13 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class PastClassMoreInfo extends AppCompatActivity {
+public class FutureClassMoreInfoTutor extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_past_class_more_info);
-
-        // need to fill in all the info
+        setContentView(R.layout.activity_future_class_more_info_tutor);
     }
 }

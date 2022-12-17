@@ -86,7 +86,7 @@ public class FutureClassesStudent extends AppCompatActivity {
         moreinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i =new Intent(FutureClassesStudent.this, FutureClassMoreInfo.class);
+                Intent i =new Intent(FutureClassesStudent.this, FutureClassMoreInfoStudent.class);
 //                i.putExtra("mID",MID);
 //                i.putExtra("Lid",LID);
                 startActivity(i);

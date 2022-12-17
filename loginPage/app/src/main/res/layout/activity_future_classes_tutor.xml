@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background1"
-    tools:context=".FutureClassesStudent">
-
+    tools:context=".FutureClassesTutor">
 
     <TextView
         android:id="@+id/futureclasses"
@@ -48,6 +47,8 @@
 
         </LinearLayout>
     </ScrollView>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

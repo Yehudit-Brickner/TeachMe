@@ -34,7 +34,6 @@ public class StudentHomePage extends AppCompatActivity {
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(StudentHomePage.this,gso);
 
-
         TextView studentName = (TextView) findViewById(R.id.name);
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if(acct!=null){
@@ -148,11 +147,6 @@ public class StudentHomePage extends AppCompatActivity {
         });
     }
 
-//    private void signOut() {
-//        FirebaseAuth.getInstance().signOut();
-//        Intent i =new Intent(StudentHomePage.this, NewLogin.class);
-//        startActivity(i);
-//    }
 
 
     private void signOut() {

@@ -28,13 +28,10 @@ public class TutorHomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutor_home_page);
 
-
-        TextView tutorname=(TextView)findViewById(R.id.name);
-
-
-
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(TutorHomePage.this,gso);
+
+        TextView tutorname=(TextView)findViewById(R.id.name);
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if(acct!=null){
             String personName = acct.getDisplayName();
@@ -45,7 +42,14 @@ public class TutorHomePage extends AppCompatActivity {
 
 
 
-
+        ImageButton profile=(ImageButton) findViewById(R.id.profile);
+        profile.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent i =new Intent(TutorHomePage.this, TutorUpdateInfo.class);
+                startActivity(i);
+            }
+        });
 
         Button add=(Button) findViewById(R.id.add);
         add.setOnClickListener(new View.OnClickListener(){
@@ -56,14 +60,29 @@ public class TutorHomePage extends AppCompatActivity {
             }
         });
 
-        ImageButton profile=(ImageButton) findViewById(R.id.profile);
-        profile.setOnClickListener(new View.OnClickListener(){
+        Button pastclasses=(Button) findViewById(R.id.passed);
+        pastclasses.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent i =new Intent(TutorHomePage.this, TutorUpdateInfo.class);
+                Intent i =new Intent(TutorHomePage.this, PassedClassesTutor.class);
                 startActivity(i);
             }
         });
+
+        Button futureclasses=(Button) findViewById(R.id.upcoming);
+        futureclasses.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent i =new Intent(TutorHomePage.this, FutureClassesTutor.class);
+                startActivity(i);
+            }
+        });
+
+
+
+
+
+
 
         Button signout=(Button) findViewById(R.id.signoutbtn);
         signout.setOnClickListener(new View.OnClickListener() {

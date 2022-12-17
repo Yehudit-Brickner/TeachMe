@@ -17,24 +17,17 @@ import java.util.Date;
 
 import impl.Meeting;
 
-public class PassedClassesStudent extends AppCompatActivity {
-
-
+public class FutureClassesTutor extends AppCompatActivity {
 
 
     public LinearLayout layoutlist;
-//    public TextView cn;
-//    public TextView tn;
-//    public TextView date;
-//    public TextView st;
-//    public TextView et;
-//    public ImageButton moreinfo;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_passed_classes_student);
+        setContentView(R.layout.activity_future_classes_tutor);
+
+
 
         Date now=new Date();
         Calendar cal = Calendar.getInstance();
@@ -50,6 +43,7 @@ public class PassedClassesStudent extends AppCompatActivity {
         Meeting meet5 = new Meeting("meetid5",String.valueOf(twodaysago),"12:00",String.valueOf(now),"14:00");
         Meeting meet6 = new Meeting("meetid6",String.valueOf(twodaysago),"15:00",String.valueOf(now),"17:00");
 
+
         ArrayList<Meeting> myMeetings=new ArrayList<Meeting>();
         myMeetings.add(meet4);
         myMeetings.add(meet5);
@@ -57,6 +51,8 @@ public class PassedClassesStudent extends AppCompatActivity {
         myMeetings.add(meet1);
         myMeetings.add(meet2);
         myMeetings.add(meet3);
+
+
         Collections.sort(myMeetings);
 
         layoutlist=findViewById(R.id.layout_list);
@@ -65,8 +61,8 @@ public class PassedClassesStudent extends AppCompatActivity {
             addView(myMeetings.get(i));
         }
 
-
     }
+
 
     public void addView(Meeting m){
         View myview = getLayoutInflater().inflate(R.layout.row_class_data_student,null,false);
@@ -90,11 +86,10 @@ public class PassedClassesStudent extends AppCompatActivity {
         moreinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i =new Intent(PassedClassesStudent.this, PastClassMoreInfoStudent.class);
+                Intent i =new Intent(FutureClassesTutor.this, FutureClassMoreInfoTutor.class);
 //                i.putExtra("mID",MID);
 //                i.putExtra("Lid",LID);
                 startActivity(i);
-            }
-        });
+            }      });
     }
 }
