@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,10 +22,11 @@ import impl.Meeting;
 
 public class MoreInfoAboutClassSearch extends AppCompatActivity {
 
-
+    public FirebaseAuth mAuth;
     private TextView classname;
     private TextView tutorname;
     public LinearLayout layoutlist;
+    String Lid;
 
 
     @Override
@@ -30,15 +34,20 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more_info_about_class_search);
 
-        Log.d("AUTH_DEBUG","got to here");
+        Log.d("AUTH_DEBUG","more info about class search");
+
+        Intent intent=getIntent();
+        Lid=intent.getStringExtra("LID");
+        Log.d("AUTH_DEBUG","LID= "+Lid);
+
+//        Lesson mylesson=getLesson(Lid);
+
         classname=(TextView)findViewById(R.id.classname_moreinfo);
         classname.setText("myclass");
         tutorname=(TextView)findViewById(R.id.tutorname_moreinfo);
         tutorname.setText("mytutor");
+        mAuth = FirebaseAuth.getInstance();
 
-
-//        Intent in=getIntent();
-//        String extra=in.getStringExtra("lesson");
 
         Date now=new Date();
         Calendar cal = Calendar.getInstance();
@@ -60,13 +69,12 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
         myMeetings.add(meet1);
         myMeetings.add(meet2);
         myMeetings.add(meet3);
-//
-//        ArrayList<Lesson> results=new ArrayList<Lesson>();
-//        results.add( new Lesson("l1",myMeetings));
-//        Log.d("AUTH_DEBUG","theer are "+results.get(0).getMeetings().size() +"meetings in this lesson");
-//
+
+
+
         layoutlist=findViewById(R.id.moreinfo_linearlayout);
         for (int i=0; i< myMeetings.size(); i++){
+//            if (myMeetings.get(i).getstudentid==null ||myMeetings.get(i).getstudentid.equals("") )
             addView(myMeetings.get(i));
         }
 
@@ -75,22 +83,19 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
         public void addView(Meeting m){
 
             View myview = getLayoutInflater().inflate(R.layout.more_info_about_class_search_row,null,false);
-//
+
             TextView date = (TextView)myview.findViewById(R.id.date_cir);
             date.setText(m.getDateStart());
-//
+
             TextView starttime = (TextView)myview.findViewById(R.id.starttime_cir);
             starttime.setText(m.getTimeStart());
-//
+
             TextView endtime = (TextView)myview.findViewById(R.id.endtime_cir);
             endtime.setText(m.getTimeEnd());
-
-
 
             TextView iszoom = (TextView)myview.findViewById(R.id.zoom_cir);
             String z=iszoom.getText().toString()+"yes";
             iszoom.setText(z);
-
 
             TextView isinperson = (TextView)myview.findViewById(R.id.inperson_cir);
             String p=isinperson.getText().toString()+"yes";
@@ -99,20 +104,21 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
             TextView price = (TextView)myview.findViewById(R.id.price_cir);
             price.setText("100");
 
-
-
             TextView acceptclass=(TextView) myview.findViewById(R.id.signupToClass);
-
-            layoutlist.addView(myview);
-
 
             acceptclass.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    updateUI(user);
+                    String UID=user.getUid();
+                    Log.d("AUTH_DEBUG","UID = "+ UID);
+//                    m.setstudentID(UID);
                 }
             });
+            layoutlist.addView(myview);
     }
 
-
+    private void updateUI(FirebaseUser user) {
+    }
 }

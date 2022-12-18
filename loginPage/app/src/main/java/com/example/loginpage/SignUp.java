@@ -108,7 +108,6 @@ public class SignUp extends AppCompatActivity {
                 if (isStudent || isTutor) {
                     System.out.println("pressed the google button");
                     Log.d("AUTH_DEBUG", "pressed the google button");
-//                    SignIn();
                     FirebaseUser user = mAuth.getCurrentUser();
                     updateUI(user);
                     String UID=user.getUid();
@@ -130,8 +129,6 @@ public class SignUp extends AppCompatActivity {
 
     }
 
-    private void updateUI(FirebaseUser user) {
-    }
 
 
     @Override
@@ -195,8 +192,6 @@ public class SignUp extends AppCompatActivity {
                 Log.d("AUTH_DEBUG", "firebaseAuthWithGoogle:" + account.getId()+" "+account.getIdToken());
                 firebaseAuthWithGoogle(account.getIdToken());
                 signout();
-//                Intent intent = new Intent(SignUp.this, NewLogin.class);
-//                startActivity(intent);
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Log.w("AUTH_DEBUG", "Google sign in failed", e);
@@ -205,16 +200,6 @@ public class SignUp extends AppCompatActivity {
     }
 
 
-
-//    public boolean checkPassword(EditText p1, EditText p2){
-//        if (p1.getText().toString().equals(p2.getText().toString())){
-//            Log.d("AUTH_DEBUG", "passwords equal");
-//            return true;
-//        }
-//        Log.d("AUTH_DEBUG", "passwords not equal");
-//        Toast.makeText(getApplicationContext(),"passwords don't match",Toast.LENGTH_LONG).show();
-//        return false;
-//    }
 
     public boolean checkFillIn(EditText fn, EditText ln, EditText ph){
 
@@ -241,5 +226,7 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
+    private void updateUI(FirebaseUser user) {
+    }
 }
 
