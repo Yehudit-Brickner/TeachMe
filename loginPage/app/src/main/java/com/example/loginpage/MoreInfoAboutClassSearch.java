@@ -19,6 +19,7 @@ import java.util.Date;
 
 import impl.Lesson;
 import impl.Meeting;
+import impl.Person;
 
 public class MoreInfoAboutClassSearch extends AppCompatActivity {
 
@@ -27,6 +28,7 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
     private TextView tutorname;
     public LinearLayout layoutlist;
     String Lid;
+    String Tid;
 
 
     @Override
@@ -38,14 +40,18 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
 
         Intent intent=getIntent();
         Lid=intent.getStringExtra("LID");
-        Log.d("AUTH_DEBUG","LID= "+Lid);
+        Tid=intent.getStringExtra("TID");
+        Log.d("AUTH_DEBUG","LID= "+Lid+" TID= "+Tid);
 
-//        Lesson mylesson=getLesson(Lid);
+//        Lesson mylesson=getlesson(Lid,Tid)
+//        Person mytutor=getTutor(Tid);
 
         classname=(TextView)findViewById(R.id.classname_moreinfo);
         classname.setText("myclass");
+        //classname.setText(Lid)
         tutorname=(TextView)findViewById(R.id.tutorname_moreinfo);
         tutorname.setText("mytutor");
+//        tutorname.setText(mytutor.getFirstName()+" "+mytutor.getLastName());
         mAuth = FirebaseAuth.getInstance();
 
 
@@ -62,6 +68,7 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
         Meeting meet5 = new Meeting("meetid5",String.valueOf(twodaysago),"12:00",String.valueOf(now),"14:00");
         Meeting meet6 = new Meeting("meetid6",String.valueOf(twodaysago),"15:00",String.valueOf(now),"17:00");
 
+
         ArrayList<Meeting> myMeetings=new ArrayList<Meeting>();
         myMeetings.add(meet4);
         myMeetings.add(meet5);
@@ -70,6 +77,10 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
         myMeetings.add(meet2);
         myMeetings.add(meet3);
 
+
+
+//        ArrayList<Meeting> myMeetings1=new ArrayList<Meeting>();
+//        myMeetings1=mylesson.getMeetings();
 
 
         layoutlist=findViewById(R.id.moreinfo_linearlayout);

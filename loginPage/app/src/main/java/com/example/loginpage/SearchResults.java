@@ -79,14 +79,14 @@ public class SearchResults extends AppCompatActivity {
 
 
         ArrayList<Lesson> results=new ArrayList<Lesson>();
-        results.add( new Lesson("l1",myMeetings));
-        results.add(  new Lesson("l2",myMeetings));
-        results.add(  new Lesson("l3",myMeetings));
-        results.add(  new Lesson("l4",myMeetings));
-        results.add(  new Lesson("l5",myMeetings));
-        results.add(  new Lesson("l6",myMeetings));
-        results.add(  new Lesson("l7",myMeetings));
-        results.add(  new Lesson("l8",myMeetings));
+        results.add( new Lesson("l1","tid1","100","",myMeetings));
+        results.add(  new Lesson("l2","tid2","80","",myMeetings));
+        results.add(  new Lesson("l3","tid3","60","",myMeetings));
+        results.add(  new Lesson("l4","tid4","110","",myMeetings));
+        results.add(  new Lesson("l5","tid5","120","",myMeetings));
+        results.add(  new Lesson("l6","tid6","90","",myMeetings));
+        results.add(  new Lesson("l7","tid7","70","",myMeetings));
+        results.add(  new Lesson("l8","tid8","50","",myMeetings));
 
         layoutlist=findViewById(R.id.layout_list_src);
         for (int i=0; i< results.size(); i++){
@@ -117,6 +117,7 @@ public class SearchResults extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(SearchResults.this, MoreInfoAboutClassSearch.class);
                 i.putExtra("LID", l.getLessonId());
+                i.putExtra("TID",l.getTutorId());
                 startActivity(i);
             }
         });

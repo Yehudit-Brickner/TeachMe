@@ -13,10 +13,10 @@ import interfaces.IPerson;
 public class Person implements IPerson
 {
     protected String uID = "";
-    protected String firstName;
-    protected String lastName;
-    protected String email;
-    protected String phoneNumber;
+    protected String firstName = "";
+    protected String lastName = "";
+    protected String email = "";
+    protected String phoneNumber = "";
 
     public Person(String firstName, String lastName, String email, String phoneNumber) {
         this.firstName = firstName;
@@ -93,5 +93,16 @@ public class Person implements IPerson
         map.put("email", email);
         map.put("phoneNumber", phoneNumber);
         return (map);
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "uID='" + uID + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
     }
 }
