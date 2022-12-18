@@ -21,7 +21,7 @@ public class PersonDataDB
 
         Task<DocumentSnapshot> task = docRef.get();
 
-        while (!task.isComplete() || !task.isCanceled()) {
+        while (!task.isComplete()) {
             try {
                 Thread.sleep(50);
             } catch (InterruptedException e) {

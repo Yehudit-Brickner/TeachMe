@@ -16,6 +16,7 @@ public class Meeting implements IMeeting, Comparable<Meeting>
 {
     protected String meetingId;
     protected String lessonId;
+    protected String studentId;
     protected String dateStart;
     protected String timeStart;
     protected String dateEnd;
@@ -61,6 +62,11 @@ public class Meeting implements IMeeting, Comparable<Meeting>
     @Override
     public String getTimeEnd() {
         return timeEnd;
+    }
+
+
+    public String getLessonId() {
+        return lessonId;
     }
 
     public Meeting(String meetingId, String date) {

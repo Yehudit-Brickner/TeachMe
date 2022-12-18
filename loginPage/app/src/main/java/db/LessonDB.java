@@ -77,7 +77,7 @@ public class LessonDB extends Lesson
     {
         String tag = "LESSONS_DEBUG";
         // for changeing option
-        final LessonDB[] lessonDB = new LessonDB[]{new LessonDB()};
+        Lesson lesson = new Lesson();
         DocumentReference docRef = FirebaseFirestore.getInstance().collection(PersonDataDB.COLL_NAME).document(Uid).collection(DOCK_NAME).document(lessonId);
         Task<DocumentSnapshot> task = docRef.get();
 
@@ -87,11 +87,7 @@ public class LessonDB extends Lesson
             DocumentSnapshot document = task.getResult();
             if (document.exists()) {
                 Log.d(tag, "DocumentSnapshot data: " + document.getData().toString());
-                lessonDB[0] = document.toObject(LessonDB.class);
-                if (lessonDB[0] == null)
-                    lessonDB[0] = new LessonDB();
-                lessonDB[0].updateMeeting();
-                Log.d(tag, lessonDB[0].toString());
+                lesson = document.toObject(Lesson.class);
             } else {
                 Log.d(tag, "No such document");
             }
@@ -100,7 +96,7 @@ public class LessonDB extends Lesson
         }
 
 
-        return new Lesson(lessonDB[0].lessonId, lessonDB[0].meetings);
+        return lesson;
     }
 
     public ArrayList<String> getMeetingIdList() {
@@ -155,8 +151,11 @@ public class LessonDB extends Lesson
 
             for (QueryDocumentSnapshot document : task.getResult()) {
                 Log.d("QUERY_TEST", document.getId() + " => " + document.getData());
-                PathParse parser = new PathParse(document.getReference().getId());
-                if (parser.getDataFromParsed(ILesson.DOCK_NAME) == null)
+                PathParse parser = new PathParse(document.getReference().getPath());
+                if (parser.getDataFromParsed(ILesson.DOCK_NAME) == null || parser.getDataFromParsed(PersonDataDB.COLL_NAME) == null)
+                    continue;
+
+                if (!parser.getDataFromParsed(ILesson.DOCK_NAME).equals(lessonName))
                     continue;
 
                 lessonHashSet.add(LessonDB.getLessonFromDB(parser.getDataFromParsed(PersonDataDB.COLL_NAME), parser.getDataFromParsed(ILesson.DOCK_NAME)));

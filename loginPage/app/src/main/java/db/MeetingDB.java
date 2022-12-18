@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -19,7 +20,22 @@ public class MeetingDB
 {
     private static final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
-    public static ArrayList<Meeting> getMeetingByTutorAndLessonId(String tutorId, String lessonId)
+    public static Meeting setMeeting(String studentId, Meeting meeting)
+    {
+        if (meeting == null || meeting.getLessonId() == null)
+            return null;
+
+        String lessonId = meeting.getLessonId();
+
+        if (meeting.getMeetingId() == null || meeting.getMeetingId().isEmpty())
+        {
+//            DocumentSnapshot doc = firestore.collection(PersonDataDB.COLL_NAME).document(studentId)
+//                    .collection(ILesson.DOCK_NAME).document(lessonId).collection(IMeeting.DOCK_NAME);
+        }
+        return null;
+    }
+
+    public static ArrayList<Meeting> getMeetingsByTutorAndLessonId(String tutorId, String lessonId)
     {
         ArrayList<Meeting> meetings = new ArrayList<>();
         if (tutorId == null || tutorId.isEmpty())

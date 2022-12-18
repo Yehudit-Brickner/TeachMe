@@ -144,7 +144,7 @@ public class DataCenterDB
 
     public static<T> void waitTaskComplete(Task<T> task)
     {
-        while (!task.isComplete() || !task.isCanceled()) {
+        while (!task.isComplete()) {
             try
             {
                 Thread.sleep(50);
@@ -155,8 +155,5 @@ public class DataCenterDB
             }
         }
     }
-
-
-
 
 }

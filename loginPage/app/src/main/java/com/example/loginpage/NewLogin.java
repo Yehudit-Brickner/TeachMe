@@ -205,25 +205,33 @@ public class NewLogin extends AppCompatActivity {
 
     private void try_things()
     {
+//        vElfoL0jnONTmjhLpaHpHMGiMJU2
+//        Lesson l = LessonDB.getLessonFromDB("vElfoL0jnONTmjhLpaHpHMGiMJU2", "infi");
+//        System.out.println(l);
+        ArrayList<Lesson> lessons = LessonDB.getLessonsByName("infi");
+        System.out.println(lessons);
+
+
+
 //        Lesson lesson = new Lesson("infi", "3FfLFX2iIY0rk68kGJk7", "50", "");
 //        LessonDB.setLessonData(lesson);
 
 //        CollectionReference coll = firestore.collection("users/vElfoL0jnONTmjhLpaHpHMGiMJU2/lessons/infi/meetings");
 //        Meeting meeting = new Meeting("a", "b", "c", "d", "e");
 //        coll.document("try").set(meeting.toMap());
-        firestore.collection("users/vElfoL0jnONTmjhLpaHpHMGiMJU2/lessons/infi/meetings").document("try")
-                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful())
-                        {
-                            DocumentSnapshot doc = task.getResult();
-                            Meeting m = doc.toObject(Meeting.class);
-                            System.out.println(m);
-                            System.out.println(doc.getData());
-                        }
-                    }
-                });
+//        firestore.collection("users/vElfoL0jnONTmjhLpaHpHMGiMJU2/lessons/infi/meetings").document("try")
+//                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                        if (task.isSuccessful())
+//                        {
+//                            DocumentSnapshot doc = task.getResult();
+//                            Meeting m = doc.toObject(Meeting.class);
+//                            System.out.println(m);
+//                            System.out.println(doc.getData());
+//                        }
+//                    }
+//                });
 
 //         firestore.collectionGroup("lessons").whereEqualTo("lessonId", "infi")
 //                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
