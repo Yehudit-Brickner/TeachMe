@@ -2,6 +2,7 @@ package impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 import interfaces.ILesson;
 
@@ -35,9 +36,6 @@ public class Lesson implements ILesson
         this.freeText = freeText;
         this.meetings = meetings;
     }
-
-
-
 
 
     @Override
@@ -74,5 +72,19 @@ public class Lesson implements ILesson
         retStr += "meetings=" + meetings + '}';
 
         return retStr;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Lesson lesson = (Lesson) o;
+        return lessonId.equals(lesson.lessonId) && tutorId.equals(lesson.tutorId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(lessonId, tutorId);
     }
 }

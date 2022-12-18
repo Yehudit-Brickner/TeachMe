@@ -30,6 +30,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.w3c.dom.Document;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -72,9 +74,6 @@ public class NewLogin extends AppCompatActivity {
 
         TextView email= (TextView) findViewById(R.id.email);
         TextView password= (TextView) findViewById(R.id.password);
-
-        // try place
-        try_things();
 
 
 
@@ -191,9 +190,10 @@ public class NewLogin extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Log.d("AUTH_DEBUG", "pressed on signup");
-                Intent i = new Intent(NewLogin.this, SignUp.class);
-                startActivity(i);
+                Log.d("TRY_TESTING", "pressed on tester");
+                // try place
+                try_things();
+                Toast.makeText(getApplicationContext(), "Finished test, check for TRY_TESTING", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -208,19 +208,36 @@ public class NewLogin extends AppCompatActivity {
 //        Lesson lesson = new Lesson("infi", "3FfLFX2iIY0rk68kGJk7", "50", "");
 //        LessonDB.setLessonData(lesson);
 
-         firestore.collectionGroup("lessons").whereEqualTo("lessonId", "infi")
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful())
-                {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Log.d("DOCS_FIND", document.getId() + " => " + document.getData());
-                        System.out.println(document.getReference().getPath());
+//        CollectionReference coll = firestore.collection("users/vElfoL0jnONTmjhLpaHpHMGiMJU2/lessons/infi/meetings");
+//        Meeting meeting = new Meeting("a", "b", "c", "d", "e");
+//        coll.document("try").set(meeting.toMap());
+        firestore.collection("users/vElfoL0jnONTmjhLpaHpHMGiMJU2/lessons/infi/meetings").document("try")
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful())
+                        {
+                            DocumentSnapshot doc = task.getResult();
+                            Meeting m = doc.toObject(Meeting.class);
+                            System.out.println(m);
+                            System.out.println(doc.getData());
+                        }
                     }
-                }
-            }
-        });
+                });
+
+//         firestore.collectionGroup("lessons").whereEqualTo("lessonId", "infi")
+//                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if (task.isSuccessful())
+//                {
+//                    for (QueryDocumentSnapshot document : task.getResult()) {
+//                        Log.d("DOCS_FIND", document.getId() + " => " + document.getData());
+//                        System.out.println(document.getReference().getPath());
+//                    }
+//                }
+//            }
+//        });
 
         //        DataCenterDB dataCenter = new DataCenterDB("a", "b", "c", "d");
 ////        for (int j = 0; j < 5; j++)

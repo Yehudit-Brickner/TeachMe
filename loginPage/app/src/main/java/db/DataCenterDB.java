@@ -144,12 +144,19 @@ public class DataCenterDB
 
     public static<T> void waitTaskComplete(Task<T> task)
     {
-        while (!task.isComplete()) {
-            try {
+        while (!task.isComplete() || !task.isCanceled()) {
+            try
+            {
                 Thread.sleep(50);
-            } catch (InterruptedException e) {
+            }
+            catch (InterruptedException e)
+            {
                 e.printStackTrace();
             }
         }
     }
+
+
+
+
 }

@@ -1,8 +1,14 @@
 package impl;
 
+import com.google.firebase.Timestamp;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import interfaces.IMeeting;
 
@@ -14,6 +20,8 @@ public class Meeting implements IMeeting, Comparable<Meeting>
     protected String timeStart;
     protected String dateEnd;
     protected String timeEnd;
+    protected Timestamp startDateTime;
+    protected Timestamp endDateTime;
 
     public Meeting()
     {
@@ -26,6 +34,8 @@ public class Meeting implements IMeeting, Comparable<Meeting>
         this.timeStart = timeStart;
         this.dateEnd = dateEnd;
         this.timeEnd = timeEnd;
+        this.startDateTime = Timestamp.now();
+        this.endDateTime = Timestamp.now();
     }
 
     @Override
@@ -67,6 +77,8 @@ public class Meeting implements IMeeting, Comparable<Meeting>
                 ", timeStart='" + timeStart + '\'' +
                 ", dateEnd='" + dateEnd + '\'' +
                 ", timeEnd='" + timeEnd + '\'' +
+                ", startDateTime=" + startDateTime +
+                ", endDateTime=" + endDateTime +
                 '}';
     }
 
@@ -82,6 +94,17 @@ public class Meeting implements IMeeting, Comparable<Meeting>
         }
 
         return dateTimeThis.compareTo(dateTimeOther);
+    }
+
+
+
+    public Map<String, Object> toMap()
+    {
+        Map<String, Object> map = new HashMap<>();
+        map.put("meetingId", meetingId);
+        map.put("startDateTime", startDateTime);
+        map.put("endDateTime", endDateTime);
+        return map;
     }
 }
 
