@@ -29,6 +29,7 @@ public class AddClass extends AppCompatActivity {
     private Button create;
     public boolean error=false;
     public LinearLayout mylayout;
+    public Lesson l;
 
 
     @Override
@@ -51,12 +52,12 @@ public class AddClass extends AppCompatActivity {
                     error=true;
                 }
                 else {
-
 //                boolean b;
 //                b=checkforlesson(UID,classname);
 //                if (!b) {
-//                Lesson l=new Lesson(classname.getText().toString(),UID,price.getText().toString(),"");
-//                String LID = l.getLessonId();
+                l=new Lesson(classname.getText().toString(),UID,price.getText().toString(),"");
+                String LID = l.getLessonId();
+                Log.d("AUTH_DEBUG", l.toString());
 //                l.setLessonId(LID);
 //                }
 //                else{
@@ -79,12 +80,15 @@ public class AddClass extends AppCompatActivity {
                         }
                         else {
                             Log.d("AUTH_DEBUG", date1.getText().toString() + "\n" + datetimes1 + "\n" + datetimee1 + "\n" + String.valueOf(z1.isChecked()) + "\n" + String.valueOf(inp1.isChecked()));
-
-//                    Meeting m=createMeeting(LID,date1.getText().toString(),datetimes1,datetimee1,String.valueOf(z1.isChecked()),String.valueOf(inp1.isChecked()));
-//                    String MID=m.getMeetingId();
-//                    m.setMeetingID(MID);
+                            Meeting m=new Meeting("m1",date1.getText().toString(),datetimes1,date1.getText().toString(),datetimee1/* String.valueOf(z1.isChecked()),String.valueOf(inp1.isChecked())*/);
+                            l.addMeeting(m);
+            //                    String MID=m.getMeetingId();
+            //                    m.setMeetingID(MID);
                             Toast.makeText(getApplicationContext(), "created meeting1", Toast.LENGTH_LONG).show();
                         }
+                    }
+                    else{
+                        Log.d("AUTH_DEBUG", "time or date is empty1");
                     }
                     //meeting 2
                     EditText date2 = (EditText) findViewById(R.id.Edate_acr2);
@@ -101,12 +105,19 @@ public class AddClass extends AppCompatActivity {
                         }
                         else {
                             Log.d("AUTH_DEBUG", date2.getText().toString() + "\n" + datetimes2 + "\n" + datetimee2 + "\n" + String.valueOf(z2.isChecked()) + "\n" + String.valueOf(inp2.isChecked()));
-//                    Meeting m=createMeeting(LID,date2.getText().toString(),datetimes2,datetimee2,String.valueOf(z2.isChecked()),String.valueOf(inp2.isChecked()));
-//                    String MID=m.getMeetingId();
-//                    m.setMeetingID(MID);
+                            Meeting m= new Meeting("m2",date2.getText().toString(),datetimes2,date2.getText().toString(),datetimee2/*,String.valueOf(z2.isChecked()),String.valueOf(inp2.isChecked())*/);
+
+                            l.addMeeting(m);
+        //                    String MID=m.getMeetingId();
+        //                    m.setMeetingID(MID);
                             Toast.makeText(getApplicationContext(), "created meeting2", Toast.LENGTH_LONG).show();
                         }
                     }
+                    else{
+                        Log.d("AUTH_DEBUG", "time or date is empty2");
+                    }
+
+
                     //meeting 3
                     EditText date3 = (EditText) findViewById(R.id.Edate_acr3);
                     EditText st3 = (EditText) findViewById(R.id.Estarttime_acr3);
@@ -122,12 +133,18 @@ public class AddClass extends AppCompatActivity {
                         }
                         else {
                             Log.d("AUTH_DEBUG", date3.getText().toString() + "\n" + datetimes3 + "\n" + datetimee3 + "\n" + String.valueOf(z3.isChecked()) + "\n" + String.valueOf(inp3.isChecked()));
-//                    Meeting m=createMeeting(LID,date3.getText().toString(),datetimes3,datetimee3,String.valueOf(z3.isChecked()),String.valueOf(inp3.isChecked()));
-//                    String MID=m.getMeetingId();
-//                    m.setMeetingID(MID);
+                            Meeting m= new Meeting("m3",date3.getText().toString(),datetimes3,date3.getText().toString(),datetimee3/*,String.valueOf(z3.isChecked()),String.valueOf(inp3.isChecked())*/);
+                            l.addMeeting(m);
+        //                    String MID=m.getMeetingId();
+        //                    m.setMeetingID(MID);
                             Toast.makeText(getApplicationContext(), "created meeting3", Toast.LENGTH_LONG).show();
                         }
                     }
+                    else{
+                        Log.d("AUTH_DEBUG", "time or date is empty3");
+                    }
+
+
                     //meeting 4
                     EditText date4 = (EditText) findViewById(R.id.Edate_acr4);
                     EditText st4 = (EditText) findViewById(R.id.Estarttime_acr4);
@@ -137,20 +154,26 @@ public class AddClass extends AppCompatActivity {
                     if (date4.getText().toString().length() > 0 && st4.getText().toString().length() > 0 && et4.getText().toString().length() > 0) {
                         String datetimes4 = date4.getText().toString() + " " + st4.getText().toString();
                         String datetimee4 = date4.getText().toString() + " " + et4.getText().toString();
-                        if (inp2.isChecked() == false && z2.isChecked() == false) {
-                            Toast.makeText(getApplicationContext(), "please mark if meeting2 can be on zoom or is in person or both", Toast.LENGTH_LONG).show();
+                        if (inp4.isChecked() == false && z4.isChecked() == false) {
+                            Toast.makeText(getApplicationContext(), "please mark if meeting4 can be on zoom or is in person or both", Toast.LENGTH_LONG).show();
                             error=true;
                         }
                         else {
                             Log.d("AUTH_DEBUG", date4.getText().toString() + "\n" + datetimes4 + "\n" + datetimee4 + "\n" + String.valueOf(z4.isChecked()) + "\n" + String.valueOf(inp4.isChecked()));
-//                    Meeting m=createMeeting(LID,date4.getText().toString(),datetimes4,datetimee4,String.valueOf(z4.isChecked()),String.valueOf(inp4.isChecked()));
+                            Meeting m= new Meeting("m4",date4.getText().toString(),datetimes4,date4.getText().toString(),datetimee4/*,String.valueOf(z4.isChecked()),String.valueOf(inp4.isChecked())*/);
+                            l.addMeeting(m);
 //                    String MID=m.getMeetingId();
 //                    m.setMeetingID(MID);
                             Toast.makeText(getApplicationContext(), "created meeting4", Toast.LENGTH_LONG).show();
                         }
                     }
+                    else{
+                        Log.d("AUTH_DEBUG", "time or date is empty4");
+                    }
+
                 }
                 if (!error) {
+                    Log.d("AUTH_DEBUG", l.toString());
                     Intent i = new Intent(AddClass.this, TutorHomePage.class);
                     startActivity(i);
                 }

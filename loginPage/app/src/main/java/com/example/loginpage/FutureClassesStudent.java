@@ -87,8 +87,8 @@ public class FutureClassesStudent extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i =new Intent(FutureClassesStudent.this, FutureClassMoreInfoStudent.class);
-//                i.putExtra("mID",MID);
-//                i.putExtra("Lid",LID);
+                i.putExtra("MID",m.getMeetingId());
+                i.putExtra("LID","lid");
                 startActivity(i);
             }      });
     }

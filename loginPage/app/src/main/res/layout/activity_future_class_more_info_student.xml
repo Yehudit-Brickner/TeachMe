@@ -8,6 +8,8 @@
     tools:context=".FutureClassMoreInfoStudent">
 
 
+<!--    fcmi = future class meeting info-->
+
     <LinearLayout
         android:id="@+id/llayout_futuremoreinfo"
         android:layout_width="match_parent"
@@ -95,12 +97,13 @@
         android:id="@+id/whatsappbtn2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/llayout_futuremoreinfo"
+        app:layout_constraintVertical_bias="0.912"
         app:srcCompat="@drawable/whatsapplogo3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

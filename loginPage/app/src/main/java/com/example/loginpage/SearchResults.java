@@ -17,6 +17,7 @@ import java.util.Date;
 
 import impl.Lesson;
 import impl.Meeting;
+import impl.Tutor;
 
 
 public class SearchResults extends AppCompatActivity {
@@ -108,6 +109,8 @@ public class SearchResults extends AppCompatActivity {
         TextView cn= (TextView)myview.findViewById(R.id.ClassName_sr);
         cn.setText(l.getLessonId());
         TextView tn=(TextView)myview.findViewById(R.id.TutorName_sr);
+//        Tutor t=getTutor(tn);
+//        tn.setText(t.getFirstName()+" "+t.getLastName());
         Button moreinfo=(Button) myview.findViewById(R.id.moreinfo_sr);
         layoutlist.addView(myview);
 

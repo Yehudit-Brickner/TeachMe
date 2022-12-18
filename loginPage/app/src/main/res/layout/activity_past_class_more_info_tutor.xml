@@ -8,6 +8,8 @@
     tools:context=".PastClassMoreInfoTutor">
 
 
+    <!--    pcmi = past class more info-->
+
     <LinearLayout
         android:id="@+id/llayout_pastmoreinfo"
         android:layout_width="match_parent"
@@ -97,16 +99,16 @@
                 android:id="@+id/pcmi_class_summary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="10dp"
                 android:layout_weight="1"
-                android:textSize="20sp"
+                android:gravity="top"
+                android:padding="10dp"
                 android:text="class summary:\n"
-                android:textColor="@color/white"></TextView>
+                android:textColor="@color/white"
+                android:textSize="20sp"></TextView>
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:id="@+id/pcmi_class_summaryE"
                 android:gravity="center"
                 android:padding="10dp"
@@ -124,7 +126,6 @@
         android:id="@+id/whatsappbtn1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

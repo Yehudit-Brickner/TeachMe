@@ -66,6 +66,18 @@ public class Lesson implements ILesson
         this.tutorId = tutorId;
     }
 
+
+    public void addMeeting(Meeting m){
+        if (this.meetings==null){
+           ArrayList<Meeting> meetings=new ArrayList<>();
+           meetings.add(m);
+           this.setMeetings(meetings);
+        }
+        else {
+            this.meetings.add(m);
+        }
+    }
+
     @Override
     public String toString() {
         String retStr = "Lesson{";

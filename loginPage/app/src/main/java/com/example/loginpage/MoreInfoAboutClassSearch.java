@@ -27,6 +27,7 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
     private TextView classname;
     private TextView tutorname;
     public LinearLayout layoutlist;
+    public Lesson mylesson;
     String Lid;
     String Tid;
 
@@ -43,7 +44,7 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
         Tid=intent.getStringExtra("TID");
         Log.d("AUTH_DEBUG","LID= "+Lid+" TID= "+Tid);
 
-//        Lesson mylesson=getlesson(Lid,Tid)
+//         mylesson=getlesson(Lid,Tid)
 //        Person mytutor=getTutor(Tid);
 
         classname=(TextView)findViewById(R.id.classname_moreinfo);
@@ -52,8 +53,8 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
         tutorname=(TextView)findViewById(R.id.tutorname_moreinfo);
         tutorname.setText("mytutor");
 //        tutorname.setText(mytutor.getFirstName()+" "+mytutor.getLastName());
-        mAuth = FirebaseAuth.getInstance();
 
+        mAuth = FirebaseAuth.getInstance();
 
         Date now=new Date();
         Calendar cal = Calendar.getInstance();
@@ -93,41 +94,45 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
 
         public void addView(Meeting m){
 
-            View myview = getLayoutInflater().inflate(R.layout.more_info_about_class_search_row,null,false);
+//            if (m.Studentid!="" || m.Studentis!=null) {
 
-            TextView date = (TextView)myview.findViewById(R.id.date_cir);
-            date.setText(m.getDateStart());
+                View myview = getLayoutInflater().inflate(R.layout.more_info_about_class_search_row, null, false);
 
-            TextView starttime = (TextView)myview.findViewById(R.id.starttime_cir);
-            starttime.setText(m.getTimeStart());
+                TextView date = (TextView) myview.findViewById(R.id.date_cir);
+                date.setText(m.getDateStart());
 
-            TextView endtime = (TextView)myview.findViewById(R.id.endtime_cir);
-            endtime.setText(m.getTimeEnd());
+                TextView starttime = (TextView) myview.findViewById(R.id.starttime_cir);
+                starttime.setText(m.getTimeStart());
 
-            TextView iszoom = (TextView)myview.findViewById(R.id.zoom_cir);
-            String z=iszoom.getText().toString()+"yes";
-            iszoom.setText(z);
+                TextView endtime = (TextView) myview.findViewById(R.id.endtime_cir);
+                endtime.setText(m.getTimeEnd());
 
-            TextView isinperson = (TextView)myview.findViewById(R.id.inperson_cir);
-            String p=isinperson.getText().toString()+"yes";
-            isinperson.setText(p);
+                TextView iszoom = (TextView) myview.findViewById(R.id.zoom_cir);
+                String z = iszoom.getText().toString() + "yes";
+                iszoom.setText(z);
 
-            TextView price = (TextView)myview.findViewById(R.id.price_cir);
-            price.setText("100");
+                TextView isinperson = (TextView) myview.findViewById(R.id.inperson_cir);
+                String p = isinperson.getText().toString() + "yes";
+                isinperson.setText(p);
 
-            TextView acceptclass=(TextView) myview.findViewById(R.id.signupToClass);
+                TextView price = (TextView) myview.findViewById(R.id.price_cir);
+                price.setText("100");
+//            price.setText(mylesson.getPrice());
 
-            acceptclass.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    updateUI(user);
-                    String UID=user.getUid();
-                    Log.d("AUTH_DEBUG","UID = "+ UID);
+                TextView acceptclass = (TextView) myview.findViewById(R.id.signupToClass);
+
+                acceptclass.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        updateUI(user);
+                        String UID = user.getUid();
+                        Log.d("AUTH_DEBUG", "UID = " + UID);
 //                    m.setstudentID(UID);
-                }
-            });
-            layoutlist.addView(myview);
+                    }
+                });
+                layoutlist.addView(myview);
+//            }
     }
 
     private void updateUI(FirebaseUser user) {

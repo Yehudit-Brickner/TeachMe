@@ -113,7 +113,7 @@ public class SignUp extends AppCompatActivity {
                     String UID=user.getUid();
                     IPerson p = new Person(UID,fname.getText().toString(),
                             lname.getText().toString(),
-                            phone.getText().toString(),acct.getEmail());
+                            acct.getEmail(),phone.getText().toString());
                     setPersonData(p,isTutor,isStudent);
                     startActivity(new Intent(SignUp.this,NewLogin.class));
                 }
