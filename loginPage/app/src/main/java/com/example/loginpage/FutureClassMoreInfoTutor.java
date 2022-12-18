@@ -3,8 +3,10 @@ package com.example.loginpage;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class FutureClassMoreInfoTutor extends AppCompatActivity {
 
@@ -34,7 +36,12 @@ public class FutureClassMoreInfoTutor extends AppCompatActivity {
         //        price.setText(price.getText().toString()+ );
 
         ImageButton whatsapp =(ImageButton)findViewById(R.id.whatsappbtn2);
-
+        whatsapp.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "this feature will be coming soon!", Toast.LENGTH_LONG).show();
+            }
+        });
 
 
     }

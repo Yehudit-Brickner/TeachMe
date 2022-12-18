@@ -29,6 +29,8 @@ public class FutureClassesStudent extends AppCompatActivity {
 
 
 
+
+
         Date now=new Date();
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -1);
@@ -69,7 +71,10 @@ public class FutureClassesStudent extends AppCompatActivity {
 
         TextView cn= (TextView)myview.findViewById(R.id.ClassName_rcds);
         cn.setText(m.getMeetingId());
+
         TextView tn= (TextView)myview.findViewById(R.id.TutorName_rcds);
+//        tn.setText("");
+
         TextView date= (TextView)myview.findViewById(R.id.Date_rcds);
         date.setText(m.getDateStart());
 
@@ -78,9 +83,8 @@ public class FutureClassesStudent extends AppCompatActivity {
 
         TextView et= (TextView)myview.findViewById(R.id.EndTime_rcds);
         et.setText(m.getTimeEnd());
+
         Button moreinfo=(Button)myview.findViewById(R.id.moreinfo_rcds);
-
-
         layoutlist.addView(myview);
 
         moreinfo.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +94,7 @@ public class FutureClassesStudent extends AppCompatActivity {
                 i.putExtra("MID",m.getMeetingId());
                 i.putExtra("LID","lid");
                 startActivity(i);
-            }      });
+            }
+        });
     }
 }

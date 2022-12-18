@@ -14,15 +14,13 @@
         android:id="@+id/llayout_pastmoreinfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
         android:orientation="vertical"
         android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/updatesummmary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.083">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <TextView
@@ -32,8 +30,8 @@
             android:gravity="center"
             android:padding="10dp"
             android:text="class name: "
-            android:textSize="20sp"
-            android:textColor="@color/white"></TextView>
+            android:textColor="@color/white"
+            android:textSize="20sp"></TextView>
 
 
         <TextView
@@ -43,8 +41,8 @@
             android:gravity="center"
             android:padding="10dp"
             android:text="student name: "
-            android:textSize="20sp"
-            android:textColor="@color/white"></TextView>
+            android:textColor="@color/white"
+            android:textSize="20sp"></TextView>
 
 
         <TextView
@@ -54,8 +52,8 @@
             android:gravity="center"
             android:padding="10dp"
             android:text="date: "
-            android:textSize="20sp"
-            android:textColor="@color/white"></TextView>
+            android:textColor="@color/white"
+            android:textSize="20sp"></TextView>
 
         <TextView
             android:id="@+id/pcmi_starttime"
@@ -64,19 +62,19 @@
             android:gravity="center"
             android:padding="10dp"
             android:text="start time: "
-            android:textSize="20sp"
-            android:textColor="@color/white"></TextView>
+            android:textColor="@color/white"
+            android:textSize="20sp"></TextView>
 
 
         <TextView
             android:id="@+id/pcmi_endtime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:padding="10dp"
             android:text="end time: "
-            android:textSize="20sp"
-            android:gravity="center"
-            android:textColor="@color/white"></TextView>
+            android:textColor="@color/white"
+            android:textSize="20sp"></TextView>
 
 
         <TextView
@@ -85,14 +83,14 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="10dp"
-            android:textSize="20sp"
             android:text="price per hour: "
-            android:textColor="@color/white"></TextView>
+            android:textColor="@color/white"
+            android:textSize="20sp"></TextView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
 
             <TextView
@@ -100,27 +98,43 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="top"
+                android:gravity="center"
                 android:padding="10dp"
-                android:text="class summary:\n"
+                android:text="class summary:"
                 android:textColor="@color/white"
                 android:textSize="20sp"></TextView>
 
             <EditText
+                android:id="@+id/pcmi_class_summaryE"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:id="@+id/pcmi_class_summaryE"
-                android:gravity="center"
-                android:padding="10dp"
                 android:layout_weight="1"
-                android:textSize="20sp"
+                android:gravity="center"
                 android:hint="add summary here"
+                android:padding="10dp"
+                android:textColor="@color/white"
                 android:textColorHint="#786A6A"
-                android:textColor="@color/white"></EditText>
+                android:textSize="20sp"></EditText>
 
         </LinearLayout>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/updatesummmary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:backgroundTint="@color/teal_200"
+        android:gravity="center"
+        android:text="update summary"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/whatsappbtn1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llayout_pastmoreinfo">
+
+    </Button>
 
     <ImageButton
         android:id="@+id/whatsappbtn1"
@@ -131,8 +145,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llayout_pastmoreinfo"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintTop_toBottomOf="@+id/updatesummmary"
         app:srcCompat="@drawable/whatsapplogo3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

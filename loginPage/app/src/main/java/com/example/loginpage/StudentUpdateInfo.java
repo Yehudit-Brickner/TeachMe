@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -43,13 +44,18 @@ public class StudentUpdateInfo extends AppCompatActivity {
         firestore = FirebaseFirestore.getInstance();
         UID = user.getUid();
         Student s= PersonDataDB.getStudentFromDB(UID);
+
         fname=(EditText)findViewById(R.id.editfName);
         fname.setText(s.getFirstName());
+
         lname=(EditText)findViewById(R.id.editlName);
         lname.setText(s.getLastName());
+
         phone=(EditText)findViewById(R.id.editTel);
         phone.setText(s.getPhoneNumber());
+
         addpermision=(CheckBox)findViewById(R.id.addPermisionToStudent);
+
         update=(Button) findViewById(R.id.updateStudent);
 
 
@@ -72,6 +78,7 @@ public class StudentUpdateInfo extends AppCompatActivity {
         update.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "this feature will be coming soon!", Toast.LENGTH_LONG).show();
 //                updateStudentInfo(UID,fname.getText().toString(),lname.getText().toString(),phone.getText().toString(),true,isTutor);
                 Intent i =new Intent(StudentUpdateInfo.this, StudentHomePage.class);
                 startActivity(i);
