@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -54,8 +55,14 @@ public class PassedClassesStudent extends AppCompatActivity {
 
 
         for (int i=0; i< meetings.size();i++){
-//            if (meetings.get(i).getDateStart() ,today)
-            addView(meetings.get(i));
+            try {
+                if(dateisgood(today, meetings.get(i).getDateStart())){
+                    addView(meetings.get(i));
+                }
+            }
+            catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
 
     }
@@ -69,7 +76,6 @@ public class PassedClassesStudent extends AppCompatActivity {
         TextView tn= (TextView)myview.findViewById(R.id.TutorName_rcds);
         Tutor t= PersonDataDB.getTutorFromDB(m.getTutorId());
         tn.setText(t.getFirstName()+ " "+ t.getLastName());
-
 
         TextView date= (TextView)myview.findViewById(R.id.Date_rcds);
         date.setText(m.getDateStart());
@@ -92,5 +98,18 @@ public class PassedClassesStudent extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
+
+    public boolean dateisgood(String today, String other) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date d1 = sdf.parse(today);
+        Date d2=sdf.parse(other);
+        if (d1.before(d2)) {
+            return false;
+        } else if (d1.after(d2)) {
+            return true;
+        } else {
+            return true;
+        }
     }
 }
