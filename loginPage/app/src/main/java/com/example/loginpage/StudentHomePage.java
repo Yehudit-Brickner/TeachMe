@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,7 +27,6 @@ public class StudentHomePage extends AppCompatActivity {
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,14 +44,12 @@ public class StudentHomePage extends AppCompatActivity {
         }
 
 
-
         ImageButton profile=(ImageButton) findViewById(R.id.profile);
         profile.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 Log.d("AUTH_DEBUG","pressed button profile - student");
                 Intent i =new Intent(StudentHomePage.this, StudentUpdateInfo.class);
-
                 startActivity(i);
             }
         });
@@ -64,7 +60,6 @@ public class StudentHomePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("AUTH_DEBUG","pressed button search");
-
                 Intent i =new Intent(StudentHomePage.this, Search.class);
                 startActivity(i);
             }
@@ -76,11 +71,10 @@ public class StudentHomePage extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d("AUTH_DEBUG","pressed button upcoming classes - student");
                 Intent i =new Intent(StudentHomePage.this, FutureClassesStudent.class);
-
                 startActivity(i);
             }
         });
-        
+
         Button passed=(Button) findViewById(R.id.passed);
         passed.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -93,7 +87,6 @@ public class StudentHomePage extends AppCompatActivity {
 
 
 
-
         Button signout=(Button) findViewById(R.id.signoutbtn);
         signout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,10 +95,10 @@ public class StudentHomePage extends AppCompatActivity {
                 signOut();
                 Intent i =new Intent(StudentHomePage.this, NewLogin.class);
                 startActivity(i);
-
             }
         });
     }
+
 
 
     private void signOut() {
@@ -116,6 +109,5 @@ public class StudentHomePage extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 }

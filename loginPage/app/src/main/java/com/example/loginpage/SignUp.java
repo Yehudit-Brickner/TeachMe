@@ -1,4 +1,5 @@
 package com.example.loginpage;
+
 import static db.SignUpDB.setPersonData;
 
 import androidx.annotation.NonNull;
@@ -47,12 +48,11 @@ public class SignUp extends AppCompatActivity {
     GoogleSignInClient gsc;
     GoogleSignInAccount acct;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        
+
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
         radiobtnS=(RadioButton)findViewById(R.id.radioButtonS) ;
@@ -70,7 +70,6 @@ public class SignUp extends AppCompatActivity {
         phone = (EditText) findViewById(R.id.editTel);
 
 
-
         radiobtnS.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -80,7 +79,6 @@ public class SignUp extends AppCompatActivity {
                 }
                 else{
                     isStudent=true;
-
                 }
             }
         });
@@ -94,12 +92,11 @@ public class SignUp extends AppCompatActivity {
                 }
                 else{
                     isTutor =true;
-
                 }
             }
         });
 
-        
+
         googleSignup.setOnClickListener(new View.OnClickListener() {
             @Override
 
@@ -119,15 +116,14 @@ public class SignUp extends AppCompatActivity {
                 else{
                     System.out.println("pressed the google button");
                     Log.d("AUTH_DEBUG", "pressed the google button");
-
                     Toast.makeText(getApplicationContext(),"you need to pick student or tutor",Toast.LENGTH_LONG).show();
                 }
             }
 
         });
-        
-    }
 
+
+    }
 
 
 
@@ -143,6 +139,7 @@ public class SignUp extends AppCompatActivity {
 
     private void reload(){}
 
+
     public void SignIn(){
         Intent signInIntent =gsc.getSignInIntent();
         startActivityForResult(signInIntent,1000);
@@ -152,7 +149,6 @@ public class SignUp extends AppCompatActivity {
     // [START auth_with_google]
     private void firebaseAuthWithGoogle(String idToken) {
         Log.d("AUTH_DEBUG", "in firebase auth with google function!" );
-
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -171,12 +167,12 @@ public class SignUp extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("AUTH_DEBUG", "signInWithCredential:failure", task.getException());
-
                             updateUI(null);
                         }
                     }
                 });
     }
+
 
 
 
@@ -228,6 +224,5 @@ public class SignUp extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
     }
-
 }
 

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -33,17 +32,16 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-
 import db.PersonDataDB;
 import impl.Person;
 import impl.Student;
 import impl.Tutor;
 
+
 public class NewLogin extends AppCompatActivity {
 
     public FirebaseFirestore firestore;
     private FirebaseAuth mAuth;
-
     private RadioButton radiobtnS;
     private RadioButton radiobtnT;
     private ImageButton googleLogin;
@@ -58,6 +56,7 @@ public class NewLogin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_login);
+
         // variables used
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
@@ -263,6 +262,7 @@ public class NewLogin extends AppCompatActivity {
     }
 
 
+
     private void signout() {
         gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -273,3 +273,4 @@ public class NewLogin extends AppCompatActivity {
         });
     }
 }
+
