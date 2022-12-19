@@ -19,6 +19,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import db.LessonDB;
 import impl.Lesson;
 import impl.Meeting;
 
@@ -45,25 +46,28 @@ public class Search extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
 
-//        Pickclasses=getclassnames();
+        Pickclasses= LessonDB.getLessonsNames();
 
-        pickclasses.add("Infi1");
-        pickclasses.add("Infi2");
-        pickclasses.add("Intro Java");
-        pickclasses.add("Intro Python");
-        pickclasses.add("Intro C");
-        pickclasses.add("C++");
-        pickclasses.add("Linear algebra1");
-        pickclasses.add("Linear algebra2");
-        pickclasses.add("Data science");
-        pickclasses.add("Cyber");
-        Collections.sort(pickclasses);
-        pickclasses.add(0,"class name");
+
+//        pickclasses.add("Infi1");
+//        pickclasses.add("Infi2");
+//        pickclasses.add("infi");
+//        pickclasses.add("Intro Java");
+//        pickclasses.add("Intro Python");
+//        pickclasses.add("Intro C");
+//        pickclasses.add("C++");
+//        pickclasses.add("Linear algebra1");
+//        pickclasses.add("Linear algebra2");
+//        pickclasses.add("Data science");
+//        pickclasses.add("Cyber");
+        Collections.sort(Pickclasses);
+        Pickclasses.add(0,"class name");
 
 
         classlist =(Spinner)findViewById(R.id.classes_search_spinner);
-        ArrayAdapter classesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,pickclasses);
+        ArrayAdapter classesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,Pickclasses);
         classlist.setAdapter(classesAdapter);
+
         classlist.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 Object item = parent.getItemAtPosition(pos);

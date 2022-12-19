@@ -5,6 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import db.DataCenterDB;
 import interfaces.IPerson;
@@ -104,5 +105,18 @@ public class Person implements IPerson
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return uID.equals(person.uID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uID);
     }
 }

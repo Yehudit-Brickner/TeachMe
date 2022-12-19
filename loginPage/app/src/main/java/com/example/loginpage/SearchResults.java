@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import db.LessonDB;
+import db.PersonDataDB;
 import impl.Lesson;
 import impl.Meeting;
 import impl.Tutor;
@@ -42,7 +44,7 @@ public class SearchResults extends AppCompatActivity {
         if (myNumber.equals("1")){
             pickedclass = intent.getStringExtra("class");
             Log.d("AUTH_DEBUG","search results: mynumber= "+myNumber+" class = "+ pickedclass);
-//            lessons = searchForClassesDate(pickedclass);
+            lessons = LessonDB.getLessonsByName(pickedclass);
         }
         else if( myNumber.equals("2")){
             pickedclass=intent.getStringExtra("class");
@@ -55,48 +57,55 @@ public class SearchResults extends AppCompatActivity {
         }
 
 
-        Date now=new Date();
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, -1);
-        Date yesterday = cal.getTime();
-        cal.add(Calendar.DATE, -2);
-        Date twodaysago=cal.getTime();
-        Meeting meet1 = new Meeting("meetid1",String.valueOf(now),"12:00",String.valueOf(now),"14:00");
-        Meeting meet2 = new Meeting("meetid2",String.valueOf(now),"15:00",String.valueOf(now),"17:00");
-        Meeting meet3 = new Meeting("meetid3",String.valueOf(yesterday),"12:00",String.valueOf(now),"14:00");
-        Meeting meet4 = new Meeting("meetid4",String.valueOf(yesterday),"15:00",String.valueOf(now),"17:00");
-        Meeting meet5 = new Meeting("meetid5",String.valueOf(twodaysago),"12:00",String.valueOf(now),"14:00");
-        Meeting meet6 = new Meeting("meetid6",String.valueOf(twodaysago),"15:00",String.valueOf(now),"17:00");
+//        Date now=new Date();
+//        Calendar cal = Calendar.getInstance();
+//        cal.add(Calendar.DATE, -1);
+//        Date yesterday = cal.getTime();
+//        cal.add(Calendar.DATE, -2);
+//        Date twodaysago=cal.getTime();
+//        Meeting meet1 = new Meeting("meetid1",String.valueOf(now),"12:00",String.valueOf(now),"14:00");
+//        Meeting meet2 = new Meeting("meetid2",String.valueOf(now),"15:00",String.valueOf(now),"17:00");
+//        Meeting meet3 = new Meeting("meetid3",String.valueOf(yesterday),"12:00",String.valueOf(now),"14:00");
+//        Meeting meet4 = new Meeting("meetid4",String.valueOf(yesterday),"15:00",String.valueOf(now),"17:00");
+//        Meeting meet5 = new Meeting("meetid5",String.valueOf(twodaysago),"12:00",String.valueOf(now),"14:00");
+//        Meeting meet6 = new Meeting("meetid6",String.valueOf(twodaysago),"15:00",String.valueOf(now),"17:00");
+//
+//
+//        ArrayList<Meeting> myMeetings=new ArrayList<Meeting>();
+//        myMeetings.add(meet4);
+//        myMeetings.add(meet5);
+//        myMeetings.add(meet6);
+//        myMeetings.add(meet1);
+//        myMeetings.add(meet2);
+//        myMeetings.add(meet3);
+//
+//
+//
+//        ArrayList<Lesson> results=new ArrayList<Lesson>();
+//        results.add( new Lesson("l1","tid1","100","",myMeetings));
+//        results.add(  new Lesson("l2","tid2","80","",myMeetings));
+//        results.add(  new Lesson("l3","tid3","60","",myMeetings));
+//        results.add(  new Lesson("l4","tid4","110","",myMeetings));
+//        results.add(  new Lesson("l5","tid5","120","",myMeetings));
+//        results.add(  new Lesson("l6","tid6","90","",myMeetings));
+//        results.add(  new Lesson("l7","tid7","70","",myMeetings));
+//        results.add(  new Lesson("l8","tid8","50","",myMeetings));
+//
 
 
-        ArrayList<Meeting> myMeetings=new ArrayList<Meeting>();
-        myMeetings.add(meet4);
-        myMeetings.add(meet5);
-        myMeetings.add(meet6);
-        myMeetings.add(meet1);
-        myMeetings.add(meet2);
-        myMeetings.add(meet3);
+        //        for (int i=0; i< results.size(); i++){
+//            addView(results.get(i));
+//        }
 
 
-
-        ArrayList<Lesson> results=new ArrayList<Lesson>();
-        results.add( new Lesson("l1","tid1","100","",myMeetings));
-        results.add(  new Lesson("l2","tid2","80","",myMeetings));
-        results.add(  new Lesson("l3","tid3","60","",myMeetings));
-        results.add(  new Lesson("l4","tid4","110","",myMeetings));
-        results.add(  new Lesson("l5","tid5","120","",myMeetings));
-        results.add(  new Lesson("l6","tid6","90","",myMeetings));
-        results.add(  new Lesson("l7","tid7","70","",myMeetings));
-        results.add(  new Lesson("l8","tid8","50","",myMeetings));
 
         layoutlist=findViewById(R.id.layout_list_src);
-        for (int i=0; i< results.size(); i++){
-            addView(results.get(i));
-        }
 
-//        for(int i=0; i<lessons.size();i++){
-//            addView(lessons.get(i));
-//        }
+
+        for(int i=0; i<lessons.size();i++){
+            Log.d("AUTH_DEBUG",lessons.get(i).toString());
+            addView(lessons.get(i));
+        }
 
     }
 
@@ -105,15 +114,17 @@ public class SearchResults extends AppCompatActivity {
 
 
     public void addView(Lesson l){
+
         View myview = getLayoutInflater().inflate(R.layout.row_search_results,null,false);
+
         TextView cn= (TextView)myview.findViewById(R.id.ClassName_sr);
         cn.setText(l.getLessonId());
-        TextView tn=(TextView)myview.findViewById(R.id.TutorName_sr);
-//        Tutor t=getTutor(tn);
-//        tn.setText(t.getFirstName()+" "+t.getLastName());
-        Button moreinfo=(Button) myview.findViewById(R.id.moreinfo_sr);
-        layoutlist.addView(myview);
 
+        TextView tn=(TextView)myview.findViewById(R.id.TutorName_sr);
+        Tutor t= PersonDataDB.getTutorFromDB(l.getTutorId());
+        tn.setText(t.getFirstName()+" "+t.getLastName());
+
+        Button moreinfo=(Button) myview.findViewById(R.id.moreinfo_sr);
 
         moreinfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,6 +135,8 @@ public class SearchResults extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        layoutlist.addView(myview);
+
 
     }
 }

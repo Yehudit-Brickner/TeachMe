@@ -26,7 +26,7 @@ public class SignInDB
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
                             String uID = user.getUid();
-
+                            
 
                         } else {
                             // If sign in fails, display a message to the user.
