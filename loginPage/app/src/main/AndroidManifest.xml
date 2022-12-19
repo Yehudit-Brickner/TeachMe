@@ -99,13 +99,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".SignedIn"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".ForgotPassword"
             android:exported="false">
             <meta-data
@@ -170,20 +163,6 @@
         </activity>
         <activity
             android:name=".StudentHomePage"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".TutorSignIn"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".StudentSignIn"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

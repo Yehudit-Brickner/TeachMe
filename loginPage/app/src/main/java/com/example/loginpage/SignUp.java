@@ -1,7 +1,5 @@
 package com.example.loginpage;
 
-import static android.content.ContentValues.TAG;
-
 import static db.SignUpDB.setPersonData;
 
 import androidx.annotation.NonNull;
@@ -11,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
@@ -32,7 +29,6 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import impl.Person;
-import impl.User;
 import interfaces.IPerson;
 
 public class SignUp extends AppCompatActivity {
