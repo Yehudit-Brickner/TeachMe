@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/layout_list_acr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="590dp"
+        android:background="@drawable/round1"
+        android:orientation="vertical"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/starttime_acr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="start time:"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="82dp" />
+
+            <EditText
+                android:id="@+id/Estarttime_acr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.25"
+                android:hint="16:00"
+                android:inputType="time"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/white"
+                android:textSize="13sp"
+                tools:layout_editor_absoluteX="132dp"
+                tools:layout_editor_absoluteY="71dp" />
+
+            <TextView
+                android:id="@+id/endtime_acr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="end time:"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                tools:layout_editor_absoluteX="183dp"
+                tools:layout_editor_absoluteY="82dp" />
+
+            <EditText
+                android:id="@+id/Eendtime_acr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="18:00"
+                android:inputType="time"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/white"
+                android:textSize="13sp"
+                tools:layout_editor_absoluteX="241dp"
+                tools:layout_editor_absoluteY="71dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/date_acr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:padding="5dp"
+                android:text="date:"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="35dp" />
+
+            <EditText
+                android:id="@+id/Edate_acr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="01/01/2020"
+                android:inputType="date"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/white"
+                android:textSize="13sp"
+                tools:layout_editor_absoluteX="102dp"
+                tools:layout_editor_absoluteY="26dp" />
+
+            <CheckBox
+                android:id="@+id/checkBox_zoom_acr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Zoom"
+                android:textSize="13sp"
+                tools:layout_editor_absoluteX="90dp"
+                tools:layout_editor_absoluteY="116dp" />
+
+            <CheckBox
+                android:id="@+id/checkBox2_inperson_acr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="In person"
+                android:textSize="13sp"
+                tools:layout_editor_absoluteX="173dp"
+                tools:layout_editor_absoluteY="116dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonremove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="47dp"
+        android:layout_marginBottom="623dp"
+        android:text="remove"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/layout_list_acr"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+</LinearLayout>

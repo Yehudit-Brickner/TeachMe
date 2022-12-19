@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background1"
+    tools:context=".PastClassMoreInfoStudent">
+
+
+    <!--    pcmi = past class more info-->
+
+
+    <LinearLayout
+        android:id="@+id/llayout_pastmoreinfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.083">
+
+
+            <TextView
+                android:id="@+id/pcmi_classname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textSize="20sp"
+                android:text="class name: "
+                android:textColor="@color/white"></TextView>
+
+
+            <TextView
+                android:id="@+id/pcmi_tutorname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textSize="20sp"
+                android:text="tutor name: "
+                android:textColor="@color/white"></TextView>
+
+
+            <TextView
+                android:id="@+id/pcmi_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="date: "
+                android:textSize="20sp"
+                android:textColor="@color/white"></TextView>
+
+            <TextView
+                android:id="@+id/pcmi_starttime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textSize="20sp"
+                android:text="start time: "
+                android:textColor="@color/white"></TextView>
+
+
+            <TextView
+                android:id="@+id/pcmi_endtime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="end time: "
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textColor="@color/white"></TextView>
+
+
+            <TextView
+                android:id="@+id/pcmi_price_per_hour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:padding="10dp"
+                android:text="price per hour: "
+                android:textColor="@color/white"></TextView>
+
+
+            <TextView
+                android:id="@+id/pcmi_class_summary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textSize="20sp"
+                android:text="class summary:\n"
+                android:textColor="@color/white"></TextView>
+
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/whatsappbtn1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llayout_pastmoreinfo"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/whatsapplogo3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

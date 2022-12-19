@@ -64,10 +64,26 @@ public class Lesson implements ILesson
         this.tutorId = tutorId;
     }
 
+    public String getPrice(){
+        return this.price;
+    }
+
+    public void addMeeting(Meeting m){
+        if (this.meetings==null){
+            ArrayList<Meeting> meetings=new ArrayList<>();
+            meetings.add(m);
+            this.meetings=meetings;
+        }
+        else{
+            this.meetings.add(m);
+        }
+    }
+
     @Override
     public String toString() {
         String retStr = "Lesson{";
         retStr += "lessonId='" + lessonId + '\'' + ", \n";
+        retStr += "tutorId=" + tutorId + '\'' + ", \n";
         //retStr += "meetingIdList=" + meetingIdList + ", \n";
         retStr += "meetings=" + meetings + '}';
 

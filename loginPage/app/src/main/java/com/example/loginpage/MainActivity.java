@@ -42,14 +42,6 @@ public class MainActivity extends AppCompatActivity {
         Intent i =new Intent(MainActivity.this, NewLogin.class);
         startActivity(i);
 
-//        DataCenterDB dataCenter = new DataCenterDB("a", "b", "c", "d");
-//        for (int j = 0; j < 5; j++)
-//        {
-//            dataCenter.setRecordToDb();
-//        }
-//        dataCenter = new DataCenterDB("a", null, null, null);
-//        ArrayList<DataCenterDB> dbRequests = DataCenterDB.queryGetRecords(dataCenter);
-//        System.out.println(dbRequests);
 
 
 //        Map<String, Object> users =new HashMap<>();

@@ -16,6 +16,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+
 import java.util.HashSet;
 
 import impl.Lesson;
@@ -36,23 +37,12 @@ public class LessonDB extends Lesson
     public LessonDB(String lessonId, ArrayList<String> meetingIdList) {
         this.lessonId = lessonId;
         this.meetingIdList = new ArrayList<>(meetingIdList);
-        updateMeeting();
     }
 
     public void copyFromOther(LessonDB other) {
         this.lessonId = other.lessonId;
         this.meetingIdList = other.meetingIdList;
         this.meetings = new ArrayList<>();
-        updateMeeting();
-    }
-
-    public void updateMeeting()
-    {
-        meetings = new ArrayList<>();
-        for (String str : meetingIdList)
-        {
-            meetings.add(strToMeeting(str));
-        }
     }
 
     public static boolean setLessonData(Lesson lesson)
@@ -72,7 +62,7 @@ public class LessonDB extends Lesson
 
         return true;
     }
-
+    
     public static Lesson getLessonFromDB(String Uid, String lessonId)
     {
         String tag = "LESSONS_DEBUG";
@@ -86,16 +76,18 @@ public class LessonDB extends Lesson
         if (task.isSuccessful()) {
             DocumentSnapshot document = task.getResult();
             if (document.exists()) {
-                Log.d(tag, "DocumentSnapshot data: " + document.getData().toString());
+
+                Log.d("AUTH_DEBUG", "DocumentSnapshot data: " + document.getData().toString());
                 lesson = document.toObject(Lesson.class);
             } else {
                 Log.d(tag, "No such document");
             }
-        } else {
+
+        }
+        else {
             Log.d(tag, "get failed with ", task.getException());
         }
-
-
+        
         return lesson;
     }
 
@@ -107,10 +99,6 @@ public class LessonDB extends Lesson
         this.meetingIdList = meetingIdList;
     }
 
-    private Meeting strToMeeting(String str)
-    {
-        return new Meeting(str, "");
-    }
 
     public static ArrayList<Lesson> getLessonsByTutorId(String tutorId)
     {
@@ -134,6 +122,7 @@ public class LessonDB extends Lesson
         return lessons;
     }
 
+
     public static ArrayList<Lesson> getLessonsByName(String lessonName)
     {
         ArrayList<Lesson> lessons = new ArrayList<>();
@@ -148,12 +137,12 @@ public class LessonDB extends Lesson
 
         HashSet<Lesson> lessonHashSet = new HashSet<>();
         if (task.isSuccessful()) {
-
             for (QueryDocumentSnapshot document : task.getResult()) {
                 Log.d("QUERY_TEST", document.getId() + " => " + document.getData());
                 PathParse parser = new PathParse(document.getReference().getPath());
                 if (parser.getDataFromParsed(ILesson.DOCK_NAME) == null || parser.getDataFromParsed(PersonDataDB.COLL_NAME) == null)
                     continue;
+
 
                 if (!parser.getDataFromParsed(ILesson.DOCK_NAME).equals(lessonName))
                     continue;
@@ -163,8 +152,47 @@ public class LessonDB extends Lesson
         }
         return new ArrayList<>(lessonHashSet);
     }
+    
+    public static ArrayList<String> getLessonsNames(){
 
 
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+//        // Get the current date
+//        Date currentDate = new Date();
+//        // Format the date using the SimpleDateFormat object
+//        String formattedDate = dateFormat.format(currentDate);
 
+        Query lessonsCol = firestore.collectionGroup(IMeeting.DOCK_NAME).whereGreaterThan("startDateTime", Timestamp.now());
+//        Query lessonsCol = firestore.collectionGroup(IMeeting.DOCK_NAME).whereGreaterThan("startDate", Timestamp.now());
+        Task<QuerySnapshot> task = lessonsCol.get();
+        DataCenterDB.waitTaskComplete(task);
+        HashSet<String> lessonHashSet = new HashSet<>();
+        if (task.isSuccessful()) {
+            for (QueryDocumentSnapshot document : task.getResult()) {
+                Log.d("QUERY_TEST", document.getId() + " => " + document.getData());
+                PathParse parser = new PathParse(document.getReference().getPath());
+                if (parser.getDataFromParsed(ILesson.DOCK_NAME) == null || parser.getDataFromParsed(PersonDataDB.COLL_NAME) == null)
+                    continue;
+                lessonHashSet.add(parser.getDataFromParsed(ILesson.DOCK_NAME));
+            }
+        }
+        return new ArrayList<>(lessonHashSet);
+    }
 
+    public static boolean addMeetingsToLessonDB(Lesson lesson){
+        //update lesson?
+
+        if (lesson.getTutorId() == null || lesson.getTutorId().isEmpty())
+            return false;
+        if (lesson.getLessonId() == null || lesson.getLessonId().isEmpty())
+            return false;
+        CollectionReference meets = firestore.collection(PersonDataDB.COLL_NAME).document(lesson.getTutorId()).collection(Lesson.DOCK_NAME).document(lesson.getLessonId()).collection("meetings");
+
+        for (int i=0; i<lesson.getMeetings().size();i++){
+            // if doesn't exist
+            meets.document(lesson.getMeetings().get(i).getMeetingId()).set(lesson.getMeetings().get(i));
+        }
+        return true;
+
+    }
 }

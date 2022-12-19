@@ -2,7 +2,9 @@ package impl;
 
 import com.google.firebase.Timestamp;
 
+
 import java.text.DateFormat;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -13,6 +15,7 @@ import java.util.Map;
 
 import interfaces.IMeeting;
 
+
 public class Meeting implements IMeeting, Comparable<Meeting>
 {
     protected String meetingId;
@@ -21,6 +24,7 @@ public class Meeting implements IMeeting, Comparable<Meeting>
     protected String timeStart;
     protected String dateEnd;
     protected String timeEnd;
+
     protected Timestamp startDateTime;
     protected Timestamp endDateTime;
     protected String tutorId;
@@ -34,6 +38,7 @@ public class Meeting implements IMeeting, Comparable<Meeting>
     }
 
     public Meeting(String lessonId, String dateStart, String timeStart, String dateEnd,
+
                    String timeEnd,String tutorId, boolean zoom, boolean inPerson) {
 
         this.lessonId=lessonId;
@@ -45,7 +50,7 @@ public class Meeting implements IMeeting, Comparable<Meeting>
         this.zoom = zoom;
         this.inPerson = inPerson;
     }
-
+    
     @Override
     public String getMeetingId() {
         return meetingId;
@@ -70,6 +75,7 @@ public class Meeting implements IMeeting, Comparable<Meeting>
     public String getTimeEnd() {
         return timeEnd;
     }
+
 
     public Timestamp getStartDateTime() {
         return startDateTime;
@@ -110,6 +116,7 @@ public class Meeting implements IMeeting, Comparable<Meeting>
         this.dateStart = date;
     }
 
+
     public void setMeetingId(String meetingId) {
         this.meetingId = meetingId;
     }
@@ -126,6 +133,7 @@ public class Meeting implements IMeeting, Comparable<Meeting>
         return tutorId;
     }
 
+
     public void setTutorId(String tutorId) {
         this.tutorId = tutorId;
     }
@@ -133,6 +141,7 @@ public class Meeting implements IMeeting, Comparable<Meeting>
     public String getStudentId() {
         return studentId;
     }
+
 
     public void setStudentId(String studentId) {
         this.studentId = studentId;
@@ -152,6 +161,7 @@ public class Meeting implements IMeeting, Comparable<Meeting>
 
     public void setInPerson(boolean inPerson) {
         this.inPerson = inPerson;
+
     }
 
     @Override
@@ -165,6 +175,8 @@ public class Meeting implements IMeeting, Comparable<Meeting>
                 ", timeEnd='" + timeEnd + '\'' +
                 ", startDateTime=" + startDateTime +
                 ", endDateTime=" + endDateTime +
+
+
                 '}';
     }
 
@@ -192,6 +204,7 @@ public class Meeting implements IMeeting, Comparable<Meeting>
         map.put("endDateTime", endDateTime);
         return map;
     }
+
 
     public static Date getDate(String date) {
         SimpleDateFormat format=new SimpleDateFormat(IMeeting.DATE_TIME_FORMAT);
