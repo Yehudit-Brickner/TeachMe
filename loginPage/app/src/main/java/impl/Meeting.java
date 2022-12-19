@@ -22,20 +22,31 @@ public class Meeting implements IMeeting, Comparable<Meeting>
     protected String timeEnd;
     protected Timestamp startDateTime;
     protected Timestamp endDateTime;
+    protected String tutorId;
+    protected String studentId;
+    protected String zoom;
+    protected String inperson;
+
 
     public Meeting()
     {
     }
 
-    public Meeting(String meetingId, String dateStart, String timeStart, String dateEnd, String timeEnd)
-    {
-        this.meetingId = meetingId;
+    public Meeting(String lessonId, String dateStart, String timeStart, String dateEnd,
+                   String timeEnd,String tutorId,String zoom, String inperson) {
+
+        this.lessonId=lessonId;
+        this.meetingId ="";
         this.dateStart = dateStart;
         this.timeStart = timeStart;
         this.dateEnd = dateEnd;
         this.timeEnd = timeEnd;
         this.startDateTime = Timestamp.now();
         this.endDateTime = Timestamp.now();
+        this.tutorId = tutorId;
+        this.studentId = "";
+        this.zoom = zoom;
+        this.inperson = inperson;
     }
 
     @Override
@@ -66,6 +77,26 @@ public class Meeting implements IMeeting, Comparable<Meeting>
     public Meeting(String meetingId, String date) {
         this.meetingId = meetingId;
         this.dateStart = date;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+
+    public String getLessonId() {
+        return lessonId;
+    }
+
+    public String getTutorId() {
+        return tutorId;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setMeetingId(String meetingId) {
+        this.meetingId = meetingId;
     }
 
     @Override

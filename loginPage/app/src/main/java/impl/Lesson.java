@@ -84,6 +84,7 @@ public class Lesson implements ILesson
     public String toString() {
         String retStr = "Lesson{";
         retStr += "lessonId='" + lessonId + '\'' + ", \n";
+        retStr += "tutorId=" + tutorId + '\'' + ", \n";
         //retStr += "meetingIdList=" + meetingIdList + ", \n";
         retStr += "meetings=" + meetings + '}';
 

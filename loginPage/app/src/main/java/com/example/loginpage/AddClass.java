@@ -19,6 +19,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import db.LessonDB;
+import db.MeetingDB;
 import impl.Lesson;
 import impl.Meeting;
 
@@ -28,6 +30,7 @@ public class AddClass extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Button create;
     public boolean error=false;
+    public boolean createLesson=false;
     public LinearLayout mylayout;
     public Lesson l;
 
@@ -45,24 +48,23 @@ public class AddClass extends AppCompatActivity {
                 FirebaseUser user = mAuth.getCurrentUser();
                 updateUI(user);
                 String UID=user.getUid();
+
                 EditText classname=(EditText)findViewById(R.id.editclass);
                 EditText price=(EditText)findViewById(R.id.Eprice);
+
                 if(classname.getText().toString().equals("") || price.getText().toString().equals("") ){
                     Toast.makeText(getApplicationContext(), "please fill in the name and price", Toast.LENGTH_LONG).show();
                     error=true;
                 }
                 else {
-//                boolean b;
-//                b=checkforlesson(UID,classname);
-//                if (!b) {
-                l=new Lesson(classname.getText().toString(),UID,price.getText().toString(),"");
-                String LID = l.getLessonId();
-                Log.d("AUTH_DEBUG", l.toString());
-//                l.setLessonId(LID);
-//                }
-//                else{
-//                    String l=getLessonID(UID,classname);
-//                }
+                    l= LessonDB.getLessonFromDB(UID,classname.getText().toString());
+                    if (!l.getLessonId().equals(classname.getText().toString())){
+                        l=new Lesson(classname.getText().toString(),UID,price.getText().toString(),"");
+                        LessonDB.setLessonData(l);
+                    }
+
+                    Log.d("AUTH_DEBUG", l.toString());
+
 
                     //meeting 1
                     EditText date1 = (EditText) findViewById(R.id.Edate_acr1);
@@ -80,16 +82,19 @@ public class AddClass extends AppCompatActivity {
                         }
                         else {
                             Log.d("AUTH_DEBUG", date1.getText().toString() + "\n" + datetimes1 + "\n" + datetimee1 + "\n" + String.valueOf(z1.isChecked()) + "\n" + String.valueOf(inp1.isChecked()));
-                            Meeting m=new Meeting("m1",date1.getText().toString(),datetimes1,date1.getText().toString(),datetimee1/* String.valueOf(z1.isChecked()),String.valueOf(inp1.isChecked())*/);
+
+                            Meeting m=new Meeting(l.getLessonId(),date1.getText().toString(),st1.getText().toString(),date1.getText().toString(),et1.getText().toString(),UID, String.valueOf(z1.isChecked()),String.valueOf(inp1.isChecked()));
+                            MeetingDB.writeToFirebaseMeeting(m);
                             l.addMeeting(m);
-            //                    String MID=m.getMeetingId();
-            //                    m.setMeetingID(MID);
                             Toast.makeText(getApplicationContext(), "created meeting1", Toast.LENGTH_LONG).show();
                         }
                     }
                     else{
                         Log.d("AUTH_DEBUG", "time or date is empty1");
                     }
+
+
+
                     //meeting 2
                     EditText date2 = (EditText) findViewById(R.id.Edate_acr2);
                     EditText st2 = (EditText) findViewById(R.id.Estarttime_acr2);
@@ -105,17 +110,16 @@ public class AddClass extends AppCompatActivity {
                         }
                         else {
                             Log.d("AUTH_DEBUG", date2.getText().toString() + "\n" + datetimes2 + "\n" + datetimee2 + "\n" + String.valueOf(z2.isChecked()) + "\n" + String.valueOf(inp2.isChecked()));
-                            Meeting m= new Meeting("m2",date2.getText().toString(),datetimes2,date2.getText().toString(),datetimee2/*,String.valueOf(z2.isChecked()),String.valueOf(inp2.isChecked())*/);
-
+                            Meeting m= new Meeting(l.getLessonId(),date2.getText().toString(),datetimes2,date2.getText().toString(),datetimee2,UID,String.valueOf(z2.isChecked()),String.valueOf(inp2.isChecked()));
+                            MeetingDB.writeToFirebaseMeeting(m);
                             l.addMeeting(m);
-        //                    String MID=m.getMeetingId();
-        //                    m.setMeetingID(MID);
                             Toast.makeText(getApplicationContext(), "created meeting2", Toast.LENGTH_LONG).show();
                         }
                     }
                     else{
                         Log.d("AUTH_DEBUG", "time or date is empty2");
                     }
+
 
 
                     //meeting 3
@@ -133,10 +137,9 @@ public class AddClass extends AppCompatActivity {
                         }
                         else {
                             Log.d("AUTH_DEBUG", date3.getText().toString() + "\n" + datetimes3 + "\n" + datetimee3 + "\n" + String.valueOf(z3.isChecked()) + "\n" + String.valueOf(inp3.isChecked()));
-                            Meeting m= new Meeting("m3",date3.getText().toString(),datetimes3,date3.getText().toString(),datetimee3/*,String.valueOf(z3.isChecked()),String.valueOf(inp3.isChecked())*/);
+                            Meeting m= new Meeting(l.getLessonId(),date3.getText().toString(),datetimes3,date3.getText().toString(),datetimee3,UID,String.valueOf(z3.isChecked()),String.valueOf(inp3.isChecked()));
+                            MeetingDB.writeToFirebaseMeeting(m);
                             l.addMeeting(m);
-        //                    String MID=m.getMeetingId();
-        //                    m.setMeetingID(MID);
                             Toast.makeText(getApplicationContext(), "created meeting3", Toast.LENGTH_LONG).show();
                         }
                     }
@@ -160,18 +163,19 @@ public class AddClass extends AppCompatActivity {
                         }
                         else {
                             Log.d("AUTH_DEBUG", date4.getText().toString() + "\n" + datetimes4 + "\n" + datetimee4 + "\n" + String.valueOf(z4.isChecked()) + "\n" + String.valueOf(inp4.isChecked()));
-                            Meeting m= new Meeting("m4",date4.getText().toString(),datetimes4,date4.getText().toString(),datetimee4/*,String.valueOf(z4.isChecked()),String.valueOf(inp4.isChecked())*/);
+                            Meeting m= new Meeting(l.getLessonId(),date4.getText().toString(),datetimes4,date4.getText().toString(),datetimee4,UID,String.valueOf(z4.isChecked()),String.valueOf(inp4.isChecked()));
+                            MeetingDB.writeToFirebaseMeeting(m);
                             l.addMeeting(m);
-//                    String MID=m.getMeetingId();
-//                    m.setMeetingID(MID);
                             Toast.makeText(getApplicationContext(), "created meeting4", Toast.LENGTH_LONG).show();
                         }
                     }
                     else{
                         Log.d("AUTH_DEBUG", "time or date is empty4");
                     }
-
                 }
+
+                LessonDB.addMeetingsToLessonDB(l);
+
                 if (!error) {
                     Log.d("AUTH_DEBUG", l.toString());
                     Intent i = new Intent(AddClass.this, TutorHomePage.class);

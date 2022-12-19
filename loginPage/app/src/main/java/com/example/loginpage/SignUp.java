@@ -166,7 +166,7 @@ public class SignUp extends AppCompatActivity {
                             String UID=user.getUid();
                             IPerson p = new Person(UID,fname.getText().toString(),
                                     lname.getText().toString(),
-                                    phone.getText().toString(),acct.getEmail());
+                                    acct.getEmail(),phone.getText().toString());
                             setPersonData(p,isTutor,isStudent);
                         } else {
                             // If sign in fails, display a message to the user.
