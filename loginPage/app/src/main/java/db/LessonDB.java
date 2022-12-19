@@ -15,7 +15,9 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 
 import impl.Lesson;
@@ -85,11 +87,13 @@ public class LessonDB extends Lesson {
             DocumentSnapshot document = task.getResult();
             if (document.exists()) {
                 Log.d(tag, "DocumentSnapshot data: " + document.getData().toString());
+                Log.d("AUTH_DEBUG", "DocumentSnapshot data: " + document.getData().toString());
                 lesson = document.toObject(Lesson.class);
             } else {
                 Log.d(tag, "No such document");
             }
-        } else {
+        }
+        else {
             Log.d(tag, "get failed with ", task.getException());
         }
 
@@ -134,7 +138,9 @@ public class LessonDB extends Lesson {
         ArrayList<Lesson> lessons = new ArrayList<>();
         if (lessonName == null || lessonName.isEmpty())
             return lessons;
+        Date d= new Date();
         Query lessonsCol = firestore.collectionGroup(IMeeting.DOCK_NAME).whereGreaterThan("startDateTime", Timestamp.now());
+//        Query lessonsCol = firestore.collectionGroup(IMeeting.DOCK_NAME).whereGreaterThan("startDate", d);
         Task<QuerySnapshot> task = lessonsCol.get();
         DataCenterDB.waitTaskComplete(task);
         HashSet<Lesson> lessonHashSet = new HashSet<>();
@@ -154,7 +160,15 @@ public class LessonDB extends Lesson {
 
     public static ArrayList<String> getLessonsNames(){
 
+
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+//        // Get the current date
+//        Date currentDate = new Date();
+//        // Format the date using the SimpleDateFormat object
+//        String formattedDate = dateFormat.format(currentDate);
+
         Query lessonsCol = firestore.collectionGroup(IMeeting.DOCK_NAME).whereGreaterThan("startDateTime", Timestamp.now());
+//        Query lessonsCol = firestore.collectionGroup(IMeeting.DOCK_NAME).whereGreaterThan("startDate", Timestamp.now());
         Task<QuerySnapshot> task = lessonsCol.get();
         DataCenterDB.waitTaskComplete(task);
         HashSet<String> lessonHashSet = new HashSet<>();
@@ -178,8 +192,6 @@ public class LessonDB extends Lesson {
         if (lesson.getLessonId() == null || lesson.getLessonId().isEmpty())
             return false;
         CollectionReference meets = firestore.collection(PersonDataDB.COLL_NAME).document(lesson.getTutorId()).collection(Lesson.DOCK_NAME).document(lesson.getLessonId()).collection("meetings");
-
-
 
         for (int i=0; i<lesson.getMeetings().size();i++){
             // if doesn't exist

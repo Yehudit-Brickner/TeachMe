@@ -12,6 +12,12 @@ import java.util.Map;
 
 import interfaces.IMeeting;
 
+
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Meeting implements IMeeting, Comparable<Meeting>
 {
     protected String meetingId;
@@ -20,12 +26,14 @@ public class Meeting implements IMeeting, Comparable<Meeting>
     protected String timeStart;
     protected String dateEnd;
     protected String timeEnd;
-    protected Timestamp startDateTime;
-    protected Timestamp endDateTime;
+//    protected Timestamp startDateTime;
+//    protected Timestamp endDateTime;
     protected String tutorId;
     protected String studentId;
     protected String zoom;
     protected String inperson;
+    protected String startDateTime;
+    protected String endDateTime;
 
 
     public Meeting()
@@ -33,7 +41,7 @@ public class Meeting implements IMeeting, Comparable<Meeting>
     }
 
     public Meeting(String lessonId, String dateStart, String timeStart, String dateEnd,
-                   String timeEnd,String tutorId,String zoom, String inperson) {
+                   String timeEnd,String tutorId,String zoom, String inperson, String datetimes, String datetimee) {
 
         this.lessonId=lessonId;
         this.meetingId ="";
@@ -41,13 +49,19 @@ public class Meeting implements IMeeting, Comparable<Meeting>
         this.timeStart = timeStart;
         this.dateEnd = dateEnd;
         this.timeEnd = timeEnd;
-        this.startDateTime = Timestamp.now();
-        this.endDateTime = Timestamp.now();
+//        this.startDateTime = Timestamp.now();
+//        this.endDateTime = Timestamp.now();
         this.tutorId = tutorId;
         this.studentId = "";
         this.zoom = zoom;
         this.inperson = inperson;
+        this.startDateTime=datetimes;
+        this.endDateTime=datetimee;
+
+
     }
+
+
 
     @Override
     public String getMeetingId() {
@@ -72,6 +86,14 @@ public class Meeting implements IMeeting, Comparable<Meeting>
     @Override
     public String getTimeEnd() {
         return timeEnd;
+    }
+
+    public String getZoom() {
+        return zoom;
+    }
+
+    public String getInperson() {
+        return inperson;
     }
 
     public Meeting(String meetingId, String date) {
@@ -110,6 +132,8 @@ public class Meeting implements IMeeting, Comparable<Meeting>
                 ", timeEnd='" + timeEnd + '\'' +
                 ", startDateTime=" + startDateTime +
                 ", endDateTime=" + endDateTime +
+                "in person: " + inperson+
+                "on zoom: "+ zoom+
                 '}';
     }
 

@@ -33,21 +33,23 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
     public Lesson mylesson;
     String Lid;
     String Tid;
-
+    public  ArrayList<Meeting> myMeetings1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more_info_about_class_search);
 
-        Log.d("AUTH_DEBUG","more info about class search");
+        Log.d("AUTH_DEBUG","more info about class search\n\n");
 
         Intent intent=getIntent();
         Lid=intent.getStringExtra("LID");
         Tid=intent.getStringExtra("TID");
         Log.d("AUTH_DEBUG","LID= "+Lid+" TID= "+Tid);
 
-        mylesson= LessonDB.getLessonFromDB(Lid,Tid);
+        mylesson= LessonDB.getLessonFromDB(Tid,Lid);
+
+        Log.d("AUTH_DEBUG","more info, "+mylesson.toString());
         Tutor mytutor= PersonDataDB.getTutorFromDB(Tid);
 
         classname=(TextView)findViewById(R.id.classname_moreinfo);;
@@ -57,38 +59,14 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-//        Date now=new Date();
-//        Calendar cal = Calendar.getInstance();
-//        cal.add(Calendar.DATE, -1);
-//        Date yesterday = cal.getTime();
-//        cal.add(Calendar.DATE, -2);
-//        Date twodaysago=cal.getTime();
-//        Meeting meet1 = new Meeting("meetid1",String.valueOf(now),"12:00",String.valueOf(now),"14:00");
-//        Meeting meet2 = new Meeting("meetid2",String.valueOf(now),"15:00",String.valueOf(now),"17:00");
-//        Meeting meet3 = new Meeting("meetid3",String.valueOf(yesterday),"12:00",String.valueOf(now),"14:00");
-//        Meeting meet4 = new Meeting("meetid4",String.valueOf(yesterday),"15:00",String.valueOf(now),"17:00");
-//        Meeting meet5 = new Meeting("meetid5",String.valueOf(twodaysago),"12:00",String.valueOf(now),"14:00");
-//        Meeting meet6 = new Meeting("meetid6",String.valueOf(twodaysago),"15:00",String.valueOf(now),"17:00");
-//
-//
-//        ArrayList<Meeting> myMeetings=new ArrayList<Meeting>();
-//        myMeetings.add(meet4);
-//        myMeetings.add(meet5);
-//        myMeetings.add(meet6);
-//        myMeetings.add(meet1);
-//        myMeetings.add(meet2);
-//        myMeetings.add(meet3);
 
-
-
-        ArrayList<Meeting> myMeetings1=new ArrayList<Meeting>();
         myMeetings1=mylesson.getMeetings();
 
 
         layoutlist=findViewById(R.id.moreinfo_linearlayout);
        if ( myMeetings1!=null) {
            for (int i = 0; i < myMeetings1.size(); i++) {
-//            if (myMeetings.get(i).getstudentid==null ||myMeetings.get(i).getstudentid.equals("") )
+            if (myMeetings1.get(i).getStudentId()==null ||myMeetings1.get(i).getStudentId().equals("") )
                addView(myMeetings1.get(i));
            }
        }
@@ -97,7 +75,7 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
 
         public void addView(Meeting m){
 
-//            if (m.Studentid!="" || m.Studentis!=null) {
+            if (m.getStudentId()!="" || m.getStudentId()!=null) {
 
                 View myview = getLayoutInflater().inflate(R.layout.more_info_about_class_search_row, null, false);
 
@@ -111,15 +89,15 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
                 endtime.setText(m.getTimeEnd());
 
                 TextView iszoom = (TextView) myview.findViewById(R.id.zoom_cir);
-                String z = iszoom.getText().toString() + "yes";
+                String z = iszoom.getText().toString() + m.getZoom();
                 iszoom.setText(z);
 
                 TextView isinperson = (TextView) myview.findViewById(R.id.inperson_cir);
-                String p = isinperson.getText().toString() + "yes";
+                String p = isinperson.getText().toString() + m.getInperson();
                 isinperson.setText(p);
 
                 TextView price = (TextView) myview.findViewById(R.id.price_cir);
-//                price.setText(mylesson.getPrice());
+                price.setText(mylesson.getPrice());
 
                 TextView acceptclass = (TextView) myview.findViewById(R.id.signupToClass);
 
@@ -130,11 +108,12 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
                         updateUI(user);
                         String UID = user.getUid();
                         Log.d("AUTH_DEBUG", "UID = " + UID);
-//                    m.setstudentID(UID);
+                        m.setStudentId(UID);
+                        LessonDB.setLessonData(mylesson);
                     }
                 });
                 layoutlist.addView(myview);
-//            }
+            }
     }
 
     private void updateUI(FirebaseUser user) {

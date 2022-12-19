@@ -25,19 +25,11 @@ import impl.Meeting;
 
 public class Search extends AppCompatActivity {
 
-
-
-
-
-
     private EditText date;
     private Button searchbtn;
     public String pickedClass;
     private Spinner classlist;
 
-
-
-    private ArrayList<String> pickclasses=new ArrayList<String>();
     private ArrayList<String> Pickclasses=new ArrayList<String>();
 
     @Override
@@ -45,24 +37,10 @@ public class Search extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-
         Pickclasses= LessonDB.getLessonsNames();
 
-
-//        pickclasses.add("Infi1");
-//        pickclasses.add("Infi2");
-//        pickclasses.add("infi");
-//        pickclasses.add("Intro Java");
-//        pickclasses.add("Intro Python");
-//        pickclasses.add("Intro C");
-//        pickclasses.add("C++");
-//        pickclasses.add("Linear algebra1");
-//        pickclasses.add("Linear algebra2");
-//        pickclasses.add("Data science");
-//        pickclasses.add("Cyber");
         Collections.sort(Pickclasses);
         Pickclasses.add(0,"class name");
-
 
         classlist =(Spinner)findViewById(R.id.classes_search_spinner);
         ArrayAdapter classesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,Pickclasses);
@@ -107,8 +85,6 @@ public class Search extends AppCompatActivity {
                 }
             }
         });
-
-
 
 
     }
