@@ -37,6 +37,7 @@ import java.util.Arrays;
 
 import db.DataCenterDB;
 import db.LessonDB;
+import db.MeetingDB;
 import db.PersonDataDB;
 import impl.Lesson;
 import impl.Meeting;
@@ -210,6 +211,9 @@ public class NewLogin extends AppCompatActivity {
 //        System.out.println(l);
         ArrayList<Lesson> lessons = LessonDB.getLessonsByName("infi");
         System.out.println(lessons);
+        ArrayList<Meeting> meetings =  MeetingDB.getMeetingsByTutorAndLessonId("vElfoL0jnONTmjhLpaHpHMGiMJU2", "infi");
+        Log.d("TEST_MEETING", meetings + "");
+
 
 
 

@@ -18,6 +18,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+
+import db.MeetingDB;
+import impl.Meeting;
+
 /**
  * Instrumented test, which will execute on an Android device.
  *
@@ -36,7 +41,8 @@ public class ExampleInstrumentedTest {
     public void testDBTest()
     {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-
+        ArrayList<Meeting> meetings =  MeetingDB.getMeetingsByTutorAndLessonId("vElfoL0jnONTmjhLpaHpHMGiMJU2", "infi");
+        Log.d("TEST_MEETING", meetings + "");
 //        Map<String, Object> users =new HashMap<>();
 //        users.put("firstName","Yehudit");
 //        users.put("lastName", "Brickner");
@@ -96,21 +102,21 @@ public class ExampleInstrumentedTest {
 //                    }
 //        });
 
-        firestore.collection("DataCenter")
-                .whereEqualTo("tutor", "Gilad")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("QUERY_TEST", document.getId() + " => " + document.getData());
-                            }
-                        } else {
-                            Log.d("QUERY_TEST", "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
+//        firestore.collection("DataCenter")
+//                .whereEqualTo("tutor", "Gilad")
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                Log.d("QUERY_TEST", document.getId() + " => " + document.getData());
+//                            }
+//                        } else {
+//                            Log.d("QUERY_TEST", "Error getting documents: ", task.getException());
+//                        }
+//                    }
+//                });
 
     }
 }

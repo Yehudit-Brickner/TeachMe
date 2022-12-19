@@ -1,6 +1,7 @@
 package impl;
 
 import com.google.firebase.Timestamp;
+import com.google.firebase.Timestamp.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,6 +25,8 @@ public class Meeting implements IMeeting, Comparable<Meeting>
     protected Timestamp startDateTime;
     protected Timestamp endDateTime;
 
+
+
     public Meeting()
     {
     }
@@ -35,8 +38,6 @@ public class Meeting implements IMeeting, Comparable<Meeting>
         this.timeStart = timeStart;
         this.dateEnd = dateEnd;
         this.timeEnd = timeEnd;
-        this.startDateTime = Timestamp.now();
-        this.endDateTime = Timestamp.now();
     }
 
     @Override
@@ -64,6 +65,21 @@ public class Meeting implements IMeeting, Comparable<Meeting>
         return timeEnd;
     }
 
+    public Timestamp getStartDateTime() {
+        return startDateTime;
+    }
+
+    public void setStartDateTime(Timestamp startDateTime) {
+        this.startDateTime = startDateTime;
+    }
+
+    public Timestamp getEndDateTime() {
+        return endDateTime;
+    }
+
+    public void setEndDateTime(Timestamp endDateTime) {
+        this.endDateTime = endDateTime;
+    }
 
     public String getLessonId() {
         return lessonId;
