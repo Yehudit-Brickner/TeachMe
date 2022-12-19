@@ -40,13 +40,10 @@ public class PassedClassesStudent extends AppCompatActivity {
 
         layoutlist=findViewById(R.id.layout_list);
 
-
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         String UID=user.getUid();
         ArrayList<Meeting> meetings= MeetingDB.getStudentMeetings(UID);
-
-
 
         Date date = Calendar.getInstance().getTime();
         // Display a date in day, month, year format
