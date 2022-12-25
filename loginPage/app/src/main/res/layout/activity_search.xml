@@ -39,13 +39,16 @@
 
             <Spinner
                 android:id="@+id/classes_search_spinner"
-                android:layout_width="200dp"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:textSize="25sp"
                 android:padding="5dp"
                 android:inputType="text"
                 android:textColor="@color/white"
+                android:popupTheme="@android:style/ThemeOverlay.Material.Dark"
                 />
+
 
         </LinearLayout>
 
@@ -53,33 +56,48 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="40dp"
+            android:orientation="horizontal"
             android:paddingTop="40dp"
-            android:orientation="horizontal">
+            android:paddingBottom="40dp">
 
             <TextView
                 android:id="@+id/date_search"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:padding="5dp"
                 android:text="Date"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <!--            <EditText-->
+            <!--                android:id="@+id/choosedate_search"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_weight="1"-->
+            <!--                android:inputType="date"-->
+            <!--                android:hint="dd/mm/yyyy"-->
+            <!--                android:textColorHint="#786A6A"-->
+            <!--                android:padding="5dp"-->
+            <!--                android:textColor="@color/white"-->
+            <!--                android:textSize="25sp" />-->
+
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/datePickerButton"
+                style="?android:spinnerStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="openDatePicker"
+                android:text="01/01/2020"
                 android:padding="5dp"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/choosedate_search"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5"
-                android:inputType="date"
-                android:hint="dd/mm/yyyy"
-                android:textColorHint="#786A6A"
-                android:padding="5dp"
-                android:textColor="@color/white"
-                android:textSize="25sp" />
-        </LinearLayout>
 
+
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -117,6 +135,28 @@
             android:paddingBottom="40dp"
             android:paddingTop="40dp"
             android:orientation="horizontal">
+
+
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Time:"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:textSize="20sp"/>
+
+            <Button
+                android:id="@+id/timeButton"
+                style="?android:spinnerStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="popTimePicker"
+                android:text="select time"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:textSize="20sp"/>
 
 <!--            <TextView-->
 <!--                android:id="@+id/zp_search"-->

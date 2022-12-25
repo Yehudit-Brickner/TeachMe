@@ -34,19 +34,19 @@ public class PastClassMoreInfoStudent extends AppCompatActivity {
         TextView classname =(TextView)findViewById(R.id.pcmi_classname);
         classname.setText(classname.getText().toString()+ m.getLessonId());
 
-        TextView tutorname =(TextView)findViewById(R.id.pcmi_classname);
+        TextView tutorname =(TextView)findViewById(R.id.pcmi_tutorname);
                 tutorname.setText(tutorname.getText().toString()+ t.getFirstName()+" "+t.getLastName());
 
-        TextView date =(TextView)findViewById(R.id.pcmi_classname);
+        TextView date =(TextView)findViewById(R.id.pcmi_date);
                 date.setText(date.getText().toString()+m.getDateStart());
 
-        TextView starttime =(TextView)findViewById(R.id.pcmi_classname);
+        TextView starttime =(TextView)findViewById(R.id.pcmi_starttime);
                 starttime.setText(starttime.getText().toString()+m.getTimeStart());
 
-        TextView endtime =(TextView)findViewById(R.id.pcmi_classname);
+        TextView endtime =(TextView)findViewById(R.id.pcmi_endtime);
                 endtime.setText(endtime.getText().toString()+ m.getTimeEnd());
 
-        TextView price =(TextView)findViewById(R.id.pcmi_classname);
+        TextView price =(TextView)findViewById(R.id.pcmi_price_per_hour);
                 price.setText(price.getText().toString()+ l.getPrice());
 
         ImageButton whatsapp =(ImageButton)findViewById(R.id.whatsappbtn1);

@@ -24,19 +24,19 @@ public class PastClassMoreInfoTutor extends AppCompatActivity {
         TextView classname =(TextView)findViewById(R.id.pcmi_classname);
 //        classname.setText(classname.getText().toString()+ );
 
-        TextView tutorname =(TextView)findViewById(R.id.pcmi_classname);
-        //        tutorname.setText(tutorname.getText().toString()+ );
+        TextView studentname =(TextView)findViewById(R.id.pcmi_studentname);
+        //        studentname.setText(tutorname.getText().toString()+ );
 
-        TextView date =(TextView)findViewById(R.id.pcmi_classname);
+        TextView date =(TextView)findViewById(R.id.pcmi_date);
         //        date.setText(date.getText().toString()+ );
 
-        TextView starttime =(TextView)findViewById(R.id.pcmi_classname);
+        TextView starttime =(TextView)findViewById(R.id.pcmi_starttime);
         //        starttime.setText(starttime.getText().toString()+ );
 
-        TextView endtime =(TextView)findViewById(R.id.pcmi_classname);
+        TextView endtime =(TextView)findViewById(R.id.pcmi_endtime);
         //        endtime.setText(endtime.getText().toString()+ );
 
-        TextView price =(TextView)findViewById(R.id.pcmi_classname);
+        TextView price =(TextView)findViewById(R.id.pcmi_price_per_hour);
         //        price.setText(price.getText().toString()+ );
 
         EditText summary= (EditText) findViewById(R.id.pcmi_class_summaryE);

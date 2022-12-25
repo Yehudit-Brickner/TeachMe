@@ -53,6 +53,7 @@ public class SearchResults extends AppCompatActivity {
            pickeddate=intent.getStringExtra("date");
             Log.d("AUTH_DEBUG","search results: mynumber= "+myNumber+" class = "+ pickedclass+", date = "+pickeddate);
 //            lessons = searchForClassesDate(pickedclass,pickeddate);
+            lessons = LessonDB.getLessonsByName(pickedclass);
         }
         else{
             Log.d("AUTH_DEBUG","myNumber= " +myNumber);

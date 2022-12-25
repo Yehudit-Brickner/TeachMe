@@ -84,11 +84,11 @@ public class AddClass extends AppCompatActivity {
                             Log.d("AUTH_DEBUG", date1.getText().toString() + "\n" + datetimes1 + "\n" + datetimee1 + "\n" + String.valueOf(z1.isChecked()) + "\n" + String.valueOf(inp1.isChecked()));
 
                             Meeting m=new Meeting(l.getLessonId(),date1.getText().toString(),st1.getText().toString(),
-                                    date1.getText().toString(),et1.getText().toString(),UID, String.valueOf(z1.isChecked()),
-                                    String.valueOf(inp1.isChecked()),datetimes1,datetimee1);
+                                    date1.getText().toString(),et1.getText().toString(),UID, z1.isChecked(),
+                                    inp1.isChecked());
                             Log.d("AUTH_DEBUG",m.toString());
 
-                            MeetingDB.writeToFirebaseMeeting(m);
+                            MeetingDB.setMeeting(m);
                             l.addMeeting(m);
 
                             Toast.makeText(getApplicationContext(), "created meeting1", Toast.LENGTH_LONG).show();
@@ -116,9 +116,9 @@ public class AddClass extends AppCompatActivity {
                         else {
                             Log.d("AUTH_DEBUG", date2.getText().toString() + "\n" + datetimes2 + "\n" + datetimee2 + "\n" + String.valueOf(z2.isChecked()) + "\n" + String.valueOf(inp2.isChecked()));
                             Meeting m= new Meeting(l.getLessonId(),date2.getText().toString(),st2.getText().toString(),
-                                    date2.getText().toString(),et2.getText().toString(),UID,String.valueOf(z2.isChecked()),
-                                    String.valueOf(inp2.isChecked()),datetimes2,datetimee2);
-                            MeetingDB.writeToFirebaseMeeting(m);
+                                    date2.getText().toString(),et2.getText().toString(),UID,z2.isChecked(),
+                                    inp2.isChecked());
+                            MeetingDB.setMeeting(m);
                             l.addMeeting(m);
                             Toast.makeText(getApplicationContext(), "created meeting2", Toast.LENGTH_LONG).show();
                         }
@@ -145,9 +145,9 @@ public class AddClass extends AppCompatActivity {
                         else {
                             Log.d("AUTH_DEBUG", date3.getText().toString() + "\n" + datetimes3 + "\n" + datetimee3 + "\n" + String.valueOf(z3.isChecked()) + "\n" + String.valueOf(inp3.isChecked()));
                             Meeting m= new Meeting(l.getLessonId(),date3.getText().toString(),st3.getText().toString(),
-                                    date3.getText().toString(),et3.getText().toString(),UID,String.valueOf(z3.isChecked()),
-                                    String.valueOf(inp3.isChecked()),datetimes3,datetimee3);
-                            MeetingDB.writeToFirebaseMeeting(m);
+                                    date3.getText().toString(),et3.getText().toString(),UID,z3.isChecked(),
+                                    inp3.isChecked());
+                            MeetingDB.setMeeting(m);
                             l.addMeeting(m);
                             Toast.makeText(getApplicationContext(), "created meeting3", Toast.LENGTH_LONG).show();
                         }
@@ -173,9 +173,9 @@ public class AddClass extends AppCompatActivity {
                         else {
                             Log.d("AUTH_DEBUG", date4.getText().toString() + "\n" + datetimes4 + "\n" + datetimee4 + "\n" + String.valueOf(z4.isChecked()) + "\n" + String.valueOf(inp4.isChecked()));
                             Meeting m= new Meeting(l.getLessonId(),date4.getText().toString(),st4.getText().toString(),
-                                    date4.getText().toString(),et4.getText().toString(),UID,String.valueOf(z4.isChecked()),
-                                    String.valueOf(inp4.isChecked()),datetimes4,datetimee4);
-                            MeetingDB.writeToFirebaseMeeting(m);
+                                    date4.getText().toString(),et4.getText().toString(),UID,z4.isChecked(),
+                                    inp4.isChecked());
+                            MeetingDB.setMeeting(m);
                             l.addMeeting(m);
                             Toast.makeText(getApplicationContext(), "created meeting4", Toast.LENGTH_LONG).show();
                         }

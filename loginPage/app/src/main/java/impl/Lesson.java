@@ -79,7 +79,6 @@ public class Lesson implements ILesson
         }
     }
 
-
     @Override
     public String toString() {
         String retStr = "Lesson{";

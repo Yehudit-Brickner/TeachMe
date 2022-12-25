@@ -15,9 +15,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.HashSet;
 
 import impl.Lesson;
@@ -25,38 +24,29 @@ import impl.Meeting;
 import interfaces.ILesson;
 import interfaces.IMeeting;
 
-public class LessonDB extends Lesson {
-
-
+public class LessonDB extends Lesson
+{
     protected ArrayList<String> meetingIdList = new ArrayList<>();
     private static final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
-    public LessonDB() {
+    public LessonDB()
+    {
 
     }
 
     public LessonDB(String lessonId, ArrayList<String> meetingIdList) {
         this.lessonId = lessonId;
         this.meetingIdList = new ArrayList<>(meetingIdList);
-        updateMeeting();
     }
 
     public void copyFromOther(LessonDB other) {
         this.lessonId = other.lessonId;
         this.meetingIdList = other.meetingIdList;
         this.meetings = new ArrayList<>();
-        updateMeeting();
     }
 
-    public void updateMeeting() {
-        meetings = new ArrayList<>();
-        for (String str : meetingIdList)
-        {
-            meetings.add(strToMeeting(str));
-        }
-    }
-
-    public static boolean setLessonData(Lesson lesson) {
+    public static boolean setLessonData(Lesson lesson)
+    {
         // TODO: check if the tutor exists
         if (lesson.getTutorId() == null || lesson.getTutorId().isEmpty())
             return false;
@@ -72,9 +62,9 @@ public class LessonDB extends Lesson {
 
         return true;
     }
-
-
-    public static Lesson getLessonFromDB(String Uid, String lessonId) {
+    
+    public static Lesson getLessonFromDB(String Uid, String lessonId)
+    {
         String tag = "LESSONS_DEBUG";
         // for changeing option
         Lesson lesson = new Lesson();
@@ -86,17 +76,18 @@ public class LessonDB extends Lesson {
         if (task.isSuccessful()) {
             DocumentSnapshot document = task.getResult();
             if (document.exists()) {
-                Log.d(tag, "DocumentSnapshot data: " + document.getData().toString());
+
                 Log.d("AUTH_DEBUG", "DocumentSnapshot data: " + document.getData().toString());
                 lesson = document.toObject(Lesson.class);
             } else {
                 Log.d(tag, "No such document");
             }
+
         }
         else {
             Log.d(tag, "get failed with ", task.getException());
         }
-
+        
         return lesson;
     }
 
@@ -108,12 +99,9 @@ public class LessonDB extends Lesson {
         this.meetingIdList = meetingIdList;
     }
 
-    private Meeting strToMeeting(String str)
-    {
-        return new Meeting(str, "");
-    }
 
-    public static ArrayList<Lesson> getLessonsByTutorId(String tutorId) {
+    public static ArrayList<Lesson> getLessonsByTutorId(String tutorId)
+    {
         ArrayList<Lesson> lessons = new ArrayList<>();
         if (tutorId == null || tutorId.isEmpty())
             return lessons;
@@ -134,15 +122,19 @@ public class LessonDB extends Lesson {
         return lessons;
     }
 
-    public static ArrayList<Lesson> getLessonsByName(String lessonName) {
+
+    public static ArrayList<Lesson> getLessonsByName(String lessonName)
+    {
         ArrayList<Lesson> lessons = new ArrayList<>();
         if (lessonName == null || lessonName.isEmpty())
             return lessons;
-        Date d= new Date();
+
         Query lessonsCol = firestore.collectionGroup(IMeeting.DOCK_NAME).whereGreaterThan("startDateTime", Timestamp.now());
-//        Query lessonsCol = firestore.collectionGroup(IMeeting.DOCK_NAME).whereGreaterThan("startDate", d);
+
         Task<QuerySnapshot> task = lessonsCol.get();
+
         DataCenterDB.waitTaskComplete(task);
+
         HashSet<Lesson> lessonHashSet = new HashSet<>();
         if (task.isSuccessful()) {
             for (QueryDocumentSnapshot document : task.getResult()) {
@@ -150,14 +142,17 @@ public class LessonDB extends Lesson {
                 PathParse parser = new PathParse(document.getReference().getPath());
                 if (parser.getDataFromParsed(ILesson.DOCK_NAME) == null || parser.getDataFromParsed(PersonDataDB.COLL_NAME) == null)
                     continue;
+
+
                 if (!parser.getDataFromParsed(ILesson.DOCK_NAME).equals(lessonName))
                     continue;
+
                 lessonHashSet.add(LessonDB.getLessonFromDB(parser.getDataFromParsed(PersonDataDB.COLL_NAME), parser.getDataFromParsed(ILesson.DOCK_NAME)));
             }
         }
         return new ArrayList<>(lessonHashSet);
     }
-
+    
     public static ArrayList<String> getLessonsNames(){
 
 

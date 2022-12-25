@@ -45,6 +45,8 @@ public class PassedClassesStudent extends AppCompatActivity {
         String UID=user.getUid();
         ArrayList<Meeting> meetings= MeetingDB.getStudentMeetings(UID);
 
+        Log.d("AUTH_DEBUG",meetings.toString());
+
         Date date = Calendar.getInstance().getTime();
         // Display a date in day, month, year format
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");

@@ -112,7 +112,7 @@ public class NewLogin extends AppCompatActivity {
                 if (/*isStudent*/ radiobtnS.isChecked() || /*isTutor*/radiobtnT.isChecked()) {
                     System.out.println("pressed the google button");
                     Log.d("AUTH_DEBUG", "pressed the google button");
-                    Log.d("AUTH_DEBUG", "isStudent="+isStudent+" istutor="+isTutor);
+//                    Log.d("AUTH_DEBUG", "isStudent="+isStudent+" istutor="+isTutor);
                     SignIn();
                 } else {
                     System.out.println("pressed the google button");
@@ -127,7 +127,6 @@ public class NewLogin extends AppCompatActivity {
         Intent signInIntent = gsc.getSignInIntent();
         startActivityForResult(signInIntent, 1000);
     }
-
 
 
     @Override
@@ -196,71 +195,8 @@ public class NewLogin extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-
-    {
-//        login.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view) {
-//                Log.d("AUTH_DEBUG", "pressed on login");
-//                if (type>=0) {
-//                    mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
-//                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<AuthResult> task) {
-//
-//                                    if (task.isSuccessful()) {
-//                                        // Sign in success, update UI with the signed-in user's information
-//                                        Log.d("AUTH_DEBUG", "signInWithEmail:success");
-//                                        FirebaseUser user = mAuth.getCurrentUser();
-//                                        updateUI(user);
-//                                        String UID = user.getUid();
-//
-//                                        Log.d("AUTH_DEBUG", "type = "+type);
-//                                        if (type == 0){ // and user is a student
-//
-//                                            Intent i = new Intent(NewLogin.this, StudentHomePage.class);
-//                                            i.putExtra("uid",UID);
-//                                            startActivity(i);
-//                                        }
-//                                        else if (type == 1){ // and user is a tutor
-//                                            Intent i = new Intent(NewLogin.this, TutorHomePage.class);
-//                                            startActivity(i);
-//                                        }
-//                                        else{
-//                                            Log.w("AUTH_DEBUG", "mix matched permissions", task.getException());
-//                                            Toast.makeText(getApplicationContext(), "you tryed signing im as "+""+"\nbut you dont have that permision", Toast.LENGTH_SHORT).show();
-//                                        }
-//
-//                                    }
-//                                    else {
-//                                        // If sign in fails, display a message to the user.
-//                                        Log.w("AUTH_DEBUG", "signInWithEmail:failure", task.getException());
-//                                        Toast.makeText(getApplicationContext(), "Authentication failed\n please check your email and password", Toast.LENGTH_SHORT).show();
-//                                        updateUI(null);
-//                                    }
-//                                }
-//
-//                            });
-//                }
-//                else{
-//                    Toast.makeText(getApplicationContext(), "you need to choose student or tutor", Toast.LENGTH_SHORT).show();
-//                }
-//
-//            }
-//        });
-//
-
-//    }
-}
-
     private void updateUI(FirebaseUser user) {
     }
-
 
 
     private void signout() {

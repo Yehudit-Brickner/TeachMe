@@ -89,11 +89,11 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
                 endtime.setText(m.getTimeEnd());
 
                 TextView iszoom = (TextView) myview.findViewById(R.id.zoom_cir);
-                String z = iszoom.getText().toString() + m.getZoom();
+                String z = iszoom.getText().toString() + m.isZoom();
                 iszoom.setText(z);
 
                 TextView isinperson = (TextView) myview.findViewById(R.id.inperson_cir);
-                String p = isinperson.getText().toString() + m.getInperson();
+                String p = isinperson.getText().toString() + m.isInPerson();
                 isinperson.setText(p);
 
                 TextView price = (TextView) myview.findViewById(R.id.price_cir);

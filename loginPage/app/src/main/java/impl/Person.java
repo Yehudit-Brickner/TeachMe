@@ -85,8 +85,7 @@ public class Person implements IPerson
     }
 
     @Override
-    public Map<String, Object> getPersonMap()
-    {
+    public Map<String, Object> getPersonMap() {
         Map<String, Object> map = new HashMap<>();
         map.put("uID", uID);
         map.put("firstName", firstName);
