@@ -88,7 +88,7 @@
             android:textSize="20sp"></TextView>
 
         <TextView
-            android:id="@+id/fcmi_zoom"
+            android:id="@+id/pcmi_zoom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -98,7 +98,7 @@
             android:textColor="@color/white"></TextView>
 
         <TextView
-            android:id="@+id/fcmi_inperson"
+            android:id="@+id/pcmi_inperson"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -108,7 +108,7 @@
             android:textColor="@color/white"></TextView>
 
         <TextView
-            android:id="@+id/fcmi_city"
+            android:id="@+id/pcmi_city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"

@@ -49,6 +49,18 @@ public class PastClassMoreInfoStudent extends AppCompatActivity {
         TextView price =(TextView)findViewById(R.id.pcmi_price_per_hour);
                 price.setText(price.getText().toString()+ l.getPrice());
 
+
+
+        TextView zoom =(TextView)findViewById(R.id.pcmi_zoom);
+        price.setText(price.getText().toString()+ String.valueOf(m.isZoom()));
+
+        TextView inperson =(TextView)findViewById(R.id.pcmi_inperson);
+        price.setText(price.getText().toString()+ String.valueOf(m.isInPerson()));
+
+        TextView city =(TextView)findViewById(R.id.pcmi_city);
+        price.setText(price.getText().toString()+ m.getCity());
+
+
         ImageButton whatsapp =(ImageButton)findViewById(R.id.whatsappbtn1);
 
         whatsapp.setOnClickListener(new View.OnClickListener(){
