@@ -90,6 +90,36 @@
             android:text="price per hour: "
             android:textColor="@color/white"></TextView>
 
+        <TextView
+            android:id="@+id/fcmi_zoom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textSize="20sp"
+            android:text="can be on zoom: "
+            android:textColor="@color/white"></TextView>
+
+        <TextView
+            android:id="@+id/fcmi_inperson"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textSize="20sp"
+            android:text="can be in person: "
+            android:textColor="@color/white"></TextView>
+
+        <TextView
+            android:id="@+id/fcmi_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textSize="20sp"
+            android:text="city: "
+            android:textColor="@color/white"></TextView>
+
 
     </LinearLayout>
 

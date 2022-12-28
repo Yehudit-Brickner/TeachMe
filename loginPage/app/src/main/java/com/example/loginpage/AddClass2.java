@@ -21,12 +21,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
 import db.LessonDB;
+import db.MeetingDB;
 import impl.DateFunctions;
 import impl.Lesson;
+import impl.Meeting;
 
 public class AddClass2 extends AppCompatActivity {
 
@@ -42,7 +45,11 @@ public class AddClass2 extends AppCompatActivity {
     public Lesson l;
     private DatePickerDialog datePickerDialog;
     private TimePickerDialog timePickerDialog;
+    public ArrayList<Meeting> newMeetings;
+
     int hour, minute;
+    String datetimes1;
+    String datetimee1;
 
     Button Starttime;
     Button Endtime;
@@ -61,65 +68,66 @@ public class AddClass2 extends AppCompatActivity {
 
 
 
+
         add = (Button) findViewById(R.id.add);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("AUTH_DEBUG", "pressed button add in AddClass2");
-                addView();
+                boolean ok= checkPreivius();
+                if (ok) {
+                    addView();
+                }
             }
         });
 
         create = (Button) findViewById(R.id.createbtn);
-
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("AUTH_DEBUG", "pressed button create");
-
-
-                for (int i=0; i<mylayout.getChildCount();i++){
-                    System.out.println(i);
-//                    System.out.println(mylayout.getChildAt(i).toString());
-                    dateButton= mylayout.getChildAt(i).findViewById(R.id.datePickerButton);
-                    System.out.println(dateButton.getText().toString());
-                    Starttime=mylayout.getChildAt(i).findViewById(R.id.timeButtonStart);
-                    Endtime=mylayout.getChildAt(i).findViewById(R.id.timeButtonEnd);
-                    city=mylayout.getChildAt(i).findViewById(R.id.Ecity_acr);
-                    zoom=mylayout.getChildAt(i).findViewById(R.id.checkBox_zoom_acr);
-                    inperson=mylayout.getChildAt(i).findViewById(R.id.checkBox2_inperson_acr);
-
-                }
-
-                mAuth = FirebaseAuth.getInstance();
-                FirebaseUser user = mAuth.getCurrentUser();
-                String UID = user.getUid();
-
-                EditText classname = (EditText) findViewById(R.id.editclass);
-                EditText price = (EditText) findViewById(R.id.Eprice);
-
-                if (classname.getText().toString().equals("") || price.getText().toString().equals("")) {
-                    Toast.makeText(getApplicationContext(), "please fill in the name and price", Toast.LENGTH_LONG).show();
-                    error = true;
-                } else {
-                    l = LessonDB.getLessonFromDB(UID, classname.getText().toString());
-                    if (!l.getLessonId().equals(classname.getText().toString())) {
-                        l = new Lesson(classname.getText().toString(), UID, price.getText().toString(), "");
-                        LessonDB.setLessonData(l);
-                    }
-                    Log.d("AUTH_DEBUG", l.toString());
-                }
-
-
-
-
+                pressedCreate();
             }
         });
 
     }
 
 
+    public boolean checkPreivius(){
+        int count= mylayout.getChildCount();
+        count-=1;
+        error=false;
+        if (count>=0) {
+            dateButton = mylayout.getChildAt(count).findViewById(R.id.datePickerButton);
+//        Log.d("AUTH_DEBUG", dateButton.getText().toString());
+            Starttime = mylayout.getChildAt(count).findViewById(R.id.timeButtonStart);
+//        Log.d("AUTH_DEBUG", Starttime.getText().toString());
+            Endtime = mylayout.getChildAt(count).findViewById(R.id.timeButtonEnd);
+//        Log.d("AUTH_DEBUG", Endtime.getText().toString());
+            city = mylayout.getChildAt(count).findViewById(R.id.Ecity_acr);
+//        Log.d("AUTH_DEBUG", city.getText().toString());
+            zoom = mylayout.getChildAt(count).findViewById(R.id.checkBox_zoom_acr);
+//        Log.d("AUTH_DEBUG", zoom.getText().toString());
+            inperson = mylayout.getChildAt(count).findViewById(R.id.checkBox2_inperson_acr);
+//        Log.d("AUTH_DEBUG", inperson.getText().toString());
 
+            if (dateButton.getText().toString().equals("date") || Starttime.getText().toString().equals("select time") || Endtime.getText().toString().equals("select time")) {
+                error = true;
+                Toast.makeText(getApplicationContext(), "please fill in date and times", Toast.LENGTH_LONG).show();
+            }
+
+            if (inperson.isChecked() == false && zoom.isChecked() == false) {
+                error = true;
+//            message+="please pick a check box. ";
+                Toast.makeText(getApplicationContext(), "please fill in checkbox", Toast.LENGTH_LONG).show();
+            }
+            if (inperson.isChecked() == true && city.getText().toString().equals("")) {
+                error = true;
+//            message+="please fill in city. ";
+                Toast.makeText(getApplicationContext(), "please fill in city", Toast.LENGTH_LONG).show();
+            }
+        }
+        return !error;
+    }
 
     public void addView(){
         View myview = getLayoutInflater().inflate(R.layout.add_class_row2,null,false);
@@ -196,6 +204,90 @@ public class AddClass2 extends AppCompatActivity {
         timePickerDialog.setTitle("Select time");
         timePickerDialog.show();
     }
+
+    public void pressedCreate() {
+        Log.d("AUTH_DEBUG", "pressed button create");
+        boolean ok = checkPreivius();
+        if (ok) {
+            mAuth = FirebaseAuth.getInstance();
+            FirebaseUser user = mAuth.getCurrentUser();
+            String UID = user.getUid();
+            error = false;
+            EditText classname = (EditText) findViewById(R.id.editclass);
+            EditText price = (EditText) findViewById(R.id.Eprice);
+
+            if (classname.getText().toString().equals("") || price.getText().toString().equals("")) {
+                error = true;
+            }
+            else {
+                l = LessonDB.getLessonFromDB(UID, classname.getText().toString());
+                if (!l.getLessonId().equals(classname.getText().toString())) {
+                    l = new Lesson(classname.getText().toString(), UID, price.getText().toString(), "");
+                    LessonDB.setLessonData(l);
+                }
+
+                Log.d("AUTH_DEBUG", l.toString());
+            }
+            newMeetings = new ArrayList<>();
+            if (!error) {
+                for (int i = 0; i < mylayout.getChildCount(); i++) {
+                    System.out.println(i);
+                    Log.d("AUTH_DEBUG", String.valueOf(i));
+                    dateButton = mylayout.getChildAt(i).findViewById(R.id.datePickerButton);
+                    Log.d("AUTH_DEBUG", dateButton.getText().toString());
+                    Starttime = mylayout.getChildAt(i).findViewById(R.id.timeButtonStart);
+                    Log.d("AUTH_DEBUG", Starttime.getText().toString());
+                    Endtime = mylayout.getChildAt(i).findViewById(R.id.timeButtonEnd);
+                    Log.d("AUTH_DEBUG", Endtime.getText().toString());
+                    city = mylayout.getChildAt(i).findViewById(R.id.Ecity_acr);
+                    Log.d("AUTH_DEBUG", city.getText().toString());
+                    zoom = mylayout.getChildAt(i).findViewById(R.id.checkBox_zoom_acr);
+                    Log.d("AUTH_DEBUG", zoom.getText().toString());
+                    inperson = mylayout.getChildAt(i).findViewById(R.id.checkBox2_inperson_acr);
+                    Log.d("AUTH_DEBUG", inperson.getText().toString());
+                    error = false;
+                    if (dateButton.getText().toString().equals("date") || Starttime.getText().toString().equals("select time") || Endtime.getText().toString().equals("select time")) {
+                        error = true;
+                    } else {
+                        if (!dateButton.getText().toString().equals("date") && !Starttime.getText().toString().equals("select time") && !Endtime.getText().toString().equals("select time")) {
+                            datetimes1 = dateButton.getText().toString() + " " + Starttime.getText().toString();
+                            datetimee1 = dateButton.getText().toString() + " " + Endtime.getText().toString();
+                        }
+                    }
+                    if (inperson.isChecked() == false && zoom.isChecked() == false) {
+                        error = true;
+                    }
+                    if (inperson.isChecked() == true && city.getText().toString().equals("")) {
+                        error = true;
+                    }
+                    if (!error) {
+                        Log.d("AUTH_DEBUG", dateButton.getText().toString() + "\n" + datetimes1 + "\n" + datetimee1 + "\n" + String.valueOf(zoom.isChecked()) + "\n" + String.valueOf(inperson.isChecked()));
+                        Meeting m = new Meeting(l.getLessonId(), dateButton.getText().toString(), Starttime.getText().toString(),
+                                dateButton.getText().toString(), Endtime.getText().toString(), UID, zoom.isChecked(),
+                                inperson.isChecked(),city.getText().toString());
+                        Log.d("AUTH_DEBUG", m.toString());
+                        newMeetings.add(m);
+
+                    } else {
+                        Log.d("AUTH_DEBUG", "there was a problem");
+                    }
+                }
+            }
+            if (!error) {
+                for (int i = 0; i < newMeetings.size(); i++) {
+//                    if(checkTimes(newMeetings.get(i))) {
+                        MeetingDB.setMeeting(newMeetings.get(i));
+                        l.addMeeting(newMeetings.get(i));
+//                    }
+                }
+                LessonDB.setLessonData(l);
+                Intent i = new Intent(AddClass2.this, TutorHomePage.class);
+                startActivity(i);
+            }
+
+        }
+    }
+
 
 
 }

@@ -89,7 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="openDatePicker"
-                android:text="01/01/2020"
+                android:text="pick date"
                 android:padding="5dp"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
@@ -137,26 +137,6 @@
             android:orientation="horizontal">
 
 
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Select Time:"
-                android:layout_weight="1"
-                android:textColor="@color/white"
-                android:textSize="20sp"/>
-
-            <Button
-                android:id="@+id/timeButton"
-                style="?android:spinnerStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="popTimePicker"
-                android:text="select time"
-                android:layout_weight="1"
-                android:textColor="@color/white"
-                android:textSize="20sp"/>
 
 <!--            <TextView-->
 <!--                android:id="@+id/zp_search"-->

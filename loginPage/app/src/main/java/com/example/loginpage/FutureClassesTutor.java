@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -41,24 +42,32 @@ public class FutureClassesTutor extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         String UID=user.getUid();
-        ArrayList<Meeting> meetings= MeetingDB.getStudentMeetings(UID);
+        ArrayList<Meeting> meetings= MeetingDB.getTutorMeetings(UID);
 
         Date date = Calendar.getInstance().getTime();
         // Display a date in day, month, year format
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String today = formatter.format(date);
+//        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+//        String today = formatter.format(date);
+        Timestamp now= new Timestamp(date);
+//        String d1= now.toDate().toString();
 
 
 
         for (int i=0; i< meetings.size();i++){
-            try {
-                if(dateisgood(today, meetings.get(i).getDateStart())){
+//            try {
+
+                Timestamp t = meetings.get(i).getStartDateTime();
+//                String d2 = t.toDate().toString();
+
+                if(now.compareTo(t)<0) {
+//                if(dateisgood(today, formatter.format(meetings.get(i).getStartDateTime()))){
                     addView(meetings.get(i));
+//                }
                 }
-            }
-            catch (ParseException e) {
-                e.printStackTrace();
-            }
+//            }
+//            catch (ParseException e) {
+//                e.printStackTrace();
+//            }
         }
 
 
@@ -94,9 +103,9 @@ public class FutureClassesTutor extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i =new Intent(FutureClassesTutor.this, FutureClassMoreInfoTutor.class);
                 i.putExtra("mID",m.getMeetingId());
-;
                 startActivity(i);
-            }      });
+            }
+        });
     }
 
     public boolean dateisgood(String today, String other) throws ParseException {

@@ -43,10 +43,6 @@ public class Search extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
 
-    private TimePickerDialog timePickerDialog;
-    private Button timeButton;
-    int hour, minute;
-
     private ArrayList<String> Pickclasses=new ArrayList<String>();
 
     @Override
@@ -79,9 +75,9 @@ public class Search extends AppCompatActivity {
 
         initDatePicker();
         dateButton = findViewById(R.id.datePickerButton);
-        dateButton.setText(DateFunctions.getTodaysDate());
+        dateButton.setText("pick date");
 
-        timeButton = findViewById(R.id.timeButton);
+
 
         searchbtn=(Button)findViewById(R.id.searchbtn_search);
         searchbtn.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +87,8 @@ public class Search extends AppCompatActivity {
 //                Log.d("AUTH_DEBUG","search: class = "+ pickedClass+", date = "+date.getText().toString());
 
                 if (pickedClass != "" && pickedClass != "class name" && pickedClass!=null) {
-                    if (dateButton.getText().toString().equals("pick date")) {
+                        Log.d("AUTH_DEBUG",dateButton.getText().toString());
+                    if (!dateButton.getText().toString().equals("pick date")) {
                         Intent i = new Intent(Search.this, SearchResults.class);
                         i.putExtra("num","2");
                         i.putExtra("class", pickedClass);
@@ -131,20 +128,6 @@ public class Search extends AppCompatActivity {
 
     public void openDatePicker(View view) {
         datePickerDialog.show();
-    }
-
-    public void popTimePicker(View view) {
-        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
-                hour= selectedHour;
-                minute=selectedMinute;
-                timeButton.setText(String.format(Locale.getDefault(), "%02d:%02d",hour,minute));
-            }
-        };
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this, onTimeSetListener, hour,minute,true);
-        timePickerDialog.setTitle("Select time");
-        timePickerDialog.show();
     }
 
 

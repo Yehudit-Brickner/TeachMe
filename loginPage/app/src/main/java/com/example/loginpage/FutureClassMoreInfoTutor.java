@@ -19,6 +19,12 @@ import impl.Tutor;
 
 public class FutureClassMoreInfoTutor extends AppCompatActivity {
 
+
+    private Meeting m;
+    private Student s;
+    private Tutor t;
+    private Lesson l;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,28 +33,45 @@ public class FutureClassMoreInfoTutor extends AppCompatActivity {
         Intent intent=getIntent();
         String MID = intent.getStringExtra("mID");
 
-        Meeting m= MeetingDB.getMeeting(MID);
-        Student s = PersonDataDB.getStudentFromDB(m.getStudentId());
-        Tutor t = PersonDataDB.getTutorFromDB(m.getTutorId());
-        Lesson l = LessonDB.getLessonFromDB(t.getUID(),m.getLessonId());
+        m= MeetingDB.getMeeting(MID);
+        String sId=m.getStudentId();
+        if(sId!="") {
+            s = PersonDataDB.getStudentFromDB(m.getStudentId());
+        }
+        t = PersonDataDB.getTutorFromDB(m.getTutorId());
+        l = LessonDB.getLessonFromDB(t.getUID(),m.getLessonId());
 
         TextView classname =(TextView)findViewById(R.id.fcmi_classname);
         classname.setText(classname.getText().toString()+ m.getLessonId());
 
-        TextView studentname =(TextView)findViewById(R.id.fcmi_classname);
-        studentname.setText(studentname.getText().toString()+ s.getFirstName()+ " "+s.getLastName() );
-
-        TextView date =(TextView)findViewById(R.id.fcmi_classname);
+        TextView studentname =(TextView)findViewById(R.id.fcmi_studentname);
+        if (sId!="") {
+            studentname.setText(studentname.getText().toString() + s.getFirstName() + " " + s.getLastName());
+        }
+        TextView date =(TextView)findViewById(R.id.fcmi_date);
         date.setText(date.getText().toString()+ m.getDateStart());
 
-        TextView starttime =(TextView)findViewById(R.id.fcmi_classname);
+        TextView starttime =(TextView)findViewById(R.id.fcmi_starttime);
         starttime.setText(starttime.getText().toString()+ m.getTimeStart());
 
-        TextView endtime =(TextView)findViewById(R.id.fcmi_classname);
+        TextView endtime =(TextView)findViewById(R.id.fcmi_endtime);
         endtime.setText(endtime.getText().toString()+m.getTimeEnd() );
 
-        TextView price =(TextView)findViewById(R.id.fcmi_classname);
+        TextView price =(TextView)findViewById(R.id.fcmi_price_per_hour);
         price.setText(price.getText().toString()+ l.getPrice());
+
+        TextView zoom =(TextView)findViewById(R.id.fcmi_price_per_hour);
+        price.setText(price.getText().toString()+ String.valueOf(m.isZoom()));
+
+        TextView inperson =(TextView)findViewById(R.id.fcmi_price_per_hour);
+        price.setText(price.getText().toString()+ String.valueOf(m.isInPerson()));
+
+        TextView city =(TextView)findViewById(R.id.fcmi_price_per_hour);
+        price.setText(price.getText().toString()+ m.getCity());
+
+
+
+
 
         ImageButton whatsapp =(ImageButton)findViewById(R.id.whatsappbtn2);
         whatsapp.setOnClickListener(new View.OnClickListener(){

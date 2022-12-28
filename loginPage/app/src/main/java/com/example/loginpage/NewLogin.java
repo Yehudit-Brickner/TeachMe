@@ -110,12 +110,9 @@ public class NewLogin extends AppCompatActivity {
 
             public void onClick(View view) {
                 if (/*isStudent*/ radiobtnS.isChecked() || /*isTutor*/radiobtnT.isChecked()) {
-                    System.out.println("pressed the google button");
                     Log.d("AUTH_DEBUG", "pressed the google button");
-//                    Log.d("AUTH_DEBUG", "isStudent="+isStudent+" istutor="+isTutor);
                     SignIn();
                 } else {
-                    System.out.println("pressed the google button");
                     Log.d("AUTH_DEBUG", "pressed the google button");
                     Toast.makeText(getApplicationContext(), "you need to pick student or tutor", Toast.LENGTH_LONG).show();
                 }
@@ -131,6 +128,7 @@ public class NewLogin extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultcode, Intent data) {
+        Log.d("AUTH_DEBUG","in func onActivityResult");
         super.onActivityResult(requestCode, resultcode, data);
         if (requestCode == 1000) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);

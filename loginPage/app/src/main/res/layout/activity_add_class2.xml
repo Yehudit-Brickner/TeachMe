@@ -94,7 +94,7 @@
     <ScrollView
         android:id="@+id/scrollView3"
         android:layout_width="400dp"
-        android:layout_height="450dp"
+        android:layout_height="250dp"
         app:layout_constraintBottom_toTopOf="@+id/add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"

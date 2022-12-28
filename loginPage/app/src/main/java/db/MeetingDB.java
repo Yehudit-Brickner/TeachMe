@@ -28,8 +28,7 @@ public class MeetingDB
 {
     private static final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
-    public static ArrayList<Meeting> getMeetingsByTutorAndLessonId(String tutorId, String lessonId)
-    {
+    public static ArrayList<Meeting> getMeetingsByTutorAndLessonId(String tutorId, String lessonId) {
         ArrayList<Meeting> meetings = new ArrayList<>();
         if (tutorId == null || tutorId.isEmpty())
             return meetings;
@@ -94,8 +93,6 @@ public class MeetingDB
         }
         return meetings;
     }
-
-
 
 
     public static ArrayList<Meeting> getTutorMeetings(String TutorId){

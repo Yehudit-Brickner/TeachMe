@@ -16,8 +16,7 @@ public class PersonDataDB
     private static final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     final static String COLL_NAME = "users";
 
-    public static Tutor getTutorFromDB(String uID)
-    {
+    public static Tutor getTutorFromDB(String uID) {
         DocumentReference docRef = firestore.collection(COLL_NAME).document(uID);
 
         Task<DocumentSnapshot> task = docRef.get();
@@ -38,8 +37,7 @@ public class PersonDataDB
         return document.toObject(Tutor.class);
     }
 
-    public static Student getStudentFromDB(String uID)
-    {
+    public static Student getStudentFromDB(String uID) {
         DocumentReference docRef = firestore.collection(COLL_NAME).document(uID);
 
         Task<DocumentSnapshot> task = docRef.get();

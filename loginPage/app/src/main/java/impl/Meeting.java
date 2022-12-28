@@ -24,13 +24,14 @@ public class Meeting implements IMeeting, Comparable<Meeting>
     protected String timeStart;
     protected String dateEnd;
     protected String timeEnd;
-
+//    protected String date;
     protected Timestamp startDateTime;
     protected Timestamp endDateTime;
     protected String tutorId;
     protected String studentId;
     protected boolean zoom;
     protected boolean inPerson;
+    protected String city;
 
 
     public Meeting()
@@ -38,17 +39,19 @@ public class Meeting implements IMeeting, Comparable<Meeting>
     }
 
     public Meeting(String lessonId, String dateStart, String timeStart, String dateEnd,
-
-                   String timeEnd,String tutorId, boolean zoom, boolean inPerson) {
+                   String timeEnd,String tutorId, boolean zoom, boolean inPerson, String city) {
 
         this.lessonId=lessonId;
         this.meetingId ="";
         setStart(dateStart, timeStart);
         setEnd(dateEnd, timeEnd);
+        this.dateStart=dateStart;
+        this.dateEnd=dateEnd;
         this.tutorId = tutorId;
         this.studentId = "";
         this.zoom = zoom;
         this.inPerson = inPerson;
+        this.city=city;
     }
     
     @Override
@@ -101,13 +104,11 @@ public class Meeting implements IMeeting, Comparable<Meeting>
         return lessonId;
     }
 
-    private void setStart(String date, String time)
-    {
+    private void setStart(String date, String time) {
         startDateTime = new Timestamp(getDate(date + " " + time));
     }
 
-    private void setEnd(String date, String time)
-    {
+    private void setEnd(String date, String time) {
         endDateTime = new Timestamp(getDate(date + " " + time));
     }
 
@@ -164,6 +165,10 @@ public class Meeting implements IMeeting, Comparable<Meeting>
 
     }
 
+    public String getCity() {
+        return city;
+    }
+
     @Override
     public String toString() {
         return "Meeting{" +
@@ -196,8 +201,7 @@ public class Meeting implements IMeeting, Comparable<Meeting>
 
 
 
-    public Map<String, Object> toMap()
-    {
+    public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
         map.put("meetingId", meetingId);
         map.put("startDateTime", startDateTime);
