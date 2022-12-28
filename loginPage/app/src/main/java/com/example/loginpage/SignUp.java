@@ -111,7 +111,7 @@ public class SignUp extends AppCompatActivity {
                             lname.getText().toString(),
                             acct.getEmail(),phone.getText().toString());
                     setPersonData(p,isTutor,isStudent);
-                    startActivity(new Intent(SignUp.this,NewLogin.class));
+                    startActivity(new Intent(SignUp.this, Login.class));
                 }
                 else{
                     System.out.println("pressed the google button");
@@ -217,7 +217,7 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onComplete( Task<Void> task) {
                 finish();
-                startActivity(new Intent(SignUp.this,NewLogin.class));
+                startActivity(new Intent(SignUp.this, Login.class));
             }
         });
     }

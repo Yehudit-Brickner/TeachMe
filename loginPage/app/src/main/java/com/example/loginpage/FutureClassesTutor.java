@@ -83,7 +83,6 @@ public class FutureClassesTutor extends AppCompatActivity {
         TextView sn= (TextView)myview.findViewById(R.id.StudentName_rcdt);
 
 
-
         TextView date= (TextView)myview.findViewById(R.id.Date_rcdt);
         date.setText(m.getDateStart());
 

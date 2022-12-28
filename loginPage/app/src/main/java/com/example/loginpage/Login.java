@@ -6,10 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -21,8 +19,6 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.annotation.NonNull;
 
 import android.widget.Toast;
@@ -33,12 +29,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import db.PersonDataDB;
-import impl.Person;
 import impl.Student;
 import impl.Tutor;
 
 
-public class NewLogin extends AppCompatActivity {
+public class Login extends AppCompatActivity {
 
     public FirebaseFirestore firestore;
     private FirebaseAuth mAuth;
@@ -55,7 +50,7 @@ public class NewLogin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_login);
+        setContentView(R.layout.activity_login);
 
         // variables used
         mAuth = FirebaseAuth.getInstance();
@@ -67,7 +62,7 @@ public class NewLogin extends AppCompatActivity {
         googleLogin = (ImageButton) (findViewById(R.id.googleBtnLogin));
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
-        gsc = GoogleSignIn.getClient(NewLogin.this, gso);
+        gsc = GoogleSignIn.getClient(Login.this, gso);
         isStudent=false;
         isTutor=false;
 
@@ -166,11 +161,11 @@ public class NewLogin extends AppCompatActivity {
                             Tutor t = PersonDataDB.getTutorFromDB(UID);
                             if (t!=null || s!=null) {
                                 if (/*isStudent*/radiobtnS.isChecked() && s!=null) {
-                                    Intent intent = new Intent(NewLogin.this, StudentHomePage.class);
+                                    Intent intent = new Intent(Login.this, StudentHomePage.class);
                                     intent.putExtra("uid", UID);
                                     startActivity(intent);
                                 } else if (/*isTutor*/radiobtnT.isChecked() && t!=null) {
-                                    Intent intent = new Intent(NewLogin.this, TutorHomePage.class);
+                                    Intent intent = new Intent(Login.this, TutorHomePage.class);
                                     intent.putExtra("uid", UID);
                                     startActivity(intent);
                                 }
@@ -179,7 +174,7 @@ public class NewLogin extends AppCompatActivity {
                                 }
                             }
                             else{
-                                Intent intent = new Intent(NewLogin.this, SignUp.class);
+                                Intent intent = new Intent(Login.this, SignUp.class);
                                 startActivity(intent);
                             }
                         } else {

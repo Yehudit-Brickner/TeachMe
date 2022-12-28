@@ -50,14 +50,14 @@ public class FutureClassMoreInfoStudent extends AppCompatActivity {
                 price.setText(price.getText().toString()+ l.getPrice() );
 
 
-        TextView zoom =(TextView)findViewById(R.id.fcmi_price_per_hour);
-        price.setText(price.getText().toString()+ String.valueOf(m.isZoom()));
+        TextView zoom =(TextView)findViewById(R.id.fcmi_zoom);
+        price.setText(zoom.getText().toString()+ String.valueOf(m.isZoom()));
 
-        TextView inperson =(TextView)findViewById(R.id.fcmi_price_per_hour);
-        price.setText(price.getText().toString()+ String.valueOf(m.isInPerson()));
+        TextView inperson =(TextView)findViewById(R.id.fcmi_inperson);
+        price.setText(inperson.getText().toString()+ String.valueOf(m.isInPerson()));
 
-        TextView city =(TextView)findViewById(R.id.fcmi_price_per_hour);
-        price.setText(price.getText().toString()+ m.getCity());
+        TextView city =(TextView)findViewById(R.id.fcmi_city);
+        price.setText(city.getText().toString()+ m.getCity());
 
 
         ImageButton whatsapp =(ImageButton)findViewById(R.id.whatsappbtn2);

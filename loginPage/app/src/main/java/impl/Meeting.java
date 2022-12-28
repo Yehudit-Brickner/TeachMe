@@ -32,6 +32,7 @@ public class Meeting implements IMeeting, Comparable<Meeting>
     protected boolean zoom;
     protected boolean inPerson;
     protected String city;
+    protected String summary;
 
 
     public Meeting()
@@ -52,6 +53,7 @@ public class Meeting implements IMeeting, Comparable<Meeting>
         this.zoom = zoom;
         this.inPerson = inPerson;
         this.city=city;
+        this.summary="";
     }
     
     @Override
@@ -163,6 +165,14 @@ public class Meeting implements IMeeting, Comparable<Meeting>
     public void setInPerson(boolean inPerson) {
         this.inPerson = inPerson;
 
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
     public String getCity() {

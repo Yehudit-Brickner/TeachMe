@@ -95,7 +95,7 @@ public class TutorHomePage extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d("AUTH_DEBUG","pressed button signout- tutor");
                 signOut();
-                Intent i =new Intent(TutorHomePage.this, NewLogin.class);
+                Intent i =new Intent(TutorHomePage.this, Login.class);
                 startActivity(i);
             }
         });

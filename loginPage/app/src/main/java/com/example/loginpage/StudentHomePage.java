@@ -93,7 +93,7 @@ public class StudentHomePage extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d("AUTH_DEBUG","pressed button signout- student");
                 signOut();
-                Intent i =new Intent(StudentHomePage.this, NewLogin.class);
+                Intent i =new Intent(StudentHomePage.this, Login.class);
                 startActivity(i);
             }
         });

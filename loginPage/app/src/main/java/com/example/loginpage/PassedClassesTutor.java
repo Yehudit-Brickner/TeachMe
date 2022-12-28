@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -22,8 +23,10 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 
+import db.LessonDB;
 import db.MeetingDB;
 import db.PersonDataDB;
+import impl.Lesson;
 import impl.Meeting;
 import impl.Student;
 import impl.Tutor;
@@ -46,35 +49,46 @@ public class PassedClassesTutor extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         String UID=user.getUid();
-        ArrayList<Meeting> meetings= MeetingDB.getStudentMeetings(UID);
+        ArrayList<Meeting> meetings= MeetingDB.getTutorMeetings(UID);
 
         Date date = Calendar.getInstance().getTime();
         // Display a date in day, month, year format
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String today = formatter.format(date);
+//        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+//        String today = formatter.format(date);
+        Timestamp now= new Timestamp(date);
 
 
         for (int i=0; i< meetings.size();i++){
-            try {
-                if(dateisgood(today, meetings.get(i).getDateStart())){
-                    addView(meetings.get(i));
-                }
-            }
-            catch (ParseException e) {
-                e.printStackTrace();
+            Timestamp t = meetings.get(i).getStartDateTime();
+            if(now.compareTo(t)>0) {
+                addView(meetings.get(i));
             }
         }
+//            try {
+//                if(dateisgood(today, meetings.get(i).getDateStart())){
+//                    addView(meetings.get(i));
+//                }
+//            }
+//            catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     public void addView(Meeting m){
         View myview = getLayoutInflater().inflate(R.layout.row_class_data_tutor,null,false);
 
+
         TextView cn= (TextView)myview.findViewById(R.id.ClassName_rcdt);
-        cn.setText(m.getMeetingId());
+        cn.setText(m.getLessonId());
 
         TextView sn= (TextView)myview.findViewById(R.id.StudentName_rcdt);
-        Student s= PersonDataDB.getStudentFromDB(m.getStudentId());
-        sn.setText(s.getFirstName()+ " "+ s.getLastName());
+        if(m.getStudentId()!="" && m.getStudentId()!=null) {
+            Student s = PersonDataDB.getStudentFromDB(m.getStudentId());
+            if (s != null) {
+                sn.setText(s.getFirstName() + " " + s.getLastName());
+            }
+        }
 
         TextView date= (TextView)myview.findViewById(R.id.Date_rcdt);
         date.setText(m.getDateStart());
