@@ -23,6 +23,12 @@ public class TutorHomePage extends AppCompatActivity {
 
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
+    GoogleSignInAccount acct;
+    ImageButton profile;
+    Button add;
+    Button pastclasses;
+    Button futureclasses;
+    Button signout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

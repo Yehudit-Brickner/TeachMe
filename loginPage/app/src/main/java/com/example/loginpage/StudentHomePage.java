@@ -24,7 +24,12 @@ public class StudentHomePage extends AppCompatActivity {
     private FirebaseFirestore firestore;
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
-
+    GoogleSignInAccount acct;
+    public ImageButton profile;
+    public Button search;
+    public Button passed;
+    public Button upcoming;
+    public Button signout;
 
 
     @Override
@@ -36,7 +41,7 @@ public class StudentHomePage extends AppCompatActivity {
         gsc = GoogleSignIn.getClient(StudentHomePage.this,gso);
 
         TextView studentName = (TextView) findViewById(R.id.name);
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        acct = GoogleSignIn.getLastSignedInAccount(this);
         if(acct!=null){
             String personName = acct.getDisplayName();
             String s=studentName.getText().toString()+personName;
