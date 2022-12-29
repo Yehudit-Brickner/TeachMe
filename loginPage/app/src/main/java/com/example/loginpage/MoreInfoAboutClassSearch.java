@@ -27,13 +27,24 @@ import impl.Tutor;
 public class MoreInfoAboutClassSearch extends AppCompatActivity {
 
     public FirebaseAuth mAuth;
-    private TextView classname;
-    private TextView tutorname;
+    public TextView classname;
+    public TextView tutorname;
     public LinearLayout layoutlist;
     public Lesson mylesson;
-    String Lid;
-    String Tid;
+    public String Lid;
+    public String Tid;
     public  ArrayList<Meeting> myMeetings1;
+    public Tutor mytutor;
+    public View myview;
+    public TextView date;
+    public TextView starttime;
+    public TextView endtime;
+    public TextView iszoom;
+    public TextView isinperson;
+    public TextView price;
+    public TextView acceptclass;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +61,7 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
         mylesson= LessonDB.getLessonFromDB(Tid,Lid);
 
         Log.d("AUTH_DEBUG","more info, "+mylesson.toString());
-        Tutor mytutor= PersonDataDB.getTutorFromDB(Tid);
+        mytutor= PersonDataDB.getTutorFromDB(Tid);
 
         classname=(TextView)findViewById(R.id.classname_moreinfo);;
         classname.setText(Lid);
@@ -77,29 +88,29 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
 
             if (m.getStudentId()!="" || m.getStudentId()!=null) {
 
-                View myview = getLayoutInflater().inflate(R.layout.more_info_about_class_search_row, null, false);
+                myview = getLayoutInflater().inflate(R.layout.more_info_about_class_search_row, null, false);
 
-                TextView date = (TextView) myview.findViewById(R.id.date_cir);
+                date = (TextView) myview.findViewById(R.id.date_cir);
                 date.setText(m.getDateStart());
 
-                TextView starttime = (TextView) myview.findViewById(R.id.starttime_cir);
+                starttime = (TextView) myview.findViewById(R.id.starttime_cir);
                 starttime.setText(m.getTimeStart());
 
-                TextView endtime = (TextView) myview.findViewById(R.id.endtime_cir);
+                endtime = (TextView) myview.findViewById(R.id.endtime_cir);
                 endtime.setText(m.getTimeEnd());
 
-                TextView iszoom = (TextView) myview.findViewById(R.id.zoom_cir);
+                iszoom = (TextView) myview.findViewById(R.id.zoom_cir);
                 String z = iszoom.getText().toString() + m.isZoom();
                 iszoom.setText(z);
 
-                TextView isinperson = (TextView) myview.findViewById(R.id.inperson_cir);
+                isinperson = (TextView) myview.findViewById(R.id.inperson_cir);
                 String p = isinperson.getText().toString() + m.isInPerson();
                 isinperson.setText(p);
 
-                TextView price = (TextView) myview.findViewById(R.id.price_cir);
+                price = (TextView) myview.findViewById(R.id.price_cir);
                 price.setText(mylesson.getPrice());
 
-                TextView acceptclass = (TextView) myview.findViewById(R.id.signupToClass);
+                acceptclass = (TextView) myview.findViewById(R.id.signupToClass);
 
                 acceptclass.setOnClickListener(new View.OnClickListener() {
                     @Override

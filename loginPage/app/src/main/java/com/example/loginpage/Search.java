@@ -35,14 +35,14 @@ public class Search extends AppCompatActivity {
 
 
 
-    private Button searchbtn;
-    private String pickedClass;
-    private Spinner classlist;
+    public Button searchbtn;
+    public String pickedClass;
+    public Spinner classlist;
 
-    private DatePickerDialog datePickerDialog;
-    private Button dateButton;
+    public DatePickerDialog datePickerDialog;
+    public Button dateButton;
 
-    private ArrayList<String> Pickclasses=new ArrayList<String>();
+    public ArrayList<String> Pickclasses=new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

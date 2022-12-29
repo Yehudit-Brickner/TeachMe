@@ -31,8 +31,12 @@ public class SearchResults extends AppCompatActivity {
     public String pickedclass;
     public String pickeddate;
     public String myNumber;
+    public View myview;
+    public TextView classname;
+    public TextView tutorname;
+    public Tutor t;
+    public Button moreinfo;
 
-//    @SuppressLint("MissingInflatedId")
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +56,6 @@ public class SearchResults extends AppCompatActivity {
             pickedclass=intent.getStringExtra("class");
             pickeddate=intent.getStringExtra("date");
             Log.d("AUTH_DEBUG","search results: mynumber= "+myNumber+" class = "+ pickedclass+", date = "+pickeddate);
-//            lessons = searchForClassesDate(pickedclass,pickeddate);
             lessons = LessonDB.getLessonsByName(pickedclass);
         }
         else{
@@ -74,16 +77,16 @@ public class SearchResults extends AppCompatActivity {
 
     public void addView(Lesson l){
 
-        View myview = getLayoutInflater().inflate(R.layout.row_search_results,null,false);
+        myview = getLayoutInflater().inflate(R.layout.row_search_results,null,false);
 
-        TextView cn= (TextView)myview.findViewById(R.id.ClassName_sr);
-        cn.setText(l.getLessonId());
+        classname= (TextView)myview.findViewById(R.id.ClassName_sr);
+        classname.setText(l.getLessonId());
 
-        TextView tn=(TextView)myview.findViewById(R.id.TutorName_sr);
-        Tutor t= PersonDataDB.getTutorFromDB(l.getTutorId());
-        tn.setText(t.getFirstName()+" "+t.getLastName());
+        tutorname=(TextView)myview.findViewById(R.id.TutorName_sr);
+        t= PersonDataDB.getTutorFromDB(l.getTutorId());
+        tutorname.setText(t.getFirstName()+" "+t.getLastName());
 
-        Button moreinfo=(Button) myview.findViewById(R.id.moreinfo_sr);
+        moreinfo=(Button) myview.findViewById(R.id.moreinfo_sr);
 
         moreinfo.setOnClickListener(new View.OnClickListener() {
             @Override
