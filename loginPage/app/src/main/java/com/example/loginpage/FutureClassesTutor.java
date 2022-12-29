@@ -24,13 +24,28 @@ import java.util.Collections;
 import java.util.Date;
 
 import db.MeetingDB;
+import db.PersonDataDB;
 import impl.Meeting;
+import impl.Student;
 
 public class FutureClassesTutor extends AppCompatActivity {
 
     public FirebaseFirestore firestore;
     private FirebaseAuth mAuth;
     public LinearLayout layoutlist;
+    public FirebaseUser user;
+    public String UID;
+    public ArrayList<Meeting> meetings;
+    public Date date;
+    public Timestamp now;
+    public View myview;
+    public TextView classname;
+    public TextView studentname;
+    public TextView textdate;
+    public TextView starttime;
+    public TextView endtime;
+    public Button moreinfo;
+    public Student s;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,34 +55,21 @@ public class FutureClassesTutor extends AppCompatActivity {
         layoutlist=findViewById(R.id.layout_list);
 
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
-        String UID=user.getUid();
-        ArrayList<Meeting> meetings= MeetingDB.getTutorMeetings(UID);
+        user = mAuth.getCurrentUser();
+        UID=user.getUid();
+        meetings= MeetingDB.getTutorMeetings(UID);
 
-        Date date = Calendar.getInstance().getTime();
-        // Display a date in day, month, year format
-//        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-//        String today = formatter.format(date);
-        Timestamp now= new Timestamp(date);
-//        String d1= now.toDate().toString();
+        date = Calendar.getInstance().getTime();
+        now= new Timestamp(date);
+
 
 
 
         for (int i=0; i< meetings.size();i++){
-//            try {
-
-                Timestamp t = meetings.get(i).getStartDateTime();
-//                String d2 = t.toDate().toString();
-
-                if(now.compareTo(t)<0) {
-//                if(dateisgood(today, formatter.format(meetings.get(i).getStartDateTime()))){
-                    addView(meetings.get(i));
-//                }
-                }
-//            }
-//            catch (ParseException e) {
-//                e.printStackTrace();
-//            }
+            Timestamp t = meetings.get(i).getStartDateTime();
+            if(now.compareTo(t)<0) {
+                addView(meetings.get(i));
+            }
         }
 
 
@@ -75,25 +77,30 @@ public class FutureClassesTutor extends AppCompatActivity {
 
 
     public void addView(Meeting m){
-        View myview = getLayoutInflater().inflate(R.layout.row_class_data_tutor,null,false);
+        myview = getLayoutInflater().inflate(R.layout.row_class_data_tutor,null,false);
 
-        TextView cn= (TextView)myview.findViewById(R.id.ClassName_rcdt);
-        cn.setText(m.getLessonId());
+        classname= (TextView)myview.findViewById(R.id.ClassName_rcdt);
+        classname.setText(m.getLessonId());
 
-        TextView sn= (TextView)myview.findViewById(R.id.StudentName_rcdt);
+        studentname= (TextView)myview.findViewById(R.id.StudentName_rcdt);
+        if(m.getStudentId()!="" && m.getStudentId()!=null) {
+            s = PersonDataDB.getStudentFromDB((m.getStudentId()));
+            if (s != null) {
+                studentname.setText(s.getFirstName() + " " + s.getLastName());
+            }
+        }
 
 
-        TextView date= (TextView)myview.findViewById(R.id.Date_rcdt);
-        date.setText(m.getDateStart());
+        textdate= (TextView)myview.findViewById(R.id.Date_rcdt);
+        textdate.setText(m.getDateStart());
 
-        TextView st= (TextView)myview.findViewById(R.id.StartTime_rcdt);
-        st.setText(m.getTimeStart());
+        starttime= (TextView)myview.findViewById(R.id.StartTime_rcdt);
+        starttime.setText(m.getTimeStart());
 
-        TextView et= (TextView)myview.findViewById(R.id.EndTime_rcdt);
-        et.setText(m.getTimeEnd());
+        endtime= (TextView)myview.findViewById(R.id.EndTime_rcdt);
+        endtime.setText(m.getTimeEnd());
 
-        Button moreinfo=(Button)myview.findViewById(R.id.moreinfo_rcdt);
-
+        moreinfo=(Button)myview.findViewById(R.id.moreinfo_rcdt);
 
         layoutlist.addView(myview);
 

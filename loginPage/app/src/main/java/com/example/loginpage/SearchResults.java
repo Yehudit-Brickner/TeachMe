@@ -50,7 +50,7 @@ public class SearchResults extends AppCompatActivity {
         }
         else if( myNumber.equals("2")){
             pickedclass=intent.getStringExtra("class");
-           pickeddate=intent.getStringExtra("date");
+            pickeddate=intent.getStringExtra("date");
             Log.d("AUTH_DEBUG","search results: mynumber= "+myNumber+" class = "+ pickedclass+", date = "+pickeddate);
 //            lessons = searchForClassesDate(pickedclass,pickeddate);
             lessons = LessonDB.getLessonsByName(pickedclass);

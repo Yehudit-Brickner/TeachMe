@@ -31,7 +31,14 @@ public class PassedClassesStudent extends AppCompatActivity {
 
     public LinearLayout layoutlist;
     public FirebaseFirestore firestore;
-    private FirebaseAuth mAuth;
+    public FirebaseAuth mAuth;
+    public FirebaseUser user;
+    public String UID;
+    public ArrayList<Meeting> meetings;
+    Date date;
+    String today;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +48,16 @@ public class PassedClassesStudent extends AppCompatActivity {
         layoutlist=findViewById(R.id.layout_list);
 
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
-        String UID=user.getUid();
-        ArrayList<Meeting> meetings= MeetingDB.getStudentMeetings(UID);
+        user = mAuth.getCurrentUser();
+        UID=user.getUid();
+        meetings= MeetingDB.getStudentMeetings(UID);
 
         Log.d("AUTH_DEBUG",meetings.toString());
 
-        Date date = Calendar.getInstance().getTime();
+        date = Calendar.getInstance().getTime();
         // Display a date in day, month, year format
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String today = formatter.format(date);
+        today = formatter.format(date);
 
 
         for (int i=0; i< meetings.size();i++){
@@ -69,21 +76,21 @@ public class PassedClassesStudent extends AppCompatActivity {
     public void addView(Meeting m){
         View myview = getLayoutInflater().inflate(R.layout.row_class_data_student,null,false);
 
-        TextView cn= (TextView)myview.findViewById(R.id.ClassName_rcds);
-        cn.setText(m.getLessonId());
+        TextView classname= (TextView)myview.findViewById(R.id.ClassName_rcds);
+        classname.setText(m.getLessonId());
 
-        TextView tn= (TextView)myview.findViewById(R.id.TutorName_rcds);
+        TextView tutorname= (TextView)myview.findViewById(R.id.TutorName_rcds);
         Tutor t= PersonDataDB.getTutorFromDB(m.getTutorId());
-        tn.setText(t.getFirstName()+ " "+ t.getLastName());
+        tutorname.setText(t.getFirstName()+ " "+ t.getLastName());
 
         TextView date= (TextView)myview.findViewById(R.id.Date_rcds);
         date.setText(m.getDateStart());
 
-        TextView st= (TextView)myview.findViewById(R.id.StartTime_rcds);
-        st.setText(m.getTimeStart());
+        TextView starttime= (TextView)myview.findViewById(R.id.StartTime_rcds);
+        starttime.setText(m.getTimeStart());
 
-        TextView et= (TextView)myview.findViewById(R.id.EndTime_rcds);
-        et.setText(m.getTimeEnd());
+        TextView endtime= (TextView)myview.findViewById(R.id.EndTime_rcds);
+        endtime.setText(m.getTimeEnd());
 
         Button moreinfo=(Button)myview.findViewById(R.id.moreinfo_rcds);
 

@@ -36,9 +36,8 @@ public class Search extends AppCompatActivity {
 
 
     private Button searchbtn;
-    public String pickedClass;
+    private String pickedClass;
     private Spinner classlist;
-
 
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
