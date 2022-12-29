@@ -70,7 +70,7 @@ public class FutureClassesStudent extends AppCompatActivity {
                 addView(meetings.get(i));
             }
         }
-        
+
 
     }
 

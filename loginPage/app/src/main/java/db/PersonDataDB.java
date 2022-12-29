@@ -84,6 +84,18 @@ public class PersonDataDB
         usersCollection.document(person.getUID()).set(map);
     }
 
+
+    public static void updatePersonDataDB(IPerson person, boolean is_tutor, boolean is_student) {
+        if (person.getUID() == null || person.getUID().isEmpty())
+            return;
+
+        CollectionReference usersCollection = FirebaseFirestore.getInstance().collection(COLL_NAME);
+        Map<String, Object> map = person.getPersonMap();
+        map.put("is_tutor", is_tutor);
+        map.put("is_student", is_student);
+        usersCollection.document(person.getUID()).update(map);
+    }
+
     public static boolean isGoodPersonData(IPerson person)
     {
         if (person == null)
@@ -93,4 +105,9 @@ public class PersonDataDB
                 && !person.getEmail().isEmpty() && !person.getPhoneNumber().isEmpty());
     }
 
+
+    public static void updatePersonData(String UID, String fname, String lname, String phone, String email, boolean isS, boolean isT){
+        Person person =new Person( UID,fname,lname,phone,email);
+        updatePersonDataDB(person,isS,isT);
+    }
 }

@@ -25,12 +25,14 @@ public class StudentUpdateInfo extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore;
+    private FirebaseUser user;
     private EditText fname;
     private EditText lname;
     private EditText phone;
     private CheckBox addpermision;
     private Button update;
     private String UID;
+    private Student s;
     private boolean isTutor=false;
 
 
@@ -40,10 +42,10 @@ public class StudentUpdateInfo extends AppCompatActivity {
         setContentView(R.layout.activity_student_update_info);
 
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
+        user = mAuth.getCurrentUser();
         firestore = FirebaseFirestore.getInstance();
         UID = user.getUid();
-        Student s= PersonDataDB.getStudentFromDB(UID);
+        s= PersonDataDB.getStudentFromDB(UID);
 
         fname=(EditText)findViewById(R.id.editfName);
         fname.setText(s.getFirstName());
@@ -55,7 +57,10 @@ public class StudentUpdateInfo extends AppCompatActivity {
         phone.setText(s.getPhoneNumber());
 
         addpermision=(CheckBox)findViewById(R.id.addPermisionToStudent);
-
+        if(PersonDataDB.getTutorFromDB(UID)!=null){
+            addpermision.setChecked(true);
+            isTutor=true;
+        }
         update=(Button) findViewById(R.id.updateStudent);
 
 
@@ -63,12 +68,15 @@ public class StudentUpdateInfo extends AppCompatActivity {
         addpermision.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isTutor){
-                    isTutor=true;
+                if (!isTutor) {
+                    if (addpermision.isChecked()) {
+                        addpermision.setChecked(false);
+                    } else {
+                        addpermision.setChecked(true);
+                    }
                 }
                 else{
-                    isTutor=false;
-                    addpermision.setChecked(false);
+                    addpermision.setChecked(true);
                 }
             }
         });
@@ -78,8 +86,8 @@ public class StudentUpdateInfo extends AppCompatActivity {
         update.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "this feature will be coming soon!", Toast.LENGTH_LONG).show();
-//                updateStudentInfo(UID,fname.getText().toString(),lname.getText().toString(),phone.getText().toString(),true,isTutor);
+//                Toast.makeText(getApplicationContext(), "this feature will be coming soon!", Toast.LENGTH_LONG).show();
+                PersonDataDB.updatePersonData(UID,fname.getText().toString(),lname.getText().toString(),phone.getText().toString(),s.getEmail(),true,isTutor);
                 Intent i =new Intent(StudentUpdateInfo.this, StudentHomePage.class);
                 startActivity(i);
             }
