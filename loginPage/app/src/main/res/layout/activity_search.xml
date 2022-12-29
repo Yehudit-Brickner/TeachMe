@@ -70,18 +70,6 @@
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 
-            <!--            <EditText-->
-            <!--                android:id="@+id/choosedate_search"-->
-            <!--                android:layout_width="0dp"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_weight="1"-->
-            <!--                android:inputType="date"-->
-            <!--                android:hint="dd/mm/yyyy"-->
-            <!--                android:textColorHint="#786A6A"-->
-            <!--                android:padding="5dp"-->
-            <!--                android:textColor="@color/white"-->
-            <!--                android:textSize="25sp" />-->
-
             <Button
                 android:layout_weight="1"
                 android:id="@+id/datePickerButton"
@@ -98,6 +86,8 @@
 
 
         </LinearLayout>
+
+
 
         <LinearLayout
             android:layout_width="match_parent"

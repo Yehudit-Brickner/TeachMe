@@ -3,6 +3,8 @@ package com.example.loginpage;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -91,10 +93,36 @@ public class FutureClassMoreInfoTutor extends AppCompatActivity {
         whatsapp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "this feature will be coming soon!", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "this feature will be coming soon!", Toast.LENGTH_LONG).show();
+                boolean installed=isAppInstaled("com.whatsapp");
+
+                if(installed){
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    String num="+972587691411";
+                    String text="hello world";
+                    intent.setData(Uri.parse("http://whatsapp.com/send?phone="+num+"&text="+text));
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "sorry, you don't have whatsapp", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
 
+    }
+
+    public boolean isAppInstaled(String s){
+        PackageManager packageManager = getPackageManager();
+        boolean isInstalled;
+        try{
+            packageManager.getPackageInfo(s,packageManager.GET_ACTIVITIES);
+            isInstalled=true;
+        } catch (PackageManager.NameNotFoundException e) {
+            isInstalled=false;
+            e.printStackTrace();
+        }
+    return isInstalled;
     }
 }

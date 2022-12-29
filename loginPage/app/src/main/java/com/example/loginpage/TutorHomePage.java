@@ -64,7 +64,7 @@ public class TutorHomePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("AUTH_DEBUG","pressed button add");
-                Intent i =new Intent(TutorHomePage.this, AddClass2.class);
+                Intent i =new Intent(TutorHomePage.this, AddClass.class);
                 startActivity(i);
             }
         });
