@@ -118,18 +118,7 @@ public class PassedClassesTutor extends AppCompatActivity {
     }
 
 
-    public boolean dateisgood(String today, String other) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date d1 = sdf.parse(today);
-        Date d2=sdf.parse(other);
-        if (d1.before(d2)) {
-            return false;
-        } else if (d1.after(d2)) {
-            return true;
-        } else {
-            return true;
-        }
-    }
+
 
 
 

@@ -14,8 +14,7 @@ public class PathParse
         mapPathVals = parsePath(path);
     }
 
-    private Map<String, String> parsePath(String path)
-    {
+    private Map<String, String> parsePath(String path) {
         ArrayList<String> dataParsed = new ArrayList<>(Arrays.asList(path.split("[/]")));
         Map<String, String> mapParsed = new HashMap<>();
 

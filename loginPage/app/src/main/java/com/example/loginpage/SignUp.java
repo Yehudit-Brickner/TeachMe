@@ -1,6 +1,6 @@
 package com.example.loginpage;
 
-import static db.SignUpDB.setPersonData;
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import db.PersonDataDB;
 import impl.Person;
 import interfaces.IPerson;
 
@@ -110,7 +111,7 @@ public class SignUp extends AppCompatActivity {
                     IPerson p = new Person(UID,fname.getText().toString(),
                             lname.getText().toString(),
                             acct.getEmail(),phone.getText().toString());
-                    setPersonData(p,isTutor,isStudent);
+                    PersonDataDB.setPersonData(p,isTutor,isStudent);
                     startActivity(new Intent(SignUp.this, Login.class));
                 }
                 else{
@@ -163,7 +164,7 @@ public class SignUp extends AppCompatActivity {
                             IPerson p = new Person(UID,fname.getText().toString(),
                                     lname.getText().toString(),
                                     acct.getEmail(),phone.getText().toString());
-                            setPersonData(p,isTutor,isStudent);
+                            PersonDataDB.setPersonData(p,isTutor,isStudent);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("AUTH_DEBUG", "signInWithCredential:failure", task.getException());
