@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -25,6 +26,7 @@ import java.util.Date;
 import db.MeetingDB;
 import db.PersonDataDB;
 import impl.Meeting;
+import impl.Student;
 import impl.Tutor;
 
 public class PassedClassesStudent extends AppCompatActivity {
@@ -35,8 +37,16 @@ public class PassedClassesStudent extends AppCompatActivity {
     public FirebaseUser user;
     public String UID;
     public ArrayList<Meeting> meetings;
-    Date date;
-    String today;
+    public Date date;
+    public Timestamp now;
+    public View myview;
+    public TextView classname;
+    public TextView tutorname;
+    public TextView textdate;
+    public TextView starttime;
+    public TextView endtime;
+    public Button moreinfo;
+    public Tutor t;
 
 
 
@@ -55,44 +65,40 @@ public class PassedClassesStudent extends AppCompatActivity {
         Log.d("AUTH_DEBUG",meetings.toString());
 
         date = Calendar.getInstance().getTime();
-        // Display a date in day, month, year format
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        today = formatter.format(date);
+        now= new Timestamp(date);
+
 
 
         for (int i=0; i< meetings.size();i++){
-            try {
-                if(dateisgood(today, meetings.get(i).getDateStart())){
-                    addView(meetings.get(i));
-                }
-            }
-            catch (ParseException e) {
-                e.printStackTrace();
+            Timestamp t = meetings.get(i).getStartDateTime();
+            if(now.compareTo(t)>0) {
+                addView(meetings.get(i));
             }
         }
+
 
     }
 
     public void addView(Meeting m){
-        View myview = getLayoutInflater().inflate(R.layout.row_class_data_student,null,false);
+        myview = getLayoutInflater().inflate(R.layout.row_class_data_student,null,false);
 
-        TextView classname= (TextView)myview.findViewById(R.id.ClassName_rcds);
+        classname= (TextView)myview.findViewById(R.id.ClassName_rcds);
         classname.setText(m.getLessonId());
 
-        TextView tutorname= (TextView)myview.findViewById(R.id.TutorName_rcds);
-        Tutor t= PersonDataDB.getTutorFromDB(m.getTutorId());
+        tutorname= (TextView)myview.findViewById(R.id.TutorName_rcds);
+        t= PersonDataDB.getTutorFromDB(m.getTutorId());
         tutorname.setText(t.getFirstName()+ " "+ t.getLastName());
 
-        TextView date= (TextView)myview.findViewById(R.id.Date_rcds);
-        date.setText(m.getDateStart());
+        textdate= (TextView)myview.findViewById(R.id.Date_rcds);
+        textdate.setText(m.getDateStart());
 
-        TextView starttime= (TextView)myview.findViewById(R.id.StartTime_rcds);
+        starttime= (TextView)myview.findViewById(R.id.StartTime_rcds);
         starttime.setText(m.getTimeStart());
 
-        TextView endtime= (TextView)myview.findViewById(R.id.EndTime_rcds);
+        endtime= (TextView)myview.findViewById(R.id.EndTime_rcds);
         endtime.setText(m.getTimeEnd());
 
-        Button moreinfo=(Button)myview.findViewById(R.id.moreinfo_rcds);
+        moreinfo=(Button)myview.findViewById(R.id.moreinfo_rcds);
 
         layoutlist.addView(myview);
 

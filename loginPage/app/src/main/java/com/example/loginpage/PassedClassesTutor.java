@@ -34,9 +34,10 @@ import impl.Tutor;
 public class PassedClassesTutor extends AppCompatActivity {
 
 
-    public LinearLayout layoutlist;
+
     public FirebaseFirestore firestore;
     public FirebaseAuth mAuth;
+    public LinearLayout layoutlist;
     public FirebaseUser user;
     public String UID;
     public ArrayList<Meeting> meetings;

@@ -36,28 +36,31 @@ public class AddClass2 extends AppCompatActivity {
 
 
     public FirebaseFirestore firestore;
-    private FirebaseAuth mAuth;
-    private Button create;
-    private Button add;
+    public FirebaseAuth mAuth;
+    FirebaseUser user;
+    public Button create;
+    public Button add;
     public boolean error=false;
     public boolean createLesson=false;
-    LinearLayout mylayout;
+    public LinearLayout mylayout;
     public Lesson l;
-    private DatePickerDialog datePickerDialog;
-    private TimePickerDialog timePickerDialog;
+    public DatePickerDialog datePickerDialog;
+    public TimePickerDialog timePickerDialog;
     public ArrayList<Meeting> newMeetings;
 
-    int hour, minute;
-    String datetimes1;
-    String datetimee1;
-
-    Button Starttime;
-    Button Endtime;
-    Button dateButton;
-    EditText city;
-    CheckBox zoom;
-    CheckBox inperson;
-    Button remove;
+    public int hour, minute;
+    public String datetimes;
+    public String datetimee;
+    public Button Starttime;
+    public Button Endtime;
+    public Button dateButton;
+    public EditText city;
+    public CheckBox zoom;
+    public CheckBox inperson;
+    public Button remove;
+    public EditText classname;
+    public EditText price;
+    public String UID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +68,6 @@ public class AddClass2 extends AppCompatActivity {
         setContentView(R.layout.activity_add_class2);
 
         mylayout = findViewById(R.id.layout_list);
-
-
-
 
         add = (Button) findViewById(R.id.add);
         add.setOnClickListener(new View.OnClickListener() {
@@ -98,17 +98,11 @@ public class AddClass2 extends AppCompatActivity {
         error=false;
         if (count>=0) {
             dateButton = mylayout.getChildAt(count).findViewById(R.id.datePickerButton);
-//        Log.d("AUTH_DEBUG", dateButton.getText().toString());
             Starttime = mylayout.getChildAt(count).findViewById(R.id.timeButtonStart);
-//        Log.d("AUTH_DEBUG", Starttime.getText().toString());
             Endtime = mylayout.getChildAt(count).findViewById(R.id.timeButtonEnd);
-//        Log.d("AUTH_DEBUG", Endtime.getText().toString());
             city = mylayout.getChildAt(count).findViewById(R.id.Ecity_acr);
-//        Log.d("AUTH_DEBUG", city.getText().toString());
             zoom = mylayout.getChildAt(count).findViewById(R.id.checkBox_zoom_acr);
-//        Log.d("AUTH_DEBUG", zoom.getText().toString());
             inperson = mylayout.getChildAt(count).findViewById(R.id.checkBox2_inperson_acr);
-//        Log.d("AUTH_DEBUG", inperson.getText().toString());
 
             if (dateButton.getText().toString().equals("date") || Starttime.getText().toString().equals("select time") || Endtime.getText().toString().equals("select time")) {
                 error = true;
@@ -117,12 +111,10 @@ public class AddClass2 extends AppCompatActivity {
 
             if (inperson.isChecked() == false && zoom.isChecked() == false) {
                 error = true;
-//            message+="please pick a check box. ";
                 Toast.makeText(getApplicationContext(), "please fill in checkbox", Toast.LENGTH_LONG).show();
             }
             if (inperson.isChecked() == true && city.getText().toString().equals("")) {
                 error = true;
-//            message+="please fill in city. ";
                 Toast.makeText(getApplicationContext(), "please fill in city", Toast.LENGTH_LONG).show();
             }
         }
@@ -210,11 +202,11 @@ public class AddClass2 extends AppCompatActivity {
         boolean ok = checkPreivius();
         if (ok) {
             mAuth = FirebaseAuth.getInstance();
-            FirebaseUser user = mAuth.getCurrentUser();
+            user = mAuth.getCurrentUser();
             String UID = user.getUid();
             error = false;
-            EditText classname = (EditText) findViewById(R.id.editclass);
-            EditText price = (EditText) findViewById(R.id.Eprice);
+            classname = (EditText) findViewById(R.id.editclass);
+            price = (EditText) findViewById(R.id.Eprice);
 
             if (classname.getText().toString().equals("") || price.getText().toString().equals("")) {
                 error = true;
@@ -250,8 +242,8 @@ public class AddClass2 extends AppCompatActivity {
                         error = true;
                     } else {
                         if (!dateButton.getText().toString().equals("date") && !Starttime.getText().toString().equals("select time") && !Endtime.getText().toString().equals("select time")) {
-                            datetimes1 = dateButton.getText().toString() + " " + Starttime.getText().toString();
-                            datetimee1 = dateButton.getText().toString() + " " + Endtime.getText().toString();
+                            datetimes = dateButton.getText().toString() + " " + Starttime.getText().toString();
+                            datetimee = dateButton.getText().toString() + " " + Endtime.getText().toString();
                         }
                     }
                     if (inperson.isChecked() == false && zoom.isChecked() == false) {
@@ -261,7 +253,7 @@ public class AddClass2 extends AppCompatActivity {
                         error = true;
                     }
                     if (!error) {
-                        Log.d("AUTH_DEBUG", dateButton.getText().toString() + "\n" + datetimes1 + "\n" + datetimee1 + "\n" + String.valueOf(zoom.isChecked()) + "\n" + String.valueOf(inperson.isChecked()));
+                        Log.d("AUTH_DEBUG", dateButton.getText().toString() + "\n" + datetimes + "\n" + datetimee + "\n" + String.valueOf(zoom.isChecked()) + "\n" + String.valueOf(inperson.isChecked()));
                         Meeting m = new Meeting(l.getLessonId(), dateButton.getText().toString(), Starttime.getText().toString(),
                                 dateButton.getText().toString(), Endtime.getText().toString(), UID, zoom.isChecked(),
                                 inperson.isChecked(),city.getText().toString());

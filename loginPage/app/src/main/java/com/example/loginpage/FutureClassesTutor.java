@@ -65,12 +65,7 @@ public class FutureClassesTutor extends AppCompatActivity {
 
 
 
-        for (int i=0; i< meetings.size();i++){
-            Timestamp t = meetings.get(i).getStartDateTime();
-            if(now.compareTo(t)<0) {
-                addView(meetings.get(i));
-            }
-        }
+
 
 
     }

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -25,13 +26,27 @@ import java.util.Date;
 import db.MeetingDB;
 import db.PersonDataDB;
 import impl.Meeting;
+import impl.Student;
 import impl.Tutor;
 
 public class FutureClassesStudent extends AppCompatActivity {
 
     public FirebaseFirestore firestore;
-    private FirebaseAuth mAuth;
+    public FirebaseAuth mAuth;
     public LinearLayout layoutlist;
+    public FirebaseUser user;
+    public String UID;
+    public ArrayList<Meeting> meetings;
+    public Date date;
+    public Timestamp now;
+    public View myview;
+    public TextView classname;
+    public TextView tutorname;
+    public TextView textdate;
+    public TextView starttime;
+    public TextView endtime;
+    public Button moreinfo;
+    public Tutor t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,54 +56,48 @@ public class FutureClassesStudent extends AppCompatActivity {
         layoutlist=findViewById(R.id.layout_list);
 
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
-        String UID=user.getUid();
-        ArrayList<Meeting> meetings= MeetingDB.getStudentMeetings(UID);
+        user = mAuth.getCurrentUser();
+        UID=user.getUid();
+        meetings= MeetingDB.getStudentMeetings(UID);
 
-        Date date = Calendar.getInstance().getTime();
-        // Display a date in day, month, year format
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String today = formatter.format(date);
-
-
-
+        date = Calendar.getInstance().getTime();
+        now= new Timestamp(date);
 
 
         for (int i=0; i< meetings.size();i++){
-            try {
-                if(dateisgood(today, meetings.get(i).getDateStart())){
-                    addView(meetings.get(i));
-                }
-            }
-            catch (ParseException e) {
-                e.printStackTrace();
+            Timestamp t = meetings.get(i).getStartDateTime();
+            if(now.compareTo(t)<0) {
+                addView(meetings.get(i));
             }
         }
+
+
+
 
     }
 
 
     public void addView(Meeting m){
-        View myview = getLayoutInflater().inflate(R.layout.row_class_data_student,null,false);
+        myview = getLayoutInflater().inflate(R.layout.row_class_data_student,null,false);
 
-        TextView cn= (TextView)myview.findViewById(R.id.ClassName_rcds);
-        cn.setText(m.getLessonId());
+        classname= (TextView)myview.findViewById(R.id.ClassName_rcds);
+        classname.setText(m.getLessonId());
 
-        TextView tn= (TextView)myview.findViewById(R.id.TutorName_rcds);
-        Tutor t= PersonDataDB.getTutorFromDB(m.getTutorId());
-        tn.setText(t.getFirstName()+ " "+ t.getLastName());
+        tutorname= (TextView)myview.findViewById(R.id.TutorName_rcds);
+        t= PersonDataDB.getTutorFromDB(m.getTutorId());
+        tutorname.setText(t.getFirstName()+ " "+ t.getLastName());
 
 
-        TextView date= (TextView)myview.findViewById(R.id.Date_rcds);
-        date.setText(m.getDateStart());
+        textdate= (TextView)myview.findViewById(R.id.Date_rcds);
+        textdate.setText(m.getDateStart());
 
-        TextView st= (TextView)myview.findViewById(R.id.StartTime_rcds);
-        st.setText(m.getTimeStart());
+        starttime= (TextView)myview.findViewById(R.id.StartTime_rcds);
+        starttime.setText(m.getTimeStart());
 
-        TextView et= (TextView)myview.findViewById(R.id.EndTime_rcds);
-        et.setText(m.getTimeEnd());
+        endtime= (TextView)myview.findViewById(R.id.EndTime_rcds);
+        endtime.setText(m.getTimeEnd());
 
-        Button moreinfo=(Button)myview.findViewById(R.id.moreinfo_rcds);
+        moreinfo=(Button)myview.findViewById(R.id.moreinfo_rcds);
 
         layoutlist.addView(myview);
 
