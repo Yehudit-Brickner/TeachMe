@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,6 +33,7 @@ public class TutorUpdateInfo extends AppCompatActivity {
     private String UID;
     private Tutor t;
     private boolean isStudent=false;
+    private ImageButton goToHome;
 
 
     @Override
@@ -86,11 +88,19 @@ public class TutorUpdateInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(getApplicationContext(), "this feature will be coming soon!", Toast.LENGTH_LONG).show();
-                PersonDataDB.updatePersonData(UID,fname.getText().toString(),lname.getText().toString(),phone.getText().toString(),t.getEmail(), true,addpermision.isChecked());
+                PersonDataDB.updatePersonData(UID,fname.getText().toString(),lname.getText().toString(),t.getEmail(),phone.getText().toString(),true,addpermision.isChecked());
                 Intent i =new Intent(TutorUpdateInfo.this, TutorHomePage.class);
                 startActivity(i);
             }
         });
 
+        goToHome=(ImageButton) findViewById(R.id.goToHome);
+        goToHome.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent i =new Intent(TutorUpdateInfo.this, TutorHomePage.class);
+                startActivity(i);
+            }
+        });
     }
 }

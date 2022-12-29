@@ -87,7 +87,7 @@ public class StudentUpdateInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(getApplicationContext(), "this feature will be coming soon!", Toast.LENGTH_LONG).show();
-                PersonDataDB.updatePersonData(UID,fname.getText().toString(),lname.getText().toString(),phone.getText().toString(),s.getEmail(),true,isTutor);
+                PersonDataDB.updatePersonData(UID,fname.getText().toString(),lname.getText().toString(),s.getEmail(),phone.getText().toString(),true,isTutor);
                 Intent i =new Intent(StudentUpdateInfo.this, StudentHomePage.class);
                 startActivity(i);
             }
