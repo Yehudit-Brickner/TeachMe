@@ -70,14 +70,17 @@ public class TutorUpdateInfo extends AppCompatActivity {
         addpermision.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isStudent) {
-                    if (addpermision.isChecked()) {
-                        addpermision.setChecked(false);
-                    } else {
-                        addpermision.setChecked(true);
-                    }
-                }
-                else{
+//                if (!isStudent) {
+//                    if (addpermision.isChecked()) {
+//                        addpermision.setChecked(false);
+//                    } else {
+//                        addpermision.setChecked(true);
+//                    }
+//                }
+//                else{
+//                    addpermision.setChecked(true);
+//                }
+                if(isStudent){
                     addpermision.setChecked(true);
                 }
             }
