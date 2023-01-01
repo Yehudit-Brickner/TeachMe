@@ -17,39 +17,45 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import db.PersonDataDB;
+import impl.Tutor;
 
 public class TutorHomePage extends AppCompatActivity {
 
 
-    GoogleSignInOptions gso;
-    GoogleSignInClient gsc;
-    GoogleSignInAccount acct;
-    ImageButton profile;
-    Button add;
-    Button pastclasses;
-    Button futureclasses;
-    Button signout;
+    public GoogleSignInOptions gso;
+    public GoogleSignInClient gsc;
+    public GoogleSignInAccount acct;
+    public FirebaseFirestore firestore;
+    public FirebaseAuth mAuth;
+    public FirebaseUser user;
+    public ImageButton profile;
+    public Button add;
+    public Button pastclasses;
+    public Button futureclasses;
+    public Button signout;
+    public String UID;
+    public Tutor t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutor_home_page);
 
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        gsc = GoogleSignIn.getClient(TutorHomePage.this,gso);
 
         TextView tutorname=(TextView)findViewById(R.id.name);
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-        if(acct!=null){
-            String personName = acct.getDisplayName();
-            String s=tutorname.getText().toString()+ personName;
-            tutorname.setText(s);
-        }
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        UID=user.getUid();
+        t= PersonDataDB.getTutorFromDB(UID);
+
+        tutorname.setText(tutorname.getText().toString()+ t.getFirstName()+ " "+ t.getLastName());
 
 
-
-
-        ImageButton profile=(ImageButton) findViewById(R.id.profile);
+        profile=(ImageButton) findViewById(R.id.profile);
         profile.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -59,7 +65,7 @@ public class TutorHomePage extends AppCompatActivity {
             }
         });
 
-        Button add=(Button) findViewById(R.id.add);
+        add=(Button) findViewById(R.id.add);
         add.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -69,7 +75,7 @@ public class TutorHomePage extends AppCompatActivity {
             }
         });
 
-        Button pastclasses=(Button) findViewById(R.id.passed);
+        pastclasses=(Button) findViewById(R.id.passed);
         pastclasses.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -79,7 +85,7 @@ public class TutorHomePage extends AppCompatActivity {
             }
         });
 
-        Button futureclasses=(Button) findViewById(R.id.upcoming);
+        futureclasses=(Button) findViewById(R.id.upcoming);
         futureclasses.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -90,12 +96,11 @@ public class TutorHomePage extends AppCompatActivity {
         });
 
 
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gsc = GoogleSignIn.getClient(TutorHomePage.this,gso);
 
 
-
-
-
-        Button signout=(Button) findViewById(R.id.signoutbtn);
+        signout=(Button) findViewById(R.id.signoutbtn);
         signout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

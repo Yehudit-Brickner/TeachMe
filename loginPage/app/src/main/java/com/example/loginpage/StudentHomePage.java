@@ -17,19 +17,26 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import db.PersonDataDB;
+import impl.Student;
 
 public class StudentHomePage extends AppCompatActivity {
 
     private FirebaseFirestore firestore;
-    GoogleSignInOptions gso;
-    GoogleSignInClient gsc;
-    GoogleSignInAccount acct;
+    public GoogleSignInOptions gso;
+    public GoogleSignInClient gsc;
+    public FirebaseAuth mAuth;
+    public FirebaseUser user;
     public ImageButton profile;
     public Button search;
     public Button passed;
     public Button upcoming;
     public Button signout;
+    public String UID;
+    public Student s;
 
 
     @Override
@@ -37,19 +44,16 @@ public class StudentHomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_home_page);
 
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        gsc = GoogleSignIn.getClient(StudentHomePage.this,gso);
-
         TextView studentName = (TextView) findViewById(R.id.name);
-        acct = GoogleSignIn.getLastSignedInAccount(this);
-        if(acct!=null){
-            String personName = acct.getDisplayName();
-            String s=studentName.getText().toString()+personName;
-            studentName.setText(s);
-        }
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        UID=user.getUid();
+        s= PersonDataDB.getStudentFromDB(UID);
+
+        studentName.setText(studentName.getText().toString()+ s.getFirstName()+ " "+ s.getLastName());
 
 
-        ImageButton profile=(ImageButton) findViewById(R.id.profile);
+        profile=(ImageButton) findViewById(R.id.profile);
         profile.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -60,7 +64,7 @@ public class StudentHomePage extends AppCompatActivity {
         });
 
 
-        Button search=(Button) findViewById(R.id.search);
+        search=(Button) findViewById(R.id.search);
         search.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -70,7 +74,7 @@ public class StudentHomePage extends AppCompatActivity {
             }
         });
 
-        Button upcoming=(Button) findViewById(R.id.upcoming);
+        upcoming=(Button) findViewById(R.id.upcoming);
         upcoming.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -80,7 +84,7 @@ public class StudentHomePage extends AppCompatActivity {
             }
         });
 
-        Button passed=(Button) findViewById(R.id.passed);
+        passed=(Button) findViewById(R.id.passed);
         passed.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -90,9 +94,10 @@ public class StudentHomePage extends AppCompatActivity {
             }
         });
 
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gsc = GoogleSignIn.getClient(StudentHomePage.this,gso);
 
-
-        Button signout=(Button) findViewById(R.id.signoutbtn);
+        signout=(Button) findViewById(R.id.signoutbtn);
         signout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
