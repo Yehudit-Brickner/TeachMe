@@ -36,6 +36,7 @@ public class SearchResults extends AppCompatActivity {
     public TextView tutorname;
     public Tutor t;
     public Button moreinfo;
+    public ArrayList<String> info;
 
 
     @Override
@@ -44,23 +45,29 @@ public class SearchResults extends AppCompatActivity {
         setContentView(R.layout.activity_search_results);
         Log.d("AUTH_DEBUG","in search results");
 
+
         Intent intent=getIntent();
-        myNumber=intent.getStringExtra("num");
-        Log.d("AUTH_DEBUG","myNumber= " +myNumber);
-        if (myNumber.equals("1")){
-            pickedclass = intent.getStringExtra("class");
-            Log.d("AUTH_DEBUG","search results: mynumber= "+myNumber+" class = "+ pickedclass);
-            lessons = LessonDB.getLessonsByName(pickedclass);
-        }
-        else if( myNumber.equals("2")){
-            pickedclass=intent.getStringExtra("class");
-            pickeddate=intent.getStringExtra("date");
-            Log.d("AUTH_DEBUG","search results: mynumber= "+myNumber+" class = "+ pickedclass+", date = "+pickeddate);
-            lessons = LessonDB.getLessonsByName(pickedclass);
-        }
-        else{
-            Log.d("AUTH_DEBUG","myNumber= " +myNumber);
-        }
+        info = intent.getStringArrayListExtra("info");
+        pickedclass=info.get(0);
+        lessons = LessonDB.getLessonsByName(pickedclass);
+
+
+//        myNumber=intent.getStringExtra("num");
+//        Log.d("AUTH_DEBUG","myNumber= " +myNumber);
+//        if (myNumber.equals("1")){
+//            pickedclass = intent.getStringExtra("class");
+//            Log.d("AUTH_DEBUG","search results: mynumber= "+myNumber+" class = "+ pickedclass);
+//            lessons = LessonDB.getLessonsByName(pickedclass);
+//        }
+//        else if( myNumber.equals("2")){
+//            pickedclass=intent.getStringExtra("class");
+//            pickeddate=intent.getStringExtra("date");
+//            Log.d("AUTH_DEBUG","search results: mynumber= "+myNumber+" class = "+ pickedclass+", date = "+pickeddate);
+//            lessons = LessonDB.getLessonsByName(pickedclass);
+//        }
+//        else{
+//            Log.d("AUTH_DEBUG","myNumber= " +myNumber);
+//        }
 
         layoutlist=findViewById(R.id.layout_list_src);
 

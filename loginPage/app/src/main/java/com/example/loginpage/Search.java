@@ -40,9 +40,12 @@ public class Search extends AppCompatActivity {
     public Spinner classlist;
 
     public DatePickerDialog datePickerDialog;
-    public Button dateButton;
+    public Button dateButton1;
+    public Button dateButton2;
 
     public ArrayList<String> Pickclasses=new ArrayList<String>();
+
+    public ArrayList<String> info;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +74,13 @@ public class Search extends AppCompatActivity {
         });
 
 
+        dateButton1 = findViewById(R.id.datePickerButtonStart);
+        dateButton1.setText("pick start search date");
 
-        initDatePicker();
-        dateButton = findViewById(R.id.datePickerButton);
-        dateButton.setText("pick date");
+        dateButton2 = findViewById(R.id.datePickerButtonEnd);
+        dateButton2.setText("pick end search date");
+
+
 
 
 
@@ -82,24 +88,31 @@ public class Search extends AppCompatActivity {
         searchbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                Log.d("AUTH_DEBUG","search: class = "+ pickedClass+", date = "+date.getText().toString());
-
+                info= new ArrayList<String>();
                 if (pickedClass != "" && pickedClass != "class name" && pickedClass!=null) {
-                        Log.d("AUTH_DEBUG",dateButton.getText().toString());
-                    if (!dateButton.getText().toString().equals("pick date")) {
-                        Intent i = new Intent(Search.this, SearchResults.class);
-                        i.putExtra("num","2");
-                        i.putExtra("class", pickedClass);
-                        i.putExtra("date",dateButton.getText().toString());
-                        startActivity(i);
-                    } else {
-                        Intent i = new Intent(Search.this, SearchResults.class);
-                        i.putExtra("num","1");
-                        i.putExtra("class", pickedClass);
-                        startActivity(i);
+                    info.add(pickedClass);
+
+                    if (!dateButton1.getText().toString().equals("pick start search date")) {
+                        info.add(dateButton1.getText().toString());
+                        if (!dateButton2.getText().toString().equals("pick end search date")) {
+                            info.add(dateButton2.getText().toString());
+                        } else {
+                            info.add(null);
+                        }
                     }
-                } else {
+                    else{
+                        info.add(null);
+                        info.add(null);
+                    }
+                Intent i = new Intent(Search.this, SearchResults.class);
+//                i.putExtra("num","2");
+//                i.putExtra("class", pickedClass);
+//                i.putExtra("date",dateButton1.getText().toString());
+                    i.putStringArrayListExtra("info",info);
+                startActivity(i);
+
+                }
+                else {
                     Toast.makeText(getApplicationContext(), "you need to pick a class", Toast.LENGTH_LONG).show();
                 }
             }
@@ -107,13 +120,15 @@ public class Search extends AppCompatActivity {
 
     }
 
-    public void initDatePicker() {
+
+
+    public void initDatePicker(Button dbtn) {
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
                 String date = DateFunctions.makeDateString(day, month, year);
-                dateButton.setText(date);
+                dbtn.setText(date);
             }
         };
 
@@ -125,7 +140,13 @@ public class Search extends AppCompatActivity {
         datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
     }
 
-    public void openDatePicker(View view) {
+    public void openDatePickerStart(View view) {
+        initDatePicker(dateButton1);
+        datePickerDialog.show();
+    }
+
+    public void openDatePickerEnd(View view) {
+        initDatePicker(dateButton2);
         datePickerDialog.show();
     }
 

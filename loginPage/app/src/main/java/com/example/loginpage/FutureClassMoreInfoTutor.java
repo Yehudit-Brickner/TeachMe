@@ -24,8 +24,6 @@ import impl.Tutor;
 public class FutureClassMoreInfoTutor extends AppCompatActivity {
 
 
-
-
     public Intent intent;
     public String MID;
     public String sId;
@@ -97,11 +95,13 @@ public class FutureClassMoreInfoTutor extends AppCompatActivity {
                 boolean installed=isAppInstaled("com.whatsapp");
 
                 if(installed){
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    String num="+972587691411";
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    String num="+972549761411";
                     String text="hello world";
-                    intent.setData(Uri.parse("http://whatsapp.com/send?phone="+num+"&text="+text));
-                    startActivity(intent);
+                    sendIntent.setData(Uri.parse("http://whatsapp.com/send?phone="+num+"&text="+text));
+                    sendIntent.setPackage("com.whatsapp");
+                    startActivity(sendIntent);
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "sorry, you don't have whatsapp", Toast.LENGTH_LONG).show();
