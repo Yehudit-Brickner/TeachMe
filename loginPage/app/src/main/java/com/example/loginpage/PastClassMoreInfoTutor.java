@@ -26,24 +26,24 @@ import impl.Tutor;
 public class PastClassMoreInfoTutor extends AppCompatActivity {
 
 
-    public Intent intent;
-    public String MID;
-    public Meeting m;
-    public Lesson l;
-    public Tutor t;
-    public Student s;
-    public TextView classname;
-    public TextView studentname;
-    public TextView date;
-    public TextView starttime;
-    public TextView endtime;
-    public TextView price;
-    public TextView zoom;
-    public TextView inperson;
-    public TextView city;
-    public EditText summary;
-    public Button updateSummary;
-    public ImageButton whatsapp;
+    private Intent intent;
+    private String MID;
+    private Meeting m;
+    private Lesson l;
+    private Tutor t;
+    private Student s;
+    private TextView classname;
+    private TextView studentname;
+    private TextView date;
+    private TextView starttime;
+    private TextView endtime;
+    private TextView price;
+    private TextView zoom;
+    private TextView inperson;
+    private TextView city;
+    private EditText summary;
+    private Button updateSummary;
+    private ImageButton whatsapp;
 
 
     @Override

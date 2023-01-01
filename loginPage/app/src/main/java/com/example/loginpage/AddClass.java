@@ -38,32 +38,32 @@ public class AddClass extends AppCompatActivity {
 
 
 
-    public FirebaseFirestore firestore;
-    public FirebaseAuth mAuth;
-    FirebaseUser user;
-    public Button create;
-    public Button add;
-    public boolean error=false;
-    public boolean createLesson=false;
-    public LinearLayout mylayout;
-    public Lesson l;
-    public DatePickerDialog datePickerDialog;
-    public TimePickerDialog timePickerDialog;
-    public ArrayList<Meeting> newMeetings;
+    private FirebaseFirestore firestore;
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
+    private Button create;
+    private Button add;
+    private boolean error=false;
+    private boolean createLesson=false;
+    private LinearLayout mylayout;
+    private Lesson l;
+    private DatePickerDialog datePickerDialog;
+    private TimePickerDialog timePickerDialog;
+    private ArrayList<Meeting> newMeetings;
 
-    public int hour, minute;
-    public String datetimes;
-    public String datetimee;
-    public Button Starttime;
-    public Button Endtime;
-    public Button dateButton;
-    public EditText city;
-    public CheckBox zoom;
-    public CheckBox inperson;
-    public Button remove;
-    public EditText classname;
-    public EditText price;
-    public String UID;
+    private int hour, minute;
+    private String datetimes;
+    private String datetimee;
+    private Button Starttime;
+    private Button Endtime;
+    private Button dateButton;
+    private EditText city;
+    private CheckBox zoom;
+    private CheckBox inperson;
+    private Button remove;
+    private EditText classname;
+    private EditText price;
+    private String UID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -29,17 +29,17 @@ public class SearchResults extends AppCompatActivity {
 
 
 
-    public LinearLayout layoutlist;
-    public ArrayList<Lesson> lessons;
-    public String pickedclass;
-    public String pickeddate;
-    public String myNumber;
-    public View myview;
-    public TextView classname;
-    public TextView tutorname;
-    public Tutor t;
-    public Button moreinfo;
-    public ArrayList<String> info;
+    private LinearLayout layoutlist;
+    private ArrayList<Lesson> lessons;
+    private String pickedclass;
+    private String pickeddate;
+    private String myNumber;
+    private View myview;
+    private TextView classname;
+    private TextView tutorname;
+    private Tutor t;
+    private Button moreinfo;
+    private ArrayList<String> info;
 
 
     @Override

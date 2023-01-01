@@ -29,23 +29,23 @@ import impl.Tutor;
 
 public class MoreInfoAboutClassSearch extends AppCompatActivity {
 
-    public FirebaseAuth mAuth;
-    public TextView classname;
-    public TextView tutorname;
-    public LinearLayout layoutlist;
-    public Lesson mylesson;
-    public String Lid;
-    public String Tid;
-    public  ArrayList<Meeting> myMeetings1;
-    public Tutor mytutor;
-    public View myview;
-    public TextView date;
-    public TextView starttime;
-    public TextView endtime;
-    public TextView iszoom;
-    public TextView isinperson;
-    public TextView price;
-    public TextView acceptclass;
+    private FirebaseAuth mAuth;
+    private TextView classname;
+    private TextView tutorname;
+    private LinearLayout layoutlist;
+    private Lesson mylesson;
+    private String Lid;
+    private String Tid;
+    private  ArrayList<Meeting> myMeetings1;
+    private Tutor mytutor;
+    private View myview;
+    private TextView date;
+    private TextView starttime;
+    private TextView endtime;
+    private TextView iszoom;
+    private TextView isinperson;
+    private TextView price;
+    private TextView acceptclass;
 
 
 

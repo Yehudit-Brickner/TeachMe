@@ -35,15 +35,15 @@ import impl.Tutor;
 
 public class Login extends AppCompatActivity {
 
-    public FirebaseFirestore firestore;
+    private FirebaseFirestore firestore;
     private FirebaseAuth mAuth;
     private RadioButton radiobtnS;
     private RadioButton radiobtnT;
     private ImageButton googleLogin;
-    GoogleSignInOptions gso;
-    GoogleSignInClient gsc;
+    private GoogleSignInOptions gso;
+    private GoogleSignInClient gsc;
 
-//    private int type = -1;
+
     private boolean isStudent;
     private boolean isTutor;
 

@@ -22,21 +22,21 @@ import impl.Tutor;
 public class FutureClassMoreInfoStudent extends AppCompatActivity {
 
 
-    public Intent intent;
-    public String MID;
-    public Meeting m;
-    public Tutor t;
-    public Lesson l;
-    public TextView classname;
-    public TextView tutorname;
-    public TextView date;
-    public TextView starttime;
-    public TextView endtime;
-    public TextView price;
-    public TextView zoom;
-    public TextView inperson;
-    public TextView city;
-    public ImageButton whatsapp;
+    private Intent intent;
+    private String MID;
+    private Meeting m;
+    private Tutor t;
+    private Lesson l;
+    private TextView classname;
+    private TextView tutorname;
+    private TextView date;
+    private TextView starttime;
+    private TextView endtime;
+    private TextView price;
+    private TextView zoom;
+    private TextView inperson;
+    private TextView city;
+    private ImageButton whatsapp;
 
 
 

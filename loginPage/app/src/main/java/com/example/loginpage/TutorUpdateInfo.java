@@ -36,7 +36,7 @@ public class TutorUpdateInfo extends AppCompatActivity {
     private String UID;
     private Tutor t;
     private boolean isStudent=false;
-    private ImageButton goToHome;
+
 
 
     @Override

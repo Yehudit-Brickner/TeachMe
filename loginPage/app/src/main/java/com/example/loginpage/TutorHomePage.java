@@ -132,22 +132,6 @@ public class TutorHomePage extends AppCompatActivity {
 
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.topmenu, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.topmenu:
-                Intent i =new Intent(TutorHomePage.this, TutorHomePage.class);
-                startActivity(i);
-        }
-        return true;
-    }
 
 }

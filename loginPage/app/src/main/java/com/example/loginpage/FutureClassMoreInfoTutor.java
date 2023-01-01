@@ -27,23 +27,23 @@ import impl.Tutor;
 public class FutureClassMoreInfoTutor extends AppCompatActivity {
 
 
-    public Intent intent;
-    public String MID;
-    public String sId;
-    public Meeting m;
-    public Lesson l;
-    public Tutor t;
-    public Student s;
-    public TextView classname;
-    public TextView studentname;
-    public TextView date;
-    public TextView starttime;
-    public TextView endtime;
-    public TextView price;
-    public TextView zoom;
-    public TextView inperson;
-    public TextView city;
-    public ImageButton whatsapp;
+    private Intent intent;
+    private String MID;
+    private String sId;
+    private Meeting m;
+    private Lesson l;
+    private Tutor t;
+    private Student s;
+    private TextView classname;
+    private TextView studentname;
+    private TextView date;
+    private TextView starttime;
+    private TextView endtime;
+    private TextView price;
+    private TextView zoom;
+    private TextView inperson;
+    private TextView city;
+    private ImageButton whatsapp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

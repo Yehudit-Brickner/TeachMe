@@ -34,22 +34,22 @@ import impl.Tutor;
 
 public class FutureClassesStudent extends AppCompatActivity {
 
-    public FirebaseFirestore firestore;
-    public FirebaseAuth mAuth;
-    public LinearLayout layoutlist;
-    public FirebaseUser user;
-    public String UID;
-    public ArrayList<Meeting> meetings;
-    public Date date;
-    public Timestamp now;
-    public View myview;
-    public TextView classname;
-    public TextView tutorname;
-    public TextView textdate;
-    public TextView starttime;
-    public TextView endtime;
-    public Button moreinfo;
-    public Tutor t;
+    private FirebaseFirestore firestore;
+    private FirebaseAuth mAuth;
+    private LinearLayout layoutlist;
+    private FirebaseUser user;
+    private String UID;
+    private ArrayList<Meeting> meetings;
+    private Date date;
+    private Timestamp now;
+    private View myview;
+    private TextView classname;
+    private TextView tutorname;
+    private TextView textdate;
+    private TextView starttime;
+    private TextView endtime;
+    private Button moreinfo;
+    private Tutor t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
