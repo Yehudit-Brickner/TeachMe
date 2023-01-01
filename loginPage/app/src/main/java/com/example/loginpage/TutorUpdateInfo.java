@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -97,13 +100,24 @@ public class TutorUpdateInfo extends AppCompatActivity {
             }
         });
 
-        goToHome=(ImageButton) findViewById(R.id.goToHome);
-        goToHome.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.topmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.topmenu:
                 Intent i =new Intent(TutorUpdateInfo.this, TutorHomePage.class);
                 startActivity(i);
-            }
-        });
+        }
+        return true;
     }
 }
