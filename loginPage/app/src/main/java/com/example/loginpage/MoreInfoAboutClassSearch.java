@@ -74,64 +74,56 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-
         myMeetings1=mylesson.getMeetings();
-
 
         layoutlist=findViewById(R.id.moreinfo_linearlayout);
         showClasses();
 
-//       if( myMeetings1!=null) {
-//           for (int i = 0; i < myMeetings1.size(); i++) {
-//            if (myMeetings1.get(i).getStudentId()==null ||myMeetings1.get(i).getStudentId().equals("") )
-//               addView(myMeetings1.get(i));
-//           }
-//       }
-
     }
 
-        public void addView(Meeting m){
-            if (m.getStudentId()!="" || m.getStudentId()!=null) {
+    public void addView(Meeting m){
+        if (m.getStudentId()!="" || m.getStudentId()!=null) {
 
-                myview = getLayoutInflater().inflate(R.layout.more_info_about_class_search_row, null, false);
+            myview = getLayoutInflater().inflate(R.layout.more_info_about_class_search_row, null, false);
 
-                date = (TextView) myview.findViewById(R.id.date_cir);
-                date.setText(m.getDateStart());
+            date = (TextView) myview.findViewById(R.id.date_cir);
+            date.setText(m.getDateStart());
 
-                starttime = (TextView) myview.findViewById(R.id.starttime_cir);
-                starttime.setText(m.getTimeStart());
+            starttime = (TextView) myview.findViewById(R.id.starttime_cir);
+            starttime.setText(m.getTimeStart());
 
-                endtime = (TextView) myview.findViewById(R.id.endtime_cir);
-                endtime.setText(m.getTimeEnd());
+            endtime = (TextView) myview.findViewById(R.id.endtime_cir);
+            endtime.setText(m.getTimeEnd());
 
-                iszoom = (TextView) myview.findViewById(R.id.zoom_cir);
-                String z = iszoom.getText().toString() + m.isZoom();
-                iszoom.setText(z);
+            iszoom = (TextView) myview.findViewById(R.id.zoom_cir);
+            String z = iszoom.getText().toString() + m.isZoom();
+            iszoom.setText(z);
 
-                isinperson = (TextView) myview.findViewById(R.id.inperson_cir);
-                String p = isinperson.getText().toString() + m.isInPerson();
-                isinperson.setText(p);
+            isinperson = (TextView) myview.findViewById(R.id.inperson_cir);
+            String p = isinperson.getText().toString() + m.isInPerson();
+            isinperson.setText(p);
 
-                price = (TextView) myview.findViewById(R.id.price_cir);
-                price.setText(mylesson.getPrice());
+            price = (TextView) myview.findViewById(R.id.price_cir);
+            price.setText(mylesson.getPrice());
 
-                acceptclass = (TextView) myview.findViewById(R.id.signupToClass);
+            acceptclass = (TextView) myview.findViewById(R.id.signupToClass);
 
-                acceptclass.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        updateUI(user);
-                        String UID = user.getUid();
-                        Log.d("AUTH_DEBUG", "UID = " + UID);
-                        m.setStudentId(UID);
-                        LessonDB.setLessonData(mylesson);
-                        Toast.makeText(getApplicationContext(), "you are signed up!", Toast.LENGTH_LONG).show();
-                        reshowClasses();
-                    }
-                });
-                layoutlist.addView(myview);
-            }
+            acceptclass.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    updateUI(user);
+                    String UID = user.getUid();
+                    Log.d("AUTH_DEBUG", "UID = " + UID);
+                    m.setStudentId(UID);
+                    LessonDB.setLessonData(mylesson);
+                    Toast.makeText(getApplicationContext(), "you are signed up!", Toast.LENGTH_LONG).show();
+                    reshowClasses();
+                }
+            });
+            layoutlist.addView(myview);
+        }
+
     }
 
     private void updateUI(FirebaseUser user) {
@@ -156,14 +148,19 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
     }
 
     public void showClasses(){
+        int count=0;
         if( myMeetings1!=null) {
-           for (int i = 0; i < myMeetings1.size(); i++) {
-            if (myMeetings1.get(i).getStudentId()==null ||myMeetings1.get(i).getStudentId().equals("") )
-               addView(myMeetings1.get(i));
-           }
-       }
+            for (int i = 0; i < myMeetings1.size(); i++) {
+                if (myMeetings1.get(i).getStudentId().equals("")) {
+                    count++;
+                    addView(myMeetings1.get(i));
+                }
+            }
+        }
+        if (count==0){
+            Toast.makeText(getApplicationContext(), "no meetings to show", Toast.LENGTH_LONG).show();
+        }
     }
-
 
     public void reshowClasses(){
         for (int i=layoutlist.getChildCount()-1; i>=0;i--) {

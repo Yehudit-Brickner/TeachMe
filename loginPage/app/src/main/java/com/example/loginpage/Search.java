@@ -91,10 +91,10 @@ public class Search extends AppCompatActivity {
         searchbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean error= false;
                 info= new ArrayList<String>();
                 if (pickedClass != "" && pickedClass != "class name" && pickedClass!=null) {
                     info.add(pickedClass);
-
                     if (!dateButton1.getText().toString().equals("pick start search date")) {
                         info.add(dateButton1.getText().toString());
                         if (!dateButton2.getText().toString().equals("pick end search date")) {
@@ -104,16 +104,18 @@ public class Search extends AppCompatActivity {
                         }
                     }
                     else{
+                        if (!dateButton2.getText().toString().equals("pick end search date")){
+                            error= true;
+                            Toast.makeText(getApplicationContext(), "you need to pick the start date", Toast.LENGTH_LONG).show();
+                        }
                         info.add(null);
                         info.add(null);
                     }
-                Intent i = new Intent(Search.this, SearchResults.class);
-//                i.putExtra("num","2");
-//                i.putExtra("class", pickedClass);
-//                i.putExtra("date",dateButton1.getText().toString());
-                    i.putStringArrayListExtra("info",info);
-                startActivity(i);
-
+                    if (error==false) {
+                        Intent i = new Intent(Search.this, SearchResults.class);
+                        i.putStringArrayListExtra("info", info);
+                        startActivity(i);
+                    }
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "you need to pick a class", Toast.LENGTH_LONG).show();
