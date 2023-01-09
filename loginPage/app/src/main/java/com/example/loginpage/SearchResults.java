@@ -37,6 +37,7 @@ public class SearchResults extends AppCompatActivity {
     private View myview;
     private TextView classname;
     private TextView tutorname;
+    private TextView price;
     private Tutor t;
     private Button moreinfo;
     private ArrayList<String> info;
@@ -95,6 +96,9 @@ public class SearchResults extends AppCompatActivity {
         tutorname=(TextView)myview.findViewById(R.id.TutorName_sr);
         t= PersonDataDB.getTutorFromDB(l.getTutorId());
         tutorname.setText(t.getFirstName()+" "+t.getLastName());
+
+        price=(TextView)myview.findViewById(R.id.price);
+        price.setText(l.getPrice());
 
         moreinfo=(Button) myview.findViewById(R.id.moreinfo_sr);
 

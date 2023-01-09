@@ -99,10 +99,6 @@ public class FutureClassMoreInfoTutor extends AppCompatActivity {
         whatsapp =(ImageButton)findViewById(R.id.whatsappbtn2);
 
 
-
-
-
-
         whatsapp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {

@@ -3,6 +3,7 @@ package com.example.loginpage;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -24,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 import db.MeetingDB;
@@ -61,6 +63,17 @@ public class FutureClassesTutor extends AppCompatActivity {
         user = mAuth.getCurrentUser();
         UID=user.getUid();
         meetings= MeetingDB.getTutorMeetings(UID);
+        Collections.sort(meetings, new Comparator<Meeting>(){
+            public int compare(Meeting m1, Meeting m2){
+                Timestamp t1=m1.getStartDateTime();
+                Timestamp t2=m2.getStartDateTime();
+                if(t1.compareTo(t2)<0)
+                    return -1;
+                else{
+                    return 1;
+                }
+            }
+        });
 
         date = Calendar.getInstance().getTime();
         now= new Timestamp(date);
