@@ -74,7 +74,7 @@
                 android:background="#30ffffff"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="up coming classes"
+                android:text="future classes"
                 android:textSize="35dp"
                 android:layout_weight="1"
 
