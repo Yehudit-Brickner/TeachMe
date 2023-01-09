@@ -62,11 +62,11 @@
 
             <TextView
                 android:id="@+id/date_search_start"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="5dp"
-                android:text="Date"
+                android:text="Start Date"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 
@@ -93,11 +93,11 @@
 
             <TextView
                 android:id="@+id/date_search_end"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="5dp"
-                android:text="Date"
+                android:text="End Date"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 

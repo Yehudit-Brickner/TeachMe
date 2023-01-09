@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -78,17 +79,18 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
 
 
         layoutlist=findViewById(R.id.moreinfo_linearlayout);
-       if ( myMeetings1!=null) {
-           for (int i = 0; i < myMeetings1.size(); i++) {
-            if (myMeetings1.get(i).getStudentId()==null ||myMeetings1.get(i).getStudentId().equals("") )
-               addView(myMeetings1.get(i));
-           }
-       }
+        showClasses();
+
+//       if( myMeetings1!=null) {
+//           for (int i = 0; i < myMeetings1.size(); i++) {
+//            if (myMeetings1.get(i).getStudentId()==null ||myMeetings1.get(i).getStudentId().equals("") )
+//               addView(myMeetings1.get(i));
+//           }
+//       }
 
     }
 
         public void addView(Meeting m){
-
             if (m.getStudentId()!="" || m.getStudentId()!=null) {
 
                 myview = getLayoutInflater().inflate(R.layout.more_info_about_class_search_row, null, false);
@@ -124,6 +126,8 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
                         Log.d("AUTH_DEBUG", "UID = " + UID);
                         m.setStudentId(UID);
                         LessonDB.setLessonData(mylesson);
+                        Toast.makeText(getApplicationContext(), "you are signed up!", Toast.LENGTH_LONG).show();
+                        reshowClasses();
                     }
                 });
                 layoutlist.addView(myview);
@@ -149,5 +153,22 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
                 startActivity(i);
         }
         return true;
+    }
+
+    public void showClasses(){
+        if( myMeetings1!=null) {
+           for (int i = 0; i < myMeetings1.size(); i++) {
+            if (myMeetings1.get(i).getStudentId()==null ||myMeetings1.get(i).getStudentId().equals("") )
+               addView(myMeetings1.get(i));
+           }
+       }
+    }
+
+
+    public void reshowClasses(){
+        for (int i=layoutlist.getChildCount()-1; i>=0;i--) {
+            layoutlist.removeView(layoutlist.getChildAt(i));
+        }
+        showClasses();
     }
 }
