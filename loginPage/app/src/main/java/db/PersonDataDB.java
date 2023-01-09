@@ -63,8 +63,7 @@ public class PersonDataDB
     }
 
 
-    public static void setPersonData(IPerson person)
-    {
+    public static void setPersonData(IPerson person) {
         if (person.getUID() == null || person.getUID().isEmpty())
             return;
 
@@ -72,8 +71,7 @@ public class PersonDataDB
         usersCollection.document(person.getUID()).set(person.getPersonMap());
     }
 
-    public static void setPersonData(IPerson person, boolean is_tutor, boolean is_student)
-    {
+    public static void setPersonData(IPerson person, boolean is_tutor, boolean is_student) {
         if (person.getUID() == null || person.getUID().isEmpty())
             return;
 
@@ -96,8 +94,7 @@ public class PersonDataDB
         usersCollection.document(person.getUID()).update(map);
     }
 
-    public static boolean isGoodPersonData(IPerson person)
-    {
+    public static boolean isGoodPersonData(IPerson person) {
         if (person == null)
             return true;
 
