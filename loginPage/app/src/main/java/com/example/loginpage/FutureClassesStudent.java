@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.firebase.Timestamp;
@@ -38,9 +39,11 @@ public class FutureClassesStudent extends AppCompatActivity {
     private FirebaseFirestore firestore;
     private FirebaseAuth mAuth;
     private LinearLayout layoutlist;
+    private Switch myswitch;
     private FirebaseUser user;
     private String UID;
     private ArrayList<Meeting> meetings;
+    private ArrayList<Meeting> futureMeetings;
     private Date date;
     private Timestamp now;
     private View myview;
@@ -58,33 +61,38 @@ public class FutureClassesStudent extends AppCompatActivity {
         setContentView(R.layout.activity_future_classes_student);
 
         layoutlist=findViewById(R.id.layout_list);
+        myswitch=(Switch)findViewById(R.id.switch_fs);
 
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         UID=user.getUid();
         meetings= MeetingDB.getStudentMeetings(UID);
-        Collections.sort(meetings, new Comparator<Meeting>(){
-            public int compare(Meeting m1, Meeting m2){
-                Timestamp t1=m1.getStartDateTime();
-                Timestamp t2=m2.getStartDateTime();
-                if(t1.compareTo(t2)<0)
-                    return -1;
+
+        myswitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (myswitch.isChecked()){
+                    showMeetingsByClass();
+                    Log.d("AUTH_DEBUG","switch is on");
+                }
                 else{
-                    return 1;
+                    showMeetingsByDate();
+                    Log.d("AUTH_DEBUG","switch is off");
                 }
             }
         });
+
+
+        futureMeetings=new ArrayList<>();
         date = Calendar.getInstance().getTime();
         now= new Timestamp(date);
-
-
         for (int i=0; i< meetings.size();i++){
             Timestamp t = meetings.get(i).getStartDateTime();
-            if(now.compareTo(t)<0) {
-                addView(meetings.get(i));
+            if(now.compareTo(t)<=0) {
+                futureMeetings.add(meetings.get(i));
             }
         }
-
+        showMeetingsByDate();
 
     }
 
@@ -141,4 +149,42 @@ public class FutureClassesStudent extends AppCompatActivity {
         return true;
     }
 
+
+    public void showMeetingsByDate(){
+        for (int i=layoutlist.getChildCount()-1; i>=0;i--) {
+            layoutlist.removeView(layoutlist.getChildAt(i));
+        }
+        Collections.sort(futureMeetings, new Comparator<Meeting>(){
+            public int compare(Meeting m1, Meeting m2){
+                Timestamp t1=m1.getStartDateTime();
+                Timestamp t2=m2.getStartDateTime();
+                if(t1.compareTo(t2)<0)
+                    return -1;
+                else{
+                    return 1;
+                }
+            }
+        });
+        for (int i=0; i<futureMeetings.size(); i++){
+            addView(futureMeetings.get(i));
+        }
+    }
+
+    public void showMeetingsByClass(){
+        for (int i=layoutlist.getChildCount()-1; i>=0;i--) {
+            layoutlist.removeView(layoutlist.getChildAt(i));
+        }
+        Collections.sort(futureMeetings, new Comparator<Meeting>(){
+            public int compare(Meeting m1, Meeting m2){
+                if(m1.getLessonId().compareTo(m2.getLessonId())<0)
+                    return -1;
+                else{
+                    return 1;
+                }
+            }
+        });
+        for (int i=0; i<futureMeetings.size(); i++){
+            addView(futureMeetings.get(i));
+        }
+    }
 }
