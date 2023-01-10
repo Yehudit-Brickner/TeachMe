@@ -27,27 +27,33 @@
             <TextView
                 android:id="@+id/ClassName_sr"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
                 android:padding="5dp"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:text="class name"></TextView>
 
 
             <TextView
                 android:id="@+id/TutorName_sr"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:textSize="20dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textSize="15dp"
                 android:padding="5dp"
                 android:text="tutor name"></TextView>
 
             <TextView
                 android:id="@+id/price"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
                 android:padding="5dp"
-                android:text="price"
-                android:textSize="20dp"
+                android:text="price per hour: "
+                android:textSize="15dp"
                 android:backgroundTint="@color/white"/>
 
         </LinearLayout>

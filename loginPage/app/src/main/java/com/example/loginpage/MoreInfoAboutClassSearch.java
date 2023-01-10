@@ -107,7 +107,8 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
             isinperson.setText(p);
 
             price = (TextView) myview.findViewById(R.id.price_cir);
-            price.setText(mylesson.getPrice());
+
+            price.setText(price.getText().toString()+ mylesson.getPrice());
 
             acceptclass = (TextView) myview.findViewById(R.id.signupToClass);
 

@@ -115,7 +115,7 @@ public class SearchResults extends AppCompatActivity {
         tutorname.setText(t.getFirstName()+" "+t.getLastName());
 
         price=(TextView)myview.findViewById(R.id.price);
-        price.setText(l.getPrice());
+        price.setText(price.getText().toString()+l.getPrice());
 
         moreinfo=(Button) myview.findViewById(R.id.moreinfo_sr);
 
