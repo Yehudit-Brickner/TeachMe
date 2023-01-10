@@ -14,11 +14,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 import db.LessonDB;
@@ -148,6 +151,17 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
     }
 
     public void showClasses(){
+        Collections.sort(myMeetings1, new Comparator<Meeting>(){
+            public int compare(Meeting m1, Meeting m2){
+                Timestamp t1=m1.getStartDateTime();
+                Timestamp t2=m2.getStartDateTime();
+                if(t1.compareTo(t2)<0)
+                    return -1;
+                else{
+                    return 1;
+                }
+            }
+        });
         int count=0;
         if( myMeetings1!=null) {
             for (int i = 0; i < myMeetings1.size(); i++) {

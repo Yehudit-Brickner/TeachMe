@@ -157,9 +157,9 @@ public class SearchResults extends AppCompatActivity {
         Collections.sort(lessons, new Comparator<Lesson>(){
             public int compare(Lesson l1, Lesson l2){
                 if(l1.getPrice().compareTo(l2.getPrice())<0)
-                    return -1;
-                else{
                     return 1;
+                else{
+                    return -1;
                 }
             }
         });
