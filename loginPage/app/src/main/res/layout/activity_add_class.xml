@@ -17,7 +17,7 @@
         android:layout_marginEnd="10dp"
         android:orientation="vertical"
         android:padding="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView3"
+        app:layout_constraintBottom_toTopOf="@+id/add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -49,7 +49,7 @@
                 android:inputType="text"
                 android:padding="5dp"
                 android:textColor="@color/white"
-                android:textColorHint="#786A6A"
+                android:textColorHint="@color/mygray"
                 android:textSize="20sp"
                 android:textStyle="normal"
                 tools:layout_editor_absoluteX="139dp"
@@ -59,6 +59,7 @@
         </LinearLayout>
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -83,23 +84,51 @@
                 android:inputType="numberDecimal"
                 android:padding="5dp"
                 android:textColor="@color/white"
-                android:textColorHint="#786A6A"
+                android:textColorHint="@color/mygray"
                 android:textSize="18sp"></EditText>
 
         </LinearLayout>
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="@color/design_default_color_secondary"
+        android:gravity="center"
+        android:text="add meeting"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/createbtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llayout"></Button>
+
+    <Button
+        android:id="@+id/createbtn"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/design_default_color_secondary"
+        android:gravity="center"
+        android:text="create"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add"></Button>
+
 
     <ScrollView
         android:id="@+id/scrollView3"
         android:layout_width="400dp"
-        android:layout_height="250dp"
-        app:layout_constraintBottom_toTopOf="@+id/add"
+        android:layout_height="400dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llayout">
+        app:layout_constraintTop_toBottomOf="@+id/createbtn">
 
 
         <LinearLayout
@@ -107,43 +136,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:orientation="vertical"
-            android:padding="5dp"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/passedclasses"
             app:layout_constraintVertical_bias="0.031">
 
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/design_default_color_secondary"
-        android:gravity="center"
-        android:text="add"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/createbtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView3"></Button>
-
-    <Button
-        android:id="@+id/createbtn"
-        android:layout_width="225dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"
-        android:text="create"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/design_default_color_secondary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"></Button>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

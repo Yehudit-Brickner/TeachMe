@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<LinearLayout-->
-<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:orientation="vertical"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="wrap_content">-->
 
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:orientation="horizontal"
+    >
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+
         android:id="@+id/layout_list_acr"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
         android:background="@drawable/round1"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -37,12 +33,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:padding="5dp"
                 android:text="start time:"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                tools:layout_editor_absoluteX="71dp"
-                tools:layout_editor_absoluteY="82dp" />
+                />
 
             <Button
                 android:id="@+id/timeButtonStart"
@@ -50,8 +46,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:onClick="popTimePickerStart"
-                android:text="select time"
+                android:text="select time   "
                 android:textColor="@color/white"
                 android:textSize="15sp" />
 
@@ -61,11 +58,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="end time:"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                tools:layout_editor_absoluteX="183dp"
-                tools:layout_editor_absoluteY="82dp" />
+                 />
 
             <Button
                 android:id="@+id/timeButtonEnd"
@@ -74,7 +71,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="popTimePickerEnd"
-                android:text="select time"
+                android:text="select time   "
+                android:gravity="center"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
 
@@ -90,11 +88,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.25"
+                android:gravity="center"
                 android:text="date:"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                tools:layout_editor_absoluteX="71dp"
-                tools:layout_editor_absoluteY="35dp" />
+                />
 
             <Button
                 android:id="@+id/datePickerButton"
@@ -102,6 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.75"
+                android:gravity="center"
                 android:onClick="openDatePicker"
                 android:text="date"
                 android:textColor="@color/white"
@@ -112,23 +111,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
+                android:gravity="center"
                 android:padding="5dp"
                 android:text="city:"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                tools:layout_editor_absoluteX="71dp"
-                tools:layout_editor_absoluteY="35dp" />
+                 />
 
             <EditText
                 android:id="@+id/Ecity_acr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/white"
                 android:textSize="15sp"
-                tools:layout_editor_absoluteX="71dp"
-                tools:layout_editor_absoluteY="35dp" />
+                 />
 
 
 
@@ -144,35 +143,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="Zoom"
                 android:textSize="15sp"
-                tools:layout_editor_absoluteX="90dp"
-                tools:layout_editor_absoluteY="116dp" />
+                />
 
             <CheckBox
                 android:id="@+id/checkBox2_inperson_acr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="In person"
                 android:textSize="15sp"
-                tools:layout_editor_absoluteX="173dp"
-                tools:layout_editor_absoluteY="116dp" />
+                 />
 
 
             <Button
                 android:id="@+id/buttonremove"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.75"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:backgroundTint="@color/design_default_color_secondary"
                 android:text="remove"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:layout_marginRight="10dp"/>
 
         </LinearLayout>
 
     </LinearLayout>
 
+</LinearLayout>
 
-
-<!--</LinearLayout>-->

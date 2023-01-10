@@ -44,6 +44,7 @@ public class AddClass extends AppCompatActivity {
     private Button create;
     private Button add;
     private boolean error=false;
+    private boolean error_notified=false;
     private boolean createLesson=false;
     private LinearLayout mylayout;
     private Lesson l;
@@ -99,6 +100,7 @@ public class AddClass extends AppCompatActivity {
         int count= mylayout.getChildCount();
         count-=1;
         error=false;
+
         if (count>=0) {
             dateButton = mylayout.getChildAt(count).findViewById(R.id.datePickerButton);
             Starttime = mylayout.getChildAt(count).findViewById(R.id.timeButtonStart);
@@ -107,7 +109,7 @@ public class AddClass extends AppCompatActivity {
             zoom = mylayout.getChildAt(count).findViewById(R.id.checkBox_zoom_acr);
             inperson = mylayout.getChildAt(count).findViewById(R.id.checkBox2_inperson_acr);
 
-            if (dateButton.getText().toString().equals("date") || Starttime.getText().toString().equals("select time") || Endtime.getText().toString().equals("select time")) {
+            if (dateButton.getText().toString().equals("date") || Starttime.getText().toString().contains("select time") || Endtime.getText().toString().contains("select time")) {
                 error = true;
                 Toast.makeText(getApplicationContext(), "please fill in date and times", Toast.LENGTH_LONG).show();
             }
@@ -121,6 +123,7 @@ public class AddClass extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "please fill in city", Toast.LENGTH_LONG).show();
             }
         }
+
         return !error;
     }
 
@@ -202,12 +205,13 @@ public class AddClass extends AppCompatActivity {
 
     public void pressedCreate() {
         Log.d("AUTH_DEBUG", "pressed button create");
-        boolean ok = checkPreivius();
-        if (ok) {
+//        boolean ok = checkPreivius();
+//        if (ok) {
             mAuth = FirebaseAuth.getInstance();
             user = mAuth.getCurrentUser();
             String UID = user.getUid();
             error = false;
+            error_notified=false;
             classname = (EditText) findViewById(R.id.editclass);
             price = (EditText) findViewById(R.id.Eprice);
 
@@ -220,31 +224,22 @@ public class AddClass extends AppCompatActivity {
                     l = new Lesson(classname.getText().toString(), UID, price.getText().toString(), "");
                     LessonDB.setLessonData(l);
                 }
-
-                Log.d("AUTH_DEBUG", l.toString());
             }
+
             newMeetings = new ArrayList<>();
             if (!error) {
                 for (int i = 0; i < mylayout.getChildCount(); i++) {
-                    System.out.println(i);
-                    Log.d("AUTH_DEBUG", String.valueOf(i));
+
                     dateButton = mylayout.getChildAt(i).findViewById(R.id.datePickerButton);
-                    Log.d("AUTH_DEBUG", dateButton.getText().toString());
                     Starttime = mylayout.getChildAt(i).findViewById(R.id.timeButtonStart);
-                    Log.d("AUTH_DEBUG", Starttime.getText().toString());
                     Endtime = mylayout.getChildAt(i).findViewById(R.id.timeButtonEnd);
-                    Log.d("AUTH_DEBUG", Endtime.getText().toString());
                     city = mylayout.getChildAt(i).findViewById(R.id.Ecity_acr);
-                    Log.d("AUTH_DEBUG", city.getText().toString());
                     zoom = mylayout.getChildAt(i).findViewById(R.id.checkBox_zoom_acr);
-                    Log.d("AUTH_DEBUG", zoom.getText().toString());
                     inperson = mylayout.getChildAt(i).findViewById(R.id.checkBox2_inperson_acr);
-                    Log.d("AUTH_DEBUG", inperson.getText().toString());
-                    error = false;
-                    if (dateButton.getText().toString().equals("date") || Starttime.getText().toString().equals("select time") || Endtime.getText().toString().equals("select time")) {
+                    if (dateButton.getText().toString().equals("date") || Starttime.getText().toString().contains("select time") || Endtime.getText().toString().contains("select time")) {
                         error = true;
                     } else {
-                        if (!dateButton.getText().toString().equals("date") && !Starttime.getText().toString().equals("select time") && !Endtime.getText().toString().equals("select time")) {
+                        if (!dateButton.getText().toString().equals("date") && !Starttime.getText().toString().contains("select time") && !Endtime.getText().toString().contains("select time")) {
                             datetimes = dateButton.getText().toString() + " " + Starttime.getText().toString();
                             datetimee = dateButton.getText().toString() + " " + Endtime.getText().toString();
                         }
@@ -263,9 +258,20 @@ public class AddClass extends AppCompatActivity {
                         Log.d("AUTH_DEBUG", m.toString());
                         newMeetings.add(m);
 
-                    } else {
-                        Log.d("AUTH_DEBUG", "there was a problem");
                     }
+                    else {
+                        Log.d("AUTH_DEBUG", "there was a problem");
+                        int x= i+1;
+                        error_notified=true;
+                        Toast.makeText(getApplicationContext(), "something caused an error, in meeting "+ x, Toast.LENGTH_LONG).show();
+                        break;
+                    }
+                }
+            }
+            else {
+                if (!error_notified) {
+                    error_notified=true;
+                    Toast.makeText(getApplicationContext(), "something caused an error, please check that everything is filled in", Toast.LENGTH_LONG).show();
                 }
             }
             if (!error) {
@@ -279,9 +285,14 @@ public class AddClass extends AppCompatActivity {
                 Intent i = new Intent(AddClass.this, TutorHomePage.class);
                 startActivity(i);
             }
+            else {
+                if (!error_notified) {
+                    Toast.makeText(getApplicationContext(), "something caused an error, please check that everything is filled in", Toast.LENGTH_LONG).show();
+                }
+            }
 
-        }
     }
+
 
 
     @Override
