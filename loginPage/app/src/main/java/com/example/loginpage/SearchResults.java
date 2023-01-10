@@ -12,10 +12,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
+
+import com.google.firebase.Timestamp;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 import db.LessonDB;
@@ -30,6 +35,7 @@ public class SearchResults extends AppCompatActivity {
 
 
     private LinearLayout layoutlist;
+    private Switch myswitch;
     private ArrayList<Lesson> lessons;
     private String pickedclass;
     private String pickeddate;
@@ -74,11 +80,22 @@ public class SearchResults extends AppCompatActivity {
 //        }
 
         layoutlist=findViewById(R.id.layout_list_src);
+        myswitch=(Switch)findViewById(R.id.switch_sc);
 
-        for(int i=0; i<lessons.size();i++){
-            Log.d("AUTH_DEBUG",lessons.get(i).toString());
-            addView(lessons.get(i));
-        }
+        myswitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (myswitch.isChecked()){
+                    showLessonByTutorName();
+                    Log.d("AUTH_DEBUG","switch is on");
+                }
+                else{
+                    showLessonByPrice();
+                    Log.d("AUTH_DEBUG","switch is off");
+                }
+            }
+        });
+        showLessonByPrice();
 
     }
 
@@ -130,5 +147,46 @@ public class SearchResults extends AppCompatActivity {
                 startActivity(i);
         }
         return true;
+    }
+
+
+    public void showLessonByPrice(){
+        for (int i=layoutlist.getChildCount()-1; i>=0;i--) {
+            layoutlist.removeView(layoutlist.getChildAt(i));
+        }
+        Collections.sort(lessons, new Comparator<Lesson>(){
+            public int compare(Lesson l1, Lesson l2){
+                if(l1.getPrice().compareTo(l2.getPrice())<0)
+                    return -1;
+                else{
+                    return 1;
+                }
+            }
+        });
+        for(int i=0; i<lessons.size();i++){
+            addView(lessons.get(i));
+        }
+    }
+    public void showLessonByTutorName(){
+        for (int i=layoutlist.getChildCount()-1; i>=0;i--) {
+            layoutlist.removeView(layoutlist.getChildAt(i));
+        }
+        Collections.sort(lessons, new Comparator<Lesson>(){
+            public int compare(Lesson l1, Lesson l2){
+                Tutor t1= PersonDataDB.getTutorFromDB(l1.getTutorId());
+                String s1=t1.getFirstName()+" "+t1.getFirstName();
+                Tutor t2= PersonDataDB.getTutorFromDB(l2.getTutorId());
+                String s2=t2.getFirstName()+" "+t2.getFirstName();
+                if(s1.compareTo(s2)<0)
+                    return -1;
+                else{
+                    return 1;
+                }
+            }
+        });
+        for(int i=0; i<lessons.size();i++){
+            addView(lessons.get(i));
+        }
+
     }
 }
