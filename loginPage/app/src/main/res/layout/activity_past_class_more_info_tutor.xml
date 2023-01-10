@@ -144,7 +144,7 @@
                 android:hint="add summary here"
                 android:padding="10dp"
                 android:textColor="@color/white"
-                android:textColorHint="#786A6A"
+                android:textColorHint="@color/mygray"
                 android:textSize="20sp"></EditText>
 
         </LinearLayout>

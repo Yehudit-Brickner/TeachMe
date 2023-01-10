@@ -98,57 +98,6 @@
 
     </LinearLayout>
 
-<!--    <Button-->
-<!--        android:id="@+id/add"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="200dp"-->
-<!--        android:layout_marginBottom="30dp"-->
-<!--        android:background="#30ffffff"-->
-<!--        android:gravity="center"-->
-<!--        android:text="Add class"-->
-<!--        android:textSize="35dp"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/upcoming"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.517"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/tutor"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/upcoming"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="30dp"-->
-<!--        android:layout_marginBottom="30dp"-->
-<!--        android:background="#30ffffff"-->
-<!--        android:gravity="center"-->
-<!--        android:text="up coming classes"-->
-<!--        android:textSize="35dp"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/passed"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.494"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/add" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/passed"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="30dp"-->
-<!--        android:layout_marginBottom="150dp"-->
-<!--        android:background="#30ffffff"-->
-<!--        android:gravity="center"-->
-<!--        android:text="passed classes"-->
-<!--        android:textSize="35dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.494"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/upcoming" />-->
-
-<!--   -->
-
 
     <Button
         android:id="@+id/signoutbtn"

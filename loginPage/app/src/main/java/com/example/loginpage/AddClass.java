@@ -125,7 +125,7 @@ public class AddClass extends AppCompatActivity {
     }
 
     public void addView(){
-        View myview = getLayoutInflater().inflate(R.layout.add_class_row2,null,false);
+        View myview = getLayoutInflater().inflate(R.layout.add_class_row,null,false);
 
         Starttime =(Button)myview.findViewById(R.id.timeButtonStart);
         Endtime =(Button)myview.findViewById(R.id.timeButtonEnd);
