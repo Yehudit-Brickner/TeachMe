@@ -111,8 +111,12 @@ public class SearchResults extends AppCompatActivity {
         classname.setText(l.getLessonId());
 
         tutorname=(TextView)myview.findViewById(R.id.TutorName_sr);
-        t= PersonDataDB.getTutorFromDB(l.getTutorId());
-        tutorname.setText(t.getFirstName()+" "+t.getLastName());
+        if(l.getTutorId()!="") {
+            t = PersonDataDB.getTutorFromDB(l.getTutorId());
+            if (t != null) {
+                tutorname.setText(t.getFirstName() + " " + t.getLastName());
+            }
+        }
 
         price=(TextView)myview.findViewById(R.id.price);
         price.setText(price.getText().toString()+l.getPrice());

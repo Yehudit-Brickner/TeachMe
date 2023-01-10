@@ -140,7 +140,7 @@ public class LessonDB extends Lesson
             for (QueryDocumentSnapshot document : task.getResult()) {
                 Log.d("QUERY_TEST", document.getId() + " => " + document.getData());
                 PathParse parser = new PathParse(document.getReference().getPath());
-                if (parser.getDataFromParsed(ILesson.DOCK_NAME) == null || parser.getDataFromParsed(PersonDataDB.COLL_NAME) == null)
+                if (parser.getDataFromParsed(ILesson.DOCK_NAME) == null || parser.getDataFromParsed(PersonDataDB.COLL_NAME) == null || parser.getDataFromParsed(ILesson.DOCK_NAME) == "" )
                     continue;
 
 

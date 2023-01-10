@@ -28,6 +28,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import controller.Login_controller;
 import db.PersonDataDB;
 import impl.Student;
 import impl.Tutor;
@@ -43,9 +44,6 @@ public class Login extends AppCompatActivity {
     private GoogleSignInOptions gso;
     private GoogleSignInClient gsc;
 
-
-    private boolean isStudent;
-    private boolean isTutor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,22 +61,21 @@ public class Login extends AppCompatActivity {
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
         gsc = GoogleSignIn.getClient(Login.this, gso);
-        isStudent=false;
-        isTutor=false;
 
 
         // check which permission is being used
         radiobtnS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!isStudent) {
-                    radiobtnT.setChecked(false);
-                    radiobtnS.setChecked(true);
-                    isStudent=true;
-                } else {
-                    radiobtnS.setChecked(false);
-                    isStudent=false;
-                }
+                Login_controller.StudentChecked(radiobtnS,radiobtnT);
+//                if(radiobtnT.isChecked()){
+//                    radiobtnT.setChecked(false);
+//                    radiobtnS.setChecked(true);
+//                }
+//                else{
+//                    radiobtnS.setChecked(true);
+//                }
+
                 Log.d("AUTH_DEBUG", "student clicked");
             }
         });
@@ -86,14 +83,14 @@ public class Login extends AppCompatActivity {
         radiobtnT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!isTutor) {
-                    radiobtnS.setChecked(false);
-                    radiobtnT.setChecked(true);
-                    isTutor=true;
-                } else {
-                    radiobtnT.setChecked(false);
-                    isTutor = false;
-                }
+                Login_controller.tutorChecked(radiobtnS,radiobtnT);
+//                if(radiobtnS.isChecked()){
+//                    radiobtnS.setChecked(false);
+//                    radiobtnT.setChecked(true);
+//                }
+//                else{
+//                    radiobtnT.setChecked(true);
+//                }
                 Log.d("AUTH_DEBUG", "tutor clicked");
             }
         });
@@ -104,13 +101,21 @@ public class Login extends AppCompatActivity {
             @Override
 
             public void onClick(View view) {
-                if (/*isStudent*/ radiobtnS.isChecked() || /*isTutor*/radiobtnT.isChecked()) {
-                    Log.d("AUTH_DEBUG", "pressed the google button");
+//                if ( radiobtnS.isChecked() || radiobtnT.isChecked()) {
+//                    Log.d("AUTH_DEBUG", "pressed the google button");
+//                    SignIn();
+//                } else {
+//                    Log.d("AUTH_DEBUG", "pressed the google button");
+//                    Toast.makeText(getApplicationContext(), "you need to pick student or tutor", Toast.LENGTH_LONG).show();
+//                }
+
+                if (Login_controller.googleClicked(radiobtnS, radiobtnT, gsc, gso)) {
                     SignIn();
-                } else {
-                    Log.d("AUTH_DEBUG", "pressed the google button");
+                }
+                else {
                     Toast.makeText(getApplicationContext(), "you need to pick student or tutor", Toast.LENGTH_LONG).show();
                 }
+
             }
         });
     }
@@ -123,8 +128,10 @@ public class Login extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultcode, Intent data) {
+
         Log.d("AUTH_DEBUG","in func onActivityResult");
         super.onActivityResult(requestCode, resultcode, data);
+
         if (requestCode == 1000) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
@@ -160,11 +167,11 @@ public class Login extends AppCompatActivity {
                             Student s = PersonDataDB.getStudentFromDB(UID);
                             Tutor t = PersonDataDB.getTutorFromDB(UID);
                             if (t!=null || s!=null) {
-                                if (/*isStudent*/radiobtnS.isChecked() && s!=null) {
+                                if (radiobtnS.isChecked() && s!=null) {
                                     Intent intent = new Intent(Login.this, StudentHomePage.class);
                                     intent.putExtra("uid", UID);
                                     startActivity(intent);
-                                } else if (/*isTutor*/radiobtnT.isChecked() && t!=null) {
+                                } else if (radiobtnT.isChecked() && t!=null) {
                                     Intent intent = new Intent(Login.this, TutorHomePage.class);
                                     intent.putExtra("uid", UID);
                                     startActivity(intent);
