@@ -28,7 +28,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import controller.Login_controller;
+import controller.LoginController;
 import db.PersonDataDB;
 import impl.Student;
 import impl.Tutor;
@@ -67,7 +67,7 @@ public class Login extends AppCompatActivity {
         radiobtnS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Login_controller.StudentChecked(radiobtnS,radiobtnT);
+                LoginController.StudentChecked(radiobtnS,radiobtnT);
 //                if(radiobtnT.isChecked()){
 //                    radiobtnT.setChecked(false);
 //                    radiobtnS.setChecked(true);
@@ -83,7 +83,7 @@ public class Login extends AppCompatActivity {
         radiobtnT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Login_controller.tutorChecked(radiobtnS,radiobtnT);
+                LoginController.tutorChecked(radiobtnS,radiobtnT);
 //                if(radiobtnS.isChecked()){
 //                    radiobtnS.setChecked(false);
 //                    radiobtnT.setChecked(true);
@@ -109,7 +109,7 @@ public class Login extends AppCompatActivity {
 //                    Toast.makeText(getApplicationContext(), "you need to pick student or tutor", Toast.LENGTH_LONG).show();
 //                }
 
-                if (Login_controller.googleClicked(radiobtnS, radiobtnT, gsc, gso)) {
+                if (LoginController.googleClicked(radiobtnS, radiobtnT, gsc, gso)) {
                     SignIn();
                 }
                 else {

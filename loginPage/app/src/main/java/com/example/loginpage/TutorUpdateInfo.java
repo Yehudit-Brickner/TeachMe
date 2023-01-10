@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import controller.UpdatePersonController;
 import db.PersonDataDB;
 import impl.Student;
 import impl.Tutor;
@@ -61,10 +62,11 @@ public class TutorUpdateInfo extends AppCompatActivity {
         phone.setText(t.getPhoneNumber());
 
         addpermision=(CheckBox)findViewById(R.id.addPermisionToStudent);
-        if (PersonDataDB.getStudentFromDB(UID)!=null){
-            addpermision.setChecked(true);
-            isStudent=true;
-        }
+        boolean x=UpdatePersonController.checkPermision("student", UID);
+//        if (PersonDataDB.getStudentFromDB(UID)!=null){
+            addpermision.setChecked(x);
+            isStudent=x;
+//        }
 
         update=(Button) findViewById(R.id.updateStudent);
 
@@ -73,19 +75,10 @@ public class TutorUpdateInfo extends AppCompatActivity {
         addpermision.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (!isStudent) {
-//                    if (addpermision.isChecked()) {
-//                        addpermision.setChecked(false);
-//                    } else {
-//                        addpermision.setChecked(true);
-//                    }
-//                }
-//                else{
+                UpdatePersonController.addPermision(isStudent,addpermision);
+//                if(isStudent){
 //                    addpermision.setChecked(true);
 //                }
-                if(isStudent){
-                    addpermision.setChecked(true);
-                }
             }
         });
 
@@ -93,8 +86,8 @@ public class TutorUpdateInfo extends AppCompatActivity {
         update.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-//                Toast.makeText(getApplicationContext(), "this feature will be coming soon!", Toast.LENGTH_LONG).show();
-                PersonDataDB.updatePersonData(UID,fname.getText().toString(),lname.getText().toString(),t.getEmail(),phone.getText().toString(),true,addpermision.isChecked());
+//                PersonDataDB.updatePersonData(UID,fname.getText().toString(),lname.getText().toString(),t.getEmail(),phone.getText().toString(),true,addpermision.isChecked());
+                UpdatePersonController.updateControl(UID,fname.getText().toString(),lname.getText().toString(),t.getEmail(),phone.getText().toString(),true,addpermision.isChecked());
                 Intent i =new Intent(TutorUpdateInfo.this, TutorHomePage.class);
                 startActivity(i);
             }

@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import controller.UpdatePersonController;
 import db.PersonDataDB;
 import impl.Student;
 
@@ -60,10 +61,11 @@ public class StudentUpdateInfo extends AppCompatActivity {
         phone.setText(s.getPhoneNumber());
 
         addpermision=(CheckBox)findViewById(R.id.addPermisionToStudent);
-        if(PersonDataDB.getTutorFromDB(UID)!=null){
-            addpermision.setChecked(true);
-            isTutor=true;
-        }
+        boolean x= UpdatePersonController.checkPermision("tutor",UID);
+//        if(PersonDataDB.getTutorFromDB(UID)!=null){
+            addpermision.setChecked(x);
+            isTutor=x;
+//        }
         update=(Button) findViewById(R.id.updateStudent);
 
 
@@ -71,16 +73,17 @@ public class StudentUpdateInfo extends AppCompatActivity {
         addpermision.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isTutor) {
-                    if (addpermision.isChecked()) {
-                        addpermision.setChecked(false);
-                    } else {
-                        addpermision.setChecked(true);
-                    }
-                }
-                else{
-                    addpermision.setChecked(true);
-                }
+                UpdatePersonController.addPermision(isTutor,addpermision);
+//                if (!isTutor) {
+//                    if (addpermision.isChecked()) {
+//                        addpermision.setChecked(false);
+//                    } else {
+//                        addpermision.setChecked(true);
+//                    }
+//                }
+//                else{
+//                    addpermision.setChecked(true);
+//                }
             }
         });
 
@@ -90,7 +93,8 @@ public class StudentUpdateInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(getApplicationContext(), "this feature will be coming soon!", Toast.LENGTH_LONG).show();
-                PersonDataDB.updatePersonData(UID,fname.getText().toString(),lname.getText().toString(),s.getEmail(),phone.getText().toString(),true,isTutor);
+//                PersonDataDB.updatePersonData(UID,fname.getText().toString(),lname.getText().toString(),s.getEmail(),phone.getText().toString(),true,isTutor);
+                UpdatePersonController.updateControl(UID,fname.getText().toString(),lname.getText().toString(),s.getEmail(),phone.getText().toString(),true,isTutor);
                 Intent i =new Intent(StudentUpdateInfo.this, StudentHomePage.class);
                 startActivity(i);
             }

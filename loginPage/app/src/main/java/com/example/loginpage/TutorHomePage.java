@@ -64,7 +64,6 @@ public class TutorHomePage extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Log.d("AUTH_DEBUG","pressed button profile - tutor");
                 Intent i =new Intent(TutorHomePage.this, TutorUpdateInfo.class);
                 startActivity(i);
             }
@@ -74,7 +73,6 @@ public class TutorHomePage extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Log.d("AUTH_DEBUG","pressed button add");
                 Intent i =new Intent(TutorHomePage.this, AddClass.class);
                 startActivity(i);
             }
@@ -84,7 +82,6 @@ public class TutorHomePage extends AppCompatActivity {
         pastclasses.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Log.d("AUTH_DEBUG","pressed button passed classes - tutor");
                 Intent i =new Intent(TutorHomePage.this, PassedClassesTutor.class);
                 startActivity(i);
             }
@@ -94,7 +91,6 @@ public class TutorHomePage extends AppCompatActivity {
         futureclasses.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Log.d("AUTH_DEBUG","pressed button future classes - tutor");
                 Intent i =new Intent(TutorHomePage.this, FutureClassesTutor.class);
                 startActivity(i);
             }
@@ -109,7 +105,6 @@ public class TutorHomePage extends AppCompatActivity {
         signout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("AUTH_DEBUG","pressed button signout- tutor");
                 signOut();
                 Intent i =new Intent(TutorHomePage.this, Login.class);
                 startActivity(i);
