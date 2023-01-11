@@ -55,9 +55,23 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="* if you don't pick dates the default is to show lessons that have meetings from today and onward"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:gravity="center"
+                ></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:paddingTop="40dp"
+            android:paddingTop="10dp"
             android:paddingBottom="40dp">
 
             <TextView
