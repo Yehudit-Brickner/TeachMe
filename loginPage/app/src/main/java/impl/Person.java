@@ -1,4 +1,6 @@
 package impl;
+import com.google.gson.Gson;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.security.MessageDigest;
@@ -129,4 +131,8 @@ public class Person implements IPerson {
 //        return personMap;
 //
 //    }
+
+    public String toJson(){
+        return new Gson().toJson(this);
+    }
 }

@@ -1,6 +1,7 @@
 package impl;
 
 import com.google.firebase.Timestamp;
+import com.google.gson.Gson;
 
 
 import java.text.DateFormat;
@@ -258,6 +259,10 @@ public class Meeting implements IMeeting, Comparable<Meeting>
         meetingMap.put("summary", this.summary);
         return meetingMap;
 
+    }
+
+    public String toJson(){
+        return new Gson().toJson(this);
     }
 }
 

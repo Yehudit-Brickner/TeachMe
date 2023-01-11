@@ -1,5 +1,7 @@
 package impl;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,5 +27,9 @@ public class Tutor extends Person
         tutorMap.put("email", email);
         tutorMap.put("phoneNumber", phoneNumber);
         return tutorMap;
+    }
+
+    public String toJson(){
+        return new Gson().toJson(this);
     }
 }

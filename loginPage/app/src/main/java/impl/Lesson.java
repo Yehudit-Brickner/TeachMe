@@ -1,5 +1,7 @@
 package impl;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -122,5 +124,9 @@ public class Lesson implements ILesson
         lessonMap.put("price", this.price);
         lessonMap.put("freeText", this.freeText);
         return lessonMap;
+    }
+
+    public String toJson(){
+      return new Gson().toJson(this);
     }
 }
