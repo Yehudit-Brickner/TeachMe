@@ -2,6 +2,8 @@ package impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import interfaces.ILesson;
@@ -79,6 +81,14 @@ public class Lesson implements ILesson
         }
     }
 
+    public String getFreeText() {
+        return freeText;
+    }
+
+    public void setFreeText(String freeText) {
+        this.freeText = freeText;
+    }
+
     @Override
     public String toString() {
         String retStr = "Lesson{";
@@ -102,5 +112,15 @@ public class Lesson implements ILesson
     @Override
     public int hashCode() {
         return Objects.hash(lessonId, tutorId);
+    }
+
+
+    public Map<String, Object> getMap(){
+        Map<String, Object> lessonMap= new HashMap<>();
+        lessonMap.put("lessonId", this.lessonId);
+        lessonMap.put("tutorId", this.tutorId);
+        lessonMap.put("price", this.price);
+        lessonMap.put("freeText", this.freeText);
+        return lessonMap;
     }
 }

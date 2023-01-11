@@ -11,8 +11,7 @@ import db.DataCenterDB;
 import interfaces.IPerson;
 
 
-public class Person implements IPerson
-{
+public class Person implements IPerson {
     protected String uID = "";
     protected String firstName = "";
     protected String lastName = "";
@@ -118,4 +117,16 @@ public class Person implements IPerson
     public int hashCode() {
         return Objects.hash(uID);
     }
+
+
+//    public Map<String, Object> getMap() {
+//        Map<String, Object> personMap = new HashMap<>();
+//        personMap.put("uID", this.uID);
+//        personMap.put("firstName", this.firstName);
+//        personMap.put("lastName", this.lastName);
+//        personMap.put("email", this.email);
+//        personMap.put("phoneNumber", this.phoneNumber);
+//        return personMap;
+//
+//    }
 }

@@ -1,6 +1,8 @@
 package impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Tutor extends Person
 {
@@ -13,5 +15,15 @@ public class Tutor extends Person
     public Tutor()
     {
 
+    }
+
+    public Map<String, Object> getMap(){
+        Map<String, Object> tutorMap= new HashMap<>();
+        tutorMap.put("uID", uID);
+        tutorMap.put("firstName", firstName);
+        tutorMap.put("lastName", lastName);
+        tutorMap.put("email", email);
+        tutorMap.put("phoneNumber", phoneNumber);
+        return tutorMap;
     }
 }

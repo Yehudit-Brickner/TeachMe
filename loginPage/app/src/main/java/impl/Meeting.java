@@ -239,5 +239,25 @@ public class Meeting implements IMeeting, Comparable<Meeting>
         return dateFormat.format(date);
     }
 
+
+    public Map<String, Object> getMap(){
+        Map<String, Object> meetingMap= new HashMap<>();
+        meetingMap.put("meetingId", this.meetingId);
+        meetingMap.put("lessonId", this.lessonId);
+        meetingMap.put("tutorId", this.tutorId);
+        meetingMap.put("dateStart", this.dateStart);
+        meetingMap.put("timeStart", this.timeStart);
+        meetingMap.put("dateEnd", this.dateEnd);
+        meetingMap.put("timeEnd", this.timeEnd);
+        meetingMap.put("startDateTime", this.startDateTime);
+        meetingMap.put("endDateTime", this.endDateTime);
+        meetingMap.put("studentId", this.studentId);
+        meetingMap.put("zoom", this.zoom);
+        meetingMap.put("inPerson", this.inPerson);
+        meetingMap.put("city", this.city);
+        meetingMap.put("summary", this.summary);
+        return meetingMap;
+
+    }
 }
 
