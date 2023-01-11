@@ -15,7 +15,6 @@ public class Lesson implements ILesson
     protected String freeText = "";
     protected ArrayList<Meeting> meetings = null;
 
-
     public Lesson()
     {
     }

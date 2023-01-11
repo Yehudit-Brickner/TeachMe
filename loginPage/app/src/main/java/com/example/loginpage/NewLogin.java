@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -32,9 +33,13 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import org.w3c.dom.Document;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
+import connection.HttpManager;
 import db.DataCenterDB;
 import db.LessonDB;
 import db.MeetingDB;
@@ -61,7 +66,6 @@ public class NewLogin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_login);
-
 
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
@@ -113,6 +117,21 @@ public class NewLogin extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                String url = "http://10.0.0.42:9090/get/lessons";
+                try {
+//                    String s = HttpManager.GetRequest(url, Map.of("LID", "C++"));
+//                    System.out.println(s);
+//                    HttpManager data = HttpManager.GetRequest(url, Map.of("LID", "C++"));
+//                    System.out.println(data);
+//                    ArrayList<Lesson> lessons = (ArrayList<Lesson>) data.getData();
+//                    System.out.println(lessons.get(0));
+                    System.out.println();
+                    HttpManager data = HttpManager.PostRequest("http://10.0.0.42:9090/login", Map.of("nm", "GILAD"));
+                    System.out.println(data);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 Log.d("AUTH_DEBUG", "pressed on login");
                 if (type>=0) {
                     mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())

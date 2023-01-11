@@ -18,8 +18,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import connection.HttpManager;
 import db.MeetingDB;
 import impl.Meeting;
 
@@ -28,7 +30,7 @@ import impl.Meeting;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-@RunWith(AndroidJUnit4.class)
+//@RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
     @Test
     public void useAppContext() {
@@ -43,6 +45,9 @@ public class ExampleInstrumentedTest {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         ArrayList<Meeting> meetings =  MeetingDB.getMeetingsByTutorAndLessonId("vElfoL0jnONTmjhLpaHpHMGiMJU2", "infi");
         Log.d("TEST_MEETING", meetings + "");
+
+
+
 //        Map<String, Object> users =new HashMap<>();
 //        users.put("firstName","Yehudit");
 //        users.put("lastName", "Brickner");

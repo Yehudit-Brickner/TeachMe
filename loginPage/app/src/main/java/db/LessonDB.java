@@ -164,7 +164,4 @@ public class LessonDB extends Lesson
         return new ArrayList<>(lessonHashSet);
     }
 
-
-
-
 }
