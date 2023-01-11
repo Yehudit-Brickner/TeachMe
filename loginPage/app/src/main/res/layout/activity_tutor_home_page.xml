@@ -13,7 +13,7 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:gravity="center_horizontal"
         android:text="Hello "
         android:textColor="@color/white"
@@ -23,7 +23,7 @@
         app:layout_constraintHorizontal_bias="0.456"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.656" />
 
     <TextView
         android:id="@+id/tutor"
@@ -105,6 +105,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/design_default_color_secondary"
         android:text="sign out"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
