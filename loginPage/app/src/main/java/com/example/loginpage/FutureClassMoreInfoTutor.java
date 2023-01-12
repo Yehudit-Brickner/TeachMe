@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import controller.PastFutureClassMoreInfoController;
 import db.LessonDB;
 import db.MeetingDB;
 import db.PersonDataDB;
@@ -29,6 +30,7 @@ import impl.Lesson;
 import impl.Meeting;
 import impl.Student;
 import impl.Tutor;
+import model.PastFutureClassMoreInfoModel;
 
 public class FutureClassMoreInfoTutor extends AppCompatActivity {
 
@@ -59,13 +61,19 @@ public class FutureClassMoreInfoTutor extends AppCompatActivity {
         intent=getIntent();
         MID = intent.getStringExtra("mID");
 
-        m= MeetingDB.getMeeting(MID);
+//        m= MeetingDB.getMeeting(MID);
+//        t = PersonDataDB.getTutorFromDB(m.getTutorId());
+//        l = LessonDB.getLessonFromDB(t.getUID(),m.getLessonId());
+
+        m= PastFutureClassMoreInfoController.getMeeting(MID);
+        t= PastFutureClassMoreInfoController.getTutor(m.getTutorId());
+        l= PastFutureClassMoreInfoController.getLesson(t.getUID(),m.getLessonId());
+
         sId=m.getStudentId();
         if(sId!="") {
-            s = PersonDataDB.getStudentFromDB(m.getStudentId());
+//            s = PersonDataDB.getStudentFromDB(m.getStudentId());
+            s=PastFutureClassMoreInfoController.getStudent(sId);
         }
-        t = PersonDataDB.getTutorFromDB(m.getTutorId());
-        l = LessonDB.getLessonFromDB(t.getUID(),m.getLessonId());
 
         classname =(TextView)findViewById(R.id.fcmi_classname);
         classname.setText(classname.getText().toString()+ m.getLessonId());
@@ -102,21 +110,22 @@ public class FutureClassMoreInfoTutor extends AppCompatActivity {
         whatsapp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                boolean installed=isAppInstaled("com.whatsapp");
-                installed=true;
-                if(installed){
-                    Intent sendIntent = new Intent();
-                    sendIntent.setAction(Intent.ACTION_SEND);
-                    String num="+972549761411";
-                    String text="hello world";
-//                    sendIntent.setData(Uri.parse("http://whatsapp.com/send?phone="+num+"&text="+text));
-                    sendIntent.setData(Uri.parse("http://api.whatsapp.com/send?phone="+num+"&text="+text));
-//                    sendIntent.setData(Uri.parse("https://wa.me/"+num+"&text="+text));
-                    startActivity(sendIntent);
-                }
-                else{
-                    Toast.makeText(getApplicationContext(), "sorry, you don't have whatsapp", Toast.LENGTH_LONG).show();
-                }
+                Toast.makeText(getApplicationContext(), "this feature will be coming soon!", Toast.LENGTH_LONG).show();
+//                boolean installed=isAppInstaled("com.whatsapp");
+//                installed=true;
+//                if(installed){
+//                    Intent sendIntent = new Intent();
+//                    sendIntent.setAction(Intent.ACTION_SEND);
+//                    String num="+972549761411";
+//                    String text="hello world";
+////                    sendIntent.setData(Uri.parse("http://whatsapp.com/send?phone="+num+"&text="+text));
+//                    sendIntent.setData(Uri.parse("http://api.whatsapp.com/send?phone="+num+"&text="+text));
+////                    sendIntent.setData(Uri.parse("https://wa.me/"+num+"&text="+text));
+//                    startActivity(sendIntent);
+//                }
+//                else{
+//                    Toast.makeText(getApplicationContext(), "sorry, you don't have whatsapp", Toast.LENGTH_LONG).show();
+//                }
             }
         });
 

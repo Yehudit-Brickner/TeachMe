@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import controller.PastFutureClassMoreInfoController;
 import db.LessonDB;
 import db.MeetingDB;
 import db.PersonDataDB;
@@ -54,12 +55,16 @@ public class PastClassMoreInfoTutor extends AppCompatActivity {
         intent=getIntent();
         MID=intent.getStringExtra("mID");
 
-        m= MeetingDB.getMeeting(MID);
-        t = PersonDataDB.getTutorFromDB(m.getTutorId());
-        l= LessonDB.getLessonFromDB(t.getUID(),m.getLessonId());
+//        m= MeetingDB.getMeeting(MID);
+//        t = PersonDataDB.getTutorFromDB(m.getTutorId());
+//        l= LessonDB.getLessonFromDB(t.getUID(),m.getLessonId());
+        m = PastFutureClassMoreInfoController.getMeeting(MID);
+        t = PastFutureClassMoreInfoController.getTutor(m.getTutorId());
+        l = PastFutureClassMoreInfoController.getLesson(t.getUID(),m.getLessonId());
 
         if (m.getStudentId()!="" && m.getStudentId()!=null) {
-            s = PersonDataDB.getStudentFromDB(m.getStudentId());
+//            s = PersonDataDB.getStudentFromDB(m.getStudentId());
+            s=PastFutureClassMoreInfoController.getStudent(m.getStudentId());
         }
 
 
@@ -101,8 +106,13 @@ public class PastClassMoreInfoTutor extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 m.setSummary(summary.getText().toString());
-                LessonDB.setLessonData(l);
-                Toast.makeText(getApplicationContext(), "summary updated", Toast.LENGTH_LONG).show();
+//                LessonDB.setLessonData(l);
+               if(PastFutureClassMoreInfoController.updateMeeting(m)) {
+                   Toast.makeText(getApplicationContext(), "summary updated", Toast.LENGTH_LONG).show();
+               }
+               else{
+                   Toast.makeText(getApplicationContext(), "something went wrong", Toast.LENGTH_LONG).show();
+               }
             }
         });
 

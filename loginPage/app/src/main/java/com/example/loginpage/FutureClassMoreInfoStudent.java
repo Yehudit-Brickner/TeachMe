@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import controller.PastFutureClassMoreInfoController;
 import db.LessonDB;
 import db.MeetingDB;
 import db.PersonDataDB;
@@ -50,9 +51,12 @@ public class FutureClassMoreInfoStudent extends AppCompatActivity {
         intent=getIntent();
         MID = intent.getStringExtra("MID");
 
-        m= MeetingDB.getMeeting(MID);
-        t = PersonDataDB.getTutorFromDB(m.getTutorId());
-        l= LessonDB.getLessonFromDB(t.getUID(),m.getLessonId());
+//        m= MeetingDB.getMeeting(MID);
+//        t = PersonDataDB.getTutorFromDB(m.getTutorId());
+//        l= LessonDB.getLessonFromDB(t.getUID(),m.getLessonId());
+        m = PastFutureClassMoreInfoController.getMeeting(MID);
+        t = PastFutureClassMoreInfoController.getTutor(m.getTutorId());
+        l = PastFutureClassMoreInfoController.getLesson(t.getUID(),m.getLessonId());
 
 
         classname =(TextView)findViewById(R.id.fcmi_classname);
