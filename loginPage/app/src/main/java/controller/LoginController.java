@@ -29,7 +29,7 @@ public class LoginController {
         }
     }
 
-    public static boolean googleClicked(RadioButton radiobtnS, RadioButton radiobtnT, GoogleSignInClient gsc, GoogleSignInOptions gso){
+    public static boolean googleClicked(RadioButton radiobtnS, RadioButton radiobtnT){
         if ( radiobtnS.isChecked() || radiobtnT.isChecked()) {
             Log.d("AUTH_DEBUG", "pressed the google button");
             return true;

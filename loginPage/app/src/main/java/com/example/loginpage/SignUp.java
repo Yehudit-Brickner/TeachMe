@@ -28,6 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import controller.PersonController;
 import db.PersonDataDB;
 import impl.Person;
 import interfaces.IPerson;
@@ -100,7 +101,6 @@ public class SignUp extends AppCompatActivity {
 
         googleSignup.setOnClickListener(new View.OnClickListener() {
             @Override
-
             public void onClick(View view) {
                 if (isStudent || isTutor) {
                     System.out.println("pressed the google button");
@@ -111,7 +111,8 @@ public class SignUp extends AppCompatActivity {
                     IPerson p = new Person(UID,fname.getText().toString(),
                             lname.getText().toString(),
                             acct.getEmail(),phone.getText().toString());
-                    PersonDataDB.setPersonData(p,isTutor,isStudent);
+//                    PersonDataDB.setPersonData(p,isTutor,isStudent);
+                    PersonController.setPerson(p,isTutor,isStudent);
                     startActivity(new Intent(SignUp.this, Login.class));
                 }
                 else{
@@ -164,8 +165,10 @@ public class SignUp extends AppCompatActivity {
                             IPerson p = new Person(UID,fname.getText().toString(),
                                     lname.getText().toString(),
                                     acct.getEmail(),phone.getText().toString());
-                            PersonDataDB.setPersonData(p,isTutor,isStudent);
-                        } else {
+//                            PersonDataDB.setPersonData(p,isTutor,isStudent);
+                            PersonController.setPerson(p,isTutor,isStudent);
+                        }
+                        else {
                             // If sign in fails, display a message to the user.
                             Log.w("AUTH_DEBUG", "signInWithCredential:failure", task.getException());
                             updateUI(null);

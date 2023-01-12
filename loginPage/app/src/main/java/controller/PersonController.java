@@ -3,9 +3,12 @@ package controller;
 import android.widget.CheckBox;
 
 import db.PersonDataDB;
-import model.UpdatePersonModel;
+import impl.Student;
+import impl.Tutor;
+import interfaces.IPerson;
+import model.PersonModel;
 
-public class UpdatePersonController {
+public class PersonController {
 
 
     public static boolean checkPermision(String type, String UID){
@@ -31,6 +34,18 @@ public class UpdatePersonController {
     }
 
     public static void updateControl(String UID, String fname, String lname, String phone, String email, boolean isS, boolean isT){
-        UpdatePersonModel.updateModel(UID,fname,lname,email,phone,isS,isT);
+        PersonModel.updateModel(UID,fname,lname,email,phone,isS,isT);
+    }
+
+    public static Tutor getTutor(String uid){
+        return PersonModel.getTutor(uid);
+    }
+
+    public static Student getStudent(String uid){
+        return PersonModel.getStudent(uid);
+    }
+
+    public static void setPerson(IPerson person, boolean is_tutor, boolean is_student){
+        PersonModel.setPerson(person,is_tutor,is_student);
     }
 }

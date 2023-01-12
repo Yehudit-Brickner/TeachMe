@@ -29,6 +29,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import controller.LoginController;
+import controller.PersonController;
 import db.PersonDataDB;
 import impl.Student;
 import impl.Tutor;
@@ -68,14 +69,6 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 LoginController.StudentChecked(radiobtnS,radiobtnT);
-//                if(radiobtnT.isChecked()){
-//                    radiobtnT.setChecked(false);
-//                    radiobtnS.setChecked(true);
-//                }
-//                else{
-//                    radiobtnS.setChecked(true);
-//                }
-
                 Log.d("AUTH_DEBUG", "student clicked");
             }
         });
@@ -84,13 +77,6 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 LoginController.tutorChecked(radiobtnS,radiobtnT);
-//                if(radiobtnS.isChecked()){
-//                    radiobtnS.setChecked(false);
-//                    radiobtnT.setChecked(true);
-//                }
-//                else{
-//                    radiobtnT.setChecked(true);
-//                }
                 Log.d("AUTH_DEBUG", "tutor clicked");
             }
         });
@@ -99,17 +85,8 @@ public class Login extends AppCompatActivity {
         // login with google
         googleLogin.setOnClickListener(new View.OnClickListener() {
             @Override
-
             public void onClick(View view) {
-//                if ( radiobtnS.isChecked() || radiobtnT.isChecked()) {
-//                    Log.d("AUTH_DEBUG", "pressed the google button");
-//                    SignIn();
-//                } else {
-//                    Log.d("AUTH_DEBUG", "pressed the google button");
-//                    Toast.makeText(getApplicationContext(), "you need to pick student or tutor", Toast.LENGTH_LONG).show();
-//                }
-
-                if (LoginController.googleClicked(radiobtnS, radiobtnT, gsc, gso)) {
+                if (LoginController.googleClicked(radiobtnS, radiobtnT)) {
                     SignIn();
                 }
                 else {
@@ -164,8 +141,10 @@ public class Login extends AppCompatActivity {
                             // check if the person has a user in the db and is the type matches
 
                             Log.d("AUTH_DEBUG", "user= "+ UID);
-                            Student s = PersonDataDB.getStudentFromDB(UID);
-                            Tutor t = PersonDataDB.getTutorFromDB(UID);
+                            Student s= PersonController.getStudent(UID);
+                            Tutor t= PersonController.getTutor(UID);
+//                            Student s = PersonDataDB.getStudentFromDB(UID);
+//                            Tutor t = PersonDataDB.getTutorFromDB(UID);
                             if (t!=null || s!=null) {
                                 if (radiobtnS.isChecked() && s!=null) {
                                     Intent intent = new Intent(Login.this, StudentHomePage.class);

@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import controller.PersonController;
 import db.PersonDataDB;
 import impl.Student;
 
@@ -51,7 +52,8 @@ public class StudentHomePage extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         UID=user.getUid();
-        s= PersonDataDB.getStudentFromDB(UID);
+//        s= PersonDataDB.getStudentFromDB(UID);
+        s= PersonController.getStudent(UID);
 
         studentName.setText(studentName.getText().toString()+ s.getFirstName()+ " "+ s.getLastName());
 

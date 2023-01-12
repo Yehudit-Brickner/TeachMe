@@ -11,16 +11,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import controller.UpdatePersonController;
+import controller.PersonController;
 import db.PersonDataDB;
-import impl.Student;
 import impl.Tutor;
 
 public class TutorUpdateInfo extends AppCompatActivity {
@@ -62,7 +59,7 @@ public class TutorUpdateInfo extends AppCompatActivity {
         phone.setText(t.getPhoneNumber());
 
         addpermision=(CheckBox)findViewById(R.id.addPermisionToStudent);
-        boolean x=UpdatePersonController.checkPermision("student", UID);
+        boolean x= PersonController.checkPermision("student", UID);
 //        if (PersonDataDB.getStudentFromDB(UID)!=null){
             addpermision.setChecked(x);
             isStudent=x;
@@ -75,7 +72,7 @@ public class TutorUpdateInfo extends AppCompatActivity {
         addpermision.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UpdatePersonController.addPermision(isStudent,addpermision);
+                PersonController.addPermision(isStudent,addpermision);
 //                if(isStudent){
 //                    addpermision.setChecked(true);
 //                }
@@ -87,7 +84,7 @@ public class TutorUpdateInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                PersonDataDB.updatePersonData(UID,fname.getText().toString(),lname.getText().toString(),t.getEmail(),phone.getText().toString(),true,addpermision.isChecked());
-                UpdatePersonController.updateControl(UID,fname.getText().toString(),lname.getText().toString(),t.getEmail(),phone.getText().toString(),true,addpermision.isChecked());
+                PersonController.updateControl(UID,fname.getText().toString(),lname.getText().toString(),t.getEmail(),phone.getText().toString(),true,addpermision.isChecked());
                 Intent i =new Intent(TutorUpdateInfo.this, TutorHomePage.class);
                 startActivity(i);
             }

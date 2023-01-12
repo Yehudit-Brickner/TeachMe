@@ -4,10 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -23,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import db.PersonDataDB;
+import controller.PersonController;
 import impl.Tutor;
 
 public class TutorHomePage extends AppCompatActivity {
@@ -49,13 +45,12 @@ public class TutorHomePage extends AppCompatActivity {
         setContentView(R.layout.activity_tutor_home_page);
 
 
-
-
         TextView tutorname=(TextView)findViewById(R.id.name);
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         UID=user.getUid();
-        t= PersonDataDB.getTutorFromDB(UID);
+//      t= PersonDataDB.getTutorFromDB(UID);
+        t= PersonController.getTutor(UID);
 
         tutorname.setText(tutorname.getText().toString()+ t.getFirstName()+ " "+ t.getLastName());
 
