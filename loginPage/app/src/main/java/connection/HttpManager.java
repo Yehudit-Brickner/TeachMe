@@ -25,7 +25,7 @@ public class HttpManager
     public static final int OK = 200;
     public static final int ERR = 301;
 
-    public static final String URL = "https://giladon.pythonanywhere.com";
+    public static final String URL = "http://10.0.0.42:9090";//"https://giladon.pythonanywhere.com";
 
     private int code;
     private Object data;

@@ -69,7 +69,7 @@ def index():
 def get_tutor_lesson():
     uid = request.args.get('UID', default='', type=str)
     lesson_id = request.args.get('LID', default='', type=str)
-    return lessons_db.get_lesson_from_db(uid, lesson_id)
+    return utils.run_func(lessons_db.get_lesson_from_db, uid, lesson_id)
 
 
 @app.route('/get/lessons', methods=['GET'])

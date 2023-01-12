@@ -49,28 +49,10 @@ public class LessonDB extends Lesson {
         this.meetings = new ArrayList<>();
     }
 
-
-
     public static boolean setLessonData(Lesson lesson) {
-//        // TODO: check if the tutor exists
-//        if (lesson.getTutorId() == null || lesson.getTutorId().isEmpty())
-//            return false;
-//
-//        // TODO: check if the lesson exists
-//        if (lesson.getLessonId() == null || lesson.getLessonId().isEmpty())
-//            return false;
-//
-//        CollectionReference lessonsColl = firestore.collection(PersonDataDB.COLL_NAME).document(lesson.getTutorId()).collection(Lesson.DOCK_NAME);
-//        lessonsColl.document(lesson.getLessonId()).set(lesson);
-//
-//        // TODO: add if document added successfully
-
-        //String[] arr = List.of("");
-        //String.join("/", List.of());
-
         HttpManager httpResponse = null;
         try {
-            httpResponse = HttpManager.PostRequest("/set/lesson",lesson);
+            httpResponse = HttpManager.PostRequest("/set/lesson", lesson);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -80,55 +62,28 @@ public class LessonDB extends Lesson {
         }
         String s = String.valueOf(httpResponse.getData());
 
-        return (Boolean) httpResponse.getData();
+        return (httpResponse.getCode() == HttpManager.OK);
     }
     
     public static Lesson getLessonFromDB(String Uid, String lessonId) {
 
-        String tag = "LESSONS_DEBUG";
-        // for changeing option
-        Lesson lesson = new Lesson();
-        DocumentReference docRef = FirebaseFirestore.getInstance().collection(PersonDataDB.COLL_NAME).document(Uid).collection(DOCK_NAME).document(lessonId);
-        Task<DocumentSnapshot> task = docRef.get();
+        try {
+            HttpManager httpResponse = HttpManager.GetRequest("/get_tutor_lesson",
+                    Map.of("UID", Uid, "LID", lessonId));
 
-        DataCenterDB.waitTaskComplete(task);
+            if (httpResponse.getCode() == HttpManager.ERR)
+                return null;
 
-        if (task.isSuccessful()) {
-            DocumentSnapshot document = task.getResult();
-            if (document.exists()) {
+            if (httpResponse.getCode() != HttpManager.OK)
+                return null;
 
-                Log.d("AUTH_DEBUG", "DocumentSnapshot data: " + document.getData().toString());
-                lesson = document.toObject(Lesson.class);
-            } else {
-                Log.d(tag, "No such document");
-            }
+            return Lesson.ObjectToLesson(httpResponse.getData());
 
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        else {
-            Log.d(tag, "get failed with ", task.getException());
-        }
-        return lesson;
-//        HttpManager httpResponse = null;
-//        String url=HttpManager.URL+"/get_tutor_lesson";
-//
-//        try {
-//            httpResponse = HttpManager.GetRequest(url, Map.of("UID",Uid,"LID",lessonId));
-//        }
-//        catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        if (httpResponse==null){
-//            return null;
-//        }
-//
-//
-//        try {
-//            return Lesson.ObjectToLesson(httpResponse.getData());
-//        }
-//        catch (Exception ex) {
-//            return null;
-//        }
+
+        return null;
 
     }
 

@@ -141,6 +141,9 @@ public class Lesson implements ILesson
 
 
     public static Lesson ObjectToLesson(Object o){
+        if (o == null)
+            return null;
+
         Gson gson = new Gson ();
         String json = gson.toJson(o);
         return gson.fromJson(json, Lesson.class);
