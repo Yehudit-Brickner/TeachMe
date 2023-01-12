@@ -4,6 +4,7 @@ from firebase_admin import firestore
 from google.cloud.firestore_v1 import *
 from datetime import datetime
 #from DB.DBErrorException import DBErrorException
+from DB.DBErrorException import DBErrorException
 from DB.db_utils import db_utils as util
 #from DB.Meeting import Meeting
 from DB.Firestore_Base_DB import Firestore_Base_DB
@@ -14,30 +15,28 @@ class MeetingDB(Firestore_Base_DB):
     def get_meeting_tutorid_lessonid(self, tutor_id: str, lesson_id: str) -> list:
         if tutor_id is None or len(tutor_id) == 0:
             print("no tutor")
-            #raise DBErrorException
-            return {"error": "didn't  enter tutor id"}, 404
+            raise DBErrorException("didn't  enter tutor id")
         meetings = self.db.collection_group(util.DOCK_MEETINGS).where("tutorId", "==", tutor_id)\
                                                                .where("lessonId", "==", lesson_id).stream()
-        return self.get_meeting_list(meetings), 200
+        return self.get_meeting_list(meetings)
 
     #Get meeting by meeting object
     def get_meeting(self, meeting: dict) -> dict:
         # Meetings are unique therefore will result only in one meeting.
         meeting_data = self.db.collection_group(util.DOCK_MEETINGS) \
             .where("meetingId", "==", meeting["meetingId"]) \
-            .where("studentId", "==", meeting["studentId"])\
             .where("lessonId", "==", meeting["lessonId"]) \
-            .where("tutorId", "==", meeting["tutorId"])            \
+            .where("tutorId", "==", meeting["tutorId"])\
             .stream()
         for meet in meeting_data:
             return meet.to_dict()
-        return {"error": "meeting doesn't exist"}, 404
+        raise DBErrorException("meeting doesn't exist")
 
     #Get meetings by student id
     def get_student_meetings(self, student_id: str) -> list:
         if student_id is None or len(student_id) == 0:
             print("no student")
-            return {"error": "didn't enter student id"}, 404
+            raise DBErrorException("didn't enter student id")
         meetings = self.db.collection_group(util.DOCK_MEETINGS).where("studentId", "==", student_id).stream()
         for meet in meetings:
             print(meet.to_dict())
@@ -48,7 +47,7 @@ class MeetingDB(Firestore_Base_DB):
     def get_tutor_meetings(self, tutor_id) -> list:
         if tutor_id is None or len(tutor_id) == 0:
             print("no tutor")
-            return {"error": "didn't  enter tutor id"}, 404
+            raise DBErrorException("didn't  enter tutor id")
         meetings = self.db.collection_group(util.DOCK_MEETINGS).where("tutorId", "==", tutor_id).stream()
         return self.get_meeting_list(meetings)
 
@@ -60,7 +59,7 @@ class MeetingDB(Firestore_Base_DB):
             error = error + 1
             meetings_list.append(meet.to_dict())
         if error == 0:
-            return {"error": "meeting doesn't exist"}, 404
+            raise DBErrorException("meeting doesn't exist")
         return meetings_list
 
     def set_meeting(self, meeting: dict):

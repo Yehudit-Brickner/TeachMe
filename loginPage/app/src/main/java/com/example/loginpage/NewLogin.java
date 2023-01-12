@@ -117,17 +117,17 @@ public class NewLogin extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                String url = "http://10.0.0.42:9090/get/lessons";
+                String url = "http://giladon.pythonanywhere.com/get/lesson";//"http://10.0.0.42:9090/get/lessons";
                 try {
 //                    String s = HttpManager.GetRequest(url, Map.of("LID", "C++"));
 //                    System.out.println(s);
-//                    HttpManager data = HttpManager.GetRequest(url, Map.of("LID", "C++"));
-//                    System.out.println(data);
+                    HttpManager data = HttpManager.GetRequest(url, Map.of("UID", "oXgq1ihTqmZWWezZER2MaoBw2V52", "LID", "Yehudit"));
+                    System.out.println(data);
 //                    ArrayList<Lesson> lessons = (ArrayList<Lesson>) data.getData();
 //                    System.out.println(lessons.get(0));
-                    System.out.println();
-                    HttpManager data = HttpManager.PostRequest("http://10.0.0.42:9090/login", Map.of("nm", "GILAD"));
-                    System.out.println(data);
+//                    System.out.println();
+//                    HttpManager data = HttpManager.PostRequest("http://10.0.0.42:9090/login", Map.of("nm", "GILAD"));
+//                    System.out.println(data);
 
                 } catch (Exception e) {
                     e.printStackTrace();

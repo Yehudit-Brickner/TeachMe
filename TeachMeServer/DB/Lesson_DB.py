@@ -24,24 +24,22 @@ class Lesson_DB(Firestore_Base_DB):
         self.db.collection(f'{utils.DOCK_USER}/{tutor_id}/{utils.DOCK_LESSON}').document(lesson_id).set(lesson)
         return True
 
-    def get_lesson_from_DB(self, uid: str, lesson_id: str):
+    def get_lesson_from_db(self, uid: str, lesson_id: str):
         doc_ref = self.db.collection(f'{utils.DOCK_USER}/{uid}/{utils.DOCK_LESSON}').document(lesson_id)
         doc = doc_ref.get()
-
         if not doc.exists:
             raise DBErrorException("lesson or uid doesn't exists")
         return doc.to_dict()
 
     def get_lessons_by_tutor_id(self, tutor_id):
         docs = self.db.collection(f'{utils.DOCK_USER}/{tutor_id}/{utils.DOCK_LESSON}').stream()
-        #docs_names = set()
+        # docs_names = set()
         lessons = []
         for doc in docs:
             lessons.append(doc.to_dict())
 
-        #docs_names = list(docs_names)
+        # docs_names = list(docs_names)
         return lessons
-
 
     def get_lessons_by_name(self, name: str, start_dt: datetime = None, end_dt: datetime = None):
         if name is None or name == "":
@@ -51,8 +49,8 @@ class Lesson_DB(Firestore_Base_DB):
 
         start_dt = datetime.now() if start_dt is None else start_dt
 
-        meetings = self.db.collection_group(utils.DOCK_MEETINGS).where("lessonId", "==", name)\
-                                                                .where("startDateTime", ">=", start_dt)
+        meetings = self.db.collection_group(utils.DOCK_MEETINGS).where("lessonId", "==", name) \
+            .where("startDateTime", ">=", start_dt)
         if end_dt is not None:
             meetings = meetings.where("endDateTime", "<=", end_dt)
         meetings = meetings.stream()
@@ -69,10 +67,8 @@ class Lesson_DB(Firestore_Base_DB):
         lessons = []
         for tutor_id in tutors_lessons:
             try:
-                lessons += [self.get_lesson_from_DB(tutor_id, name)]
+                lessons += [self.get_lesson_from_db(tutor_id, name)]
             except DBErrorException:
                 pass
 
         return lessons
-
-

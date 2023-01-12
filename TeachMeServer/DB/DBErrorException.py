@@ -1,12 +1,11 @@
 from typing import Tuple
 
-
 class DBErrorException(Exception):
     def __init__(self, message: str):
         super().__init__(message)
 
     def get_as_response(self) -> Tuple[dict, int]:
-        return {"error": str(self)}, 404
+        return {"error": str(self)}, 301
 
 
 # def th(i: int):

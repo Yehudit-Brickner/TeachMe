@@ -30,7 +30,7 @@ class db_utils():
             data, code = ex.get_as_response()
             return jsonify(data), code
 
-from datetime import datetime
+# from datetime import datetime
 
 # date_time_str = '2023-09-18 23:55'
 #

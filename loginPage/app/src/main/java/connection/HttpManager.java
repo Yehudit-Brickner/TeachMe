@@ -21,8 +21,7 @@ import java.util.Map;
 public class HttpManager
 {
     static final int OK = 200;
-    static final int ERR = 404;
-    public static final String URL = "http://10.0.0.42:9090";
+    static final int ERR = 301;
 
     private int code;
     private Object data;
@@ -70,7 +69,14 @@ public class HttpManager
         int responseCode = con.getResponseCode();
         System.out.println("Response code: " + responseCode);
 
-        String data = getDataFromConnection(con);
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer content = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            content.append(inputLine);
+        }
+        in.close();
+        String data = content.toString();
 
         HttpManager httpData = handleData(responseCode, data);
         con.disconnect();
@@ -95,9 +101,16 @@ public class HttpManager
         out.close();
 
         int responseCode = con.getResponseCode();
-        String dataFromServer = getDataFromConnection(con);
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer content = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            content.append(inputLine);
+        }
+        in.close();
+        String dataFromServer = content.toString();
 
-        HttpManager httpData = HttpManager.handleData(responseCode, dataFromServer);
+        HttpManager httpData = new HttpManager(responseCode, dataFromServer);
         con.disconnect();
         return httpData;
     }
