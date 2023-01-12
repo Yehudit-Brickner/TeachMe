@@ -68,15 +68,7 @@ public class HttpManager
 
         int responseCode = con.getResponseCode();
         System.out.println("Response code: " + responseCode);
-
-        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuffer content = new StringBuffer();
-        while ((inputLine = in.readLine()) != null) {
-            content.append(inputLine);
-        }
-        in.close();
-        String data = content.toString();
+        String data = getDataFromConnection(con);
 
         HttpManager httpData = handleData(responseCode, data);
         con.disconnect();
@@ -101,14 +93,7 @@ public class HttpManager
         out.close();
 
         int responseCode = con.getResponseCode();
-        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuffer content = new StringBuffer();
-        while ((inputLine = in.readLine()) != null) {
-            content.append(inputLine);
-        }
-        in.close();
-        String dataFromServer = content.toString();
+        String dataFromServer = getDataFromConnection(con);
 
         HttpManager httpData = new HttpManager(responseCode, dataFromServer);
         con.disconnect();
