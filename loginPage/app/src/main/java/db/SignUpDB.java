@@ -21,10 +21,9 @@ public class SignUpDB  {
     final static String COLL_NAME = "users";
     final static FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-    public static String signUpRequest(IPerson person, String password)
-    {
-        if (!isGoodPersonData(person))
-            return "There are some missing info, please reinsert and try again.";
+    public static String signUpRequest(IPerson person, String password) {
+//        if (!isGoodPersonData(person))
+//            return "There are some missing info, please reinsert and try again.";
 
         final String[] messRet = {""};
 
@@ -47,7 +46,7 @@ public class SignUpDB  {
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
                                                 person.setUID(user.getUid());
-                                                setPersonData(person);
+//                                                setPersonData(person);
                                                 messRet[0] = "Signed up success. Please Vertify your email.";
                                             }
                                             else
@@ -62,34 +61,34 @@ public class SignUpDB  {
         return messRet[0];
     }
 
-    public static void setPersonData(IPerson person)
-    {
-        if (person.getUID() == null || person.getUID().isEmpty())
-            return;
-
-        CollectionReference usersCollection = FirebaseFirestore.getInstance().collection(COLL_NAME);
-        usersCollection.document(person.getUID()).set(person.getPersonMap());
-    }
-
-    public static void setPersonData(IPerson person, boolean is_tutor, boolean is_student)
-    {
-        if (person.getUID() == null || person.getUID().isEmpty())
-            return;
-
-        CollectionReference usersCollection = FirebaseFirestore.getInstance().collection(COLL_NAME);
-        Map<String, Object> map = person.getPersonMap();
-        map.put("is_tutor", is_tutor);
-        map.put("is_student", is_student);
-        usersCollection.document(person.getUID()).set(map);
-    }
-
-    public static boolean isGoodPersonData(IPerson person)
-    {
-        if (person == null)
-            return true;
-
-        return (!person.getFirstName().isEmpty() && !person.getLastName().isEmpty()
-                && !person.getEmail().isEmpty() && !person.getPhoneNumber().isEmpty());
-    }
+//    public static void setPersonData(IPerson person)
+//    {
+//        if (person.getUID() == null || person.getUID().isEmpty())
+//            return;
+//
+//        CollectionReference usersCollection = FirebaseFirestore.getInstance().collection(COLL_NAME);
+//        usersCollection.document(person.getUID()).set(person.getPersonMap());
+//    }
+//
+//    public static void setPersonData(IPerson person, boolean is_tutor, boolean is_student)
+//    {
+//        if (person.getUID() == null || person.getUID().isEmpty())
+//            return;
+//
+//        CollectionReference usersCollection = FirebaseFirestore.getInstance().collection(COLL_NAME);
+//        Map<String, Object> map = person.getPersonMap();
+//        map.put("is_tutor", is_tutor);
+//        map.put("is_student", is_student);
+//        usersCollection.document(person.getUID()).set(map);
+//    }
+//
+//    public static boolean isGoodPersonData(IPerson person)
+//    {
+//        if (person == null)
+//            return true;
+//
+//        return (!person.getFirstName().isEmpty() && !person.getLastName().isEmpty()
+//                && !person.getEmail().isEmpty() && !person.getPhoneNumber().isEmpty());
+//    }
 
 }

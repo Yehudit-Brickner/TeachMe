@@ -28,23 +28,141 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/classes"
+                android:id="@+id/classes_search"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Class*"
+                android:padding="5dp"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
 
             <Spinner
-                android:layout_width="200dp"
-                android:layout_height="10dp"
-                android:textSize="18sp"
+                android:id="@+id/classes_search_spinner"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="25sp"
+                android:padding="5dp"
                 android:inputType="text"
                 android:textColor="@color/white"
+                android:popupTheme="@android:style/ThemeOverlay.Material.Dark"
                 />
 
+
         </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="* if you don't pick dates the default is to show lessons that have meetings from today and onward"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:gravity="center"
+                ></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="40dp">
+
+            <TextView
+                android:id="@+id/date_search_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="Start Date"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/datePickerButtonStart"
+                style="?android:spinnerStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="openDatePickerStart"
+                android:text="pick begin search date"
+                android:padding="5dp"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingTop="40dp"
+            android:paddingBottom="40dp">
+
+            <TextView
+                android:id="@+id/date_search_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="End Date"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/datePickerButtonEnd"
+                style="?android:spinnerStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="openDatePickerEnd"
+                android:text="pick end search date"
+                android:padding="5dp"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+
+
+
+        </LinearLayout>
+
+
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:paddingBottom="40dp"-->
+<!--            android:paddingTop="40dp"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/city_search"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="City"-->
+<!--                android:padding="5dp"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="18sp" />-->
+
+<!--            <Spinner-->
+<!--                android:id="@+id/city_search_spinner"-->
+<!--                android:layout_width="200dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textSize="25sp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:inputType="text"-->
+<!--                android:padding="5dp"-->
+<!--                android:textColor="@color/white"-->
+<!--                />-->
+
+<!--        </LinearLayout>-->
 
 
         <LinearLayout
@@ -54,85 +172,34 @@
             android:paddingTop="40dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/date"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Date"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/choosedate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5"
-                android:inputType="date"
-                android:textColorHint="@color/white"
-                android:textColor="@color/white"
-                android:textSize="15sp" />
-        </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="40dp"
-            android:paddingTop="40dp"
-            android:orientation="horizontal">
+<!--            <TextView-->
+<!--                android:id="@+id/zp_search"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:padding="5dp"-->
+<!--                android:text="zoom /\nin person/\nboth"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="18sp" />-->
 
-            <TextView
-                android:id="@+id/city"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="City"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+<!--            <CheckBox-->
+<!--                    android:id="@+id/zoom_search"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:text="zoom"-->
+<!--                    />-->
 
-            <Spinner
-                android:layout_width="200dp"
-                android:layout_height="10dp"
-                android:textSize="18sp"
-                android:inputType="text"
-                android:textColor="@color/white"
-                />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="40dp"
-            android:paddingTop="40dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/zp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="zoom / in person/ both"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-                <CheckBox
-                    android:id="@+id/zoom"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="zoom"
-                    />
-
-                <CheckBox
-                    android:id ="@+id/inPerson"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="in person"
-                    />
+<!--            <CheckBox-->
+<!--                android:id="@+id/inPerson_search"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="5dp"-->
+<!--                android:text="in person"-->
+<!--                android:textColor="@color/white" />-->
 
         </LinearLayout>
 
@@ -144,7 +211,7 @@
             android:paddingBottom="40dp">
 
             <Button
-                android:id="@+id/searchbtn"
+                android:id="@+id/searchbtn_search"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="100dp"
@@ -152,7 +219,7 @@
                 android:gravity="center"
                 android:text="search"
                 android:textSize="18sp"
-                android:background="#30ffffff"
+                android:backgroundTint="@color/design_default_color_secondary"
                 android:textColor="@color/white"></Button>
 
 

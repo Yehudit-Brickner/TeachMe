@@ -8,54 +8,95 @@
     android:background="@drawable/background1">
 
 
-    <Button
-        android:id="@+id/search"
+    <TextView
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:layout_marginBottom="50dp"
-        android:background="#30ffffff"
-        android:gravity="center"
-        android:text="Search"
+        android:layout_marginTop="40dp"
+        android:text="Hello "
+        android:textColor="@color/white"
         android:textSize="35dp"
-        app:layout_constraintBottom_toTopOf="@+id/upcoming"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/student"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.517"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/student"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+         />
 
-    <Button
-        android:id="@+id/upcoming"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="50dp"
-        android:background="#30ffffff"
-        android:gravity="center"
-        android:text="up coming classes"
-        android:textSize="35dp"
-        app:layout_constraintBottom_toTopOf="@+id/passed"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search" />
 
-    <Button
-        android:id="@+id/passed"
+
+    <TextView
+        android:id="@+id/student"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="150dp"
-        android:background="#30ffffff"
-        android:gravity="center"
-        android:text="passed classes"
-        android:textSize="35dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="35dp"
+        android:text="student"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="375dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/signoutbtn"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/upcoming" />
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        >
+
+
+            <Button
+                android:id="@+id/search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:layout_weight="1"
+                android:background="#30ffffff"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Search"
+                android:textSize="35dp"
+               />
+
+            <Button
+                android:id="@+id/upcoming"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:background="#30ffffff"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="future classes"
+                android:textSize="35dp"
+                />
+
+            <Button
+                android:id="@+id/passed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:background="#30ffffff"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="passed classes"
+                android:textSize="35dp"
+                />
+
+    </LinearLayout>
+
 
     <ImageButton
         android:id="@+id/profile"
@@ -72,42 +113,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_person_24" />
 
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="Hello XXXX"
-        android:textColor="#FFFFFF"
-        android:textSize="35dp"
-        app:layout_constraintBottom_toTopOf="@+id/student"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/student"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:text="student"
-        android:textColor="#5E000000"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/search"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/signoutbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="sign out"
         android:backgroundTint="@color/design_default_color_secondary"
+        android:text="sign out"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passed" />
+        app:layout_constraintTop_toBottomOf="@+id/layout" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

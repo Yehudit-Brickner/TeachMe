@@ -1,26 +1,11 @@
 package com.example.loginpage;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.button.MaterialButton;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import db.DataCenterDB;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,17 +24,11 @@ public class MainActivity extends AppCompatActivity {
         firestore = FirebaseFirestore.getInstance();
 
 
-        Intent i =new Intent(MainActivity.this, NewLogin.class);
+        Intent i =new Intent(MainActivity.this, Login.class);
         startActivity(i);
 
-//        DataCenterDB dataCenter = new DataCenterDB("a", "b", "c", "d");
-//        for (int j = 0; j < 5; j++)
-//        {
-//            dataCenter.setRecordToDb();
-//        }
-//        dataCenter = new DataCenterDB("a", null, null, null);
-//        ArrayList<DataCenterDB> dbRequests = DataCenterDB.queryGetRecords(dataCenter);
-//        System.out.println(dbRequests);
+
+
 
 
 //        Map<String, Object> users =new HashMap<>();

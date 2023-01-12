@@ -24,8 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class DataCenterDB
-{
+public class DataCenterDB {
     public String lessonId = "";
     public String meetingId = "";
     public String tutorId = "";
@@ -35,8 +34,7 @@ public class DataCenterDB
 
     private static final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
-    public DataCenterDB()
-    {
+    public DataCenterDB() {
 
     }
 
@@ -57,8 +55,7 @@ public class DataCenterDB
                 '}';
     }
 
-    public static ArrayList<DataCenterDB> queryGetRecords(DataCenterDB record)
-    {
+    public static ArrayList<DataCenterDB> queryGetRecords(DataCenterDB record) {
         Query query = null;
         CollectionReference dbCenterColl = firestore.collection(DOCK_NAME);
         Map<String, Object> map = record.getDBasMap();
@@ -112,8 +109,7 @@ public class DataCenterDB
         return dbRecords;
     }
 
-    public void setRecordToDb()
-    {
+    public void setRecordToDb() {
         Map<String, Object> recordMap = this.getDBasMap();
 
         firestore.collection(DOCK_NAME).add(recordMap)
@@ -142,8 +138,7 @@ public class DataCenterDB
         return (map);
     }
 
-    public static<T> void waitTaskComplete(Task<T> task)
-    {
+    public static<T> void waitTaskComplete(Task<T> task) {
         while (!task.isComplete()) {
             try
             {

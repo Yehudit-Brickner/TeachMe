@@ -18,10 +18,14 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Map;
 
+import impl.Lesson;
+
 public class HttpManager
 {
-    static final int OK = 200;
-    static final int ERR = 301;
+    public static final int OK = 200;
+    public static final int ERR = 301;
+
+    public static final String URL = "https://giladon.pythonanywhere.com";
 
     private int code;
     private Object data;
@@ -53,16 +57,23 @@ public class HttpManager
     }
 
     public static HttpManager GetRequest(String urlStr) throws IOException {
-        return GetRequest(urlStr, null);
+        return GetRequest(urlStr, null, null);
     }
 
     public static HttpManager GetRequest(String urlStr, Map<String, String> prams) throws IOException {
+        return GetRequest(urlStr, null, prams);
+    }
+
+    public static HttpManager GetRequest(String urlStr, ArrayList<String> routeAdd) throws IOException {
+        return GetRequest(urlStr, routeAdd, null);
+    }
+
+    public static HttpManager GetRequest(String route, ArrayList<String> routeAdd, Map<String, String> prams) throws IOException {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        if (prams != null)
-            urlStr = BuildURLWithParms(urlStr, prams);
-        URL url = new URL(urlStr);
+        route = BuildURLWithParms(route, routeAdd, prams);
+        URL url = new URL(route);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
 
@@ -78,6 +89,8 @@ public class HttpManager
     public static HttpManager PostRequest(String urlStr, Object data) throws IOException {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        urlStr = URL + urlStr;
 
         URL url = new URL(urlStr);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -120,8 +133,21 @@ public class HttpManager
         return dataFromServer;
     }
 
-    private static String BuildURLWithParms(String url, Map<String, String> parms)
+    private static String BuildURLWithParms(String url, ArrayList<String> path, Map<String, String> parms)
     {
+        url = URL + url;
+
+        if (path != null)
+        {
+            for (String part: path)
+            {
+                if (part == null || part.isEmpty())
+                    continue;
+
+                url += "/" + encodeStringURL(part);
+            }
+        }
+
         if (parms == null || parms.isEmpty())
             return url;
 
@@ -168,4 +194,17 @@ public class HttpManager
                 ", data=" + data +
                 '}';
     }
+
+//    public static void main(String[] args) {
+//        String uid = "oXgq1ihTqmZWWezZER2MaoBw2V52";
+//        String lid = "C++";
+//
+//        try {
+//            HttpManager httpResp = HttpManager.GetRequest("/get_tutor_lesson", Map.of("UID", uid, "LID", lid));
+//
+//            System.out.println(Lesson.ObjectToLesson(httpResp.data));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

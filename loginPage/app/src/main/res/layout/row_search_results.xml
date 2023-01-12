@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:padding="10dp"
+    android:layout_height="80dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round1"
+            android:gravity="center"
+            android:padding="10dp">
+
+
+
+            <TextView
+                android:id="@+id/ClassName_sr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:textSize="15dp"
+                android:text="class name"></TextView>
+
+
+            <TextView
+                android:id="@+id/TutorName_sr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textSize="15dp"
+                android:padding="5dp"
+                android:text="tutor name"></TextView>
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="price per hour: "
+                android:textSize="15dp"
+                android:backgroundTint="@color/white"/>
+
+        </LinearLayout>
+
+    <Button
+        android:id="@+id/moreinfo_sr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="more info"
+        android:backgroundTint="@color/design_default_color_secondary"
+        android:padding="5dp"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
