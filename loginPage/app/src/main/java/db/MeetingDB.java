@@ -15,9 +15,11 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import connection.HttpManager;
 import impl.Lesson;
 import impl.Meeting;
 
@@ -50,29 +52,46 @@ public class MeetingDB
         return meetings;
     }
 
-    public static void setMeeting(Meeting meeting) {
+    public static boolean setMeeting(Meeting meeting) {
 
-        DocumentReference docRef;
+//        DocumentReference docRef;
+//
+//        if (meeting.getMeetingId() == null || meeting.getMeetingId().isEmpty())
+//        {
+//            docRef = firestore
+//                    .collection(PersonDataDB.COLL_NAME).document(meeting.getTutorId())
+//                    .collection(ILesson.DOCK_NAME).document(meeting.getLessonId())
+//                    .collection(IMeeting.DOCK_NAME).document();
+//
+//            String meetingId = docRef.getId();
+//            meeting.setMeetingId(meetingId);
+//        }
+//        else
+//        {
+//            docRef = firestore
+//                    .collection(PersonDataDB.COLL_NAME).document(meeting.getTutorId())
+//                    .collection(ILesson.DOCK_NAME).document(meeting.getLessonId())
+//                    .collection(IMeeting.DOCK_NAME).document(meeting.getMeetingId());
+//        }
+//        docRef.set(meeting);
+//        firestore.collection(IMeeting.DOCK_NAME).document(meeting.getMeetingId()).set(meeting);
 
-        if (meeting.getMeetingId() == null || meeting.getMeetingId().isEmpty())
-        {
-            docRef = firestore
-                    .collection(PersonDataDB.COLL_NAME).document(meeting.getTutorId())
-                    .collection(ILesson.DOCK_NAME).document(meeting.getLessonId())
-                    .collection(IMeeting.DOCK_NAME).document();
 
-            String meetingId = docRef.getId();
-            meeting.setMeetingId(meetingId);
+        HttpManager httpResponse = null;
+        String url=HttpManager.URL+"/set/meeting";
+        try {
+            httpResponse = HttpManager.PostRequest(url,meeting);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        else
-        {
-            docRef = firestore
-                    .collection(PersonDataDB.COLL_NAME).document(meeting.getTutorId())
-                    .collection(ILesson.DOCK_NAME).document(meeting.getLessonId())
-                    .collection(IMeeting.DOCK_NAME).document(meeting.getMeetingId());
+
+        if (httpResponse==null){
+            return false;
         }
-        docRef.set(meeting);
-        firestore.collection(IMeeting.DOCK_NAME).document(meeting.getMeetingId()).set(meeting);
+        String s=String.valueOf(httpResponse.getData());
+
+        Boolean b = (Boolean) httpResponse.getData();
+        return b;
     }
 
     public static ArrayList<Meeting> getStudentMeetings(String StudentId) {

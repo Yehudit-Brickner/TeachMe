@@ -24,10 +24,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
+import connection.HttpManager;
 import db.LessonDB;
 import db.MeetingDB;
 import impl.DateFunctions;
@@ -220,9 +222,16 @@ public class AddClass extends AppCompatActivity {
             }
             else {
                 l = LessonDB.getLessonFromDB(UID, classname.getText().toString());
-                if (!l.getLessonId().equals(classname.getText().toString())) {
+                if (l==null || !l.getLessonId().equals(classname.getText().toString())) {
                     l = new Lesson(classname.getText().toString(), UID, price.getText().toString(), "");
                     LessonDB.setLessonData(l);
+
+
+//                    try {
+//                        HttpManager.PostRequest("http://10.0.0.42:9090",l);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
                 }
             }
 
@@ -277,11 +286,12 @@ public class AddClass extends AppCompatActivity {
             if (!error) {
                 for (int i = 0; i < newMeetings.size(); i++) {
 //                    if(checkTimes(newMeetings.get(i))) {
+
                         MeetingDB.setMeeting(newMeetings.get(i));
-                        l.addMeeting(newMeetings.get(i));
+//                        l.addMeeting(newMeetings.get(i));
 //                    }
                 }
-                LessonDB.setLessonData(l);
+//                LessonDB.setLessonData(l);
                 Intent i = new Intent(AddClass.this, TutorHomePage.class);
                 startActivity(i);
             }

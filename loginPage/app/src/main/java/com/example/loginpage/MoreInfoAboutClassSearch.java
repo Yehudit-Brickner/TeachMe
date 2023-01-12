@@ -18,12 +18,16 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
+import connection.HttpManager;
 import db.LessonDB;
 import db.PersonDataDB;
 import impl.Lesson;
@@ -78,6 +82,17 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         myMeetings1=mylesson.getMeetings();
+
+//        Map<String,String> mymap=new HashMap<>();
+//        mymap.put("lessonId",Lid);
+//        mymap.put("tutorId",Tid);
+//        HttpManager h=new HttpManager();
+//        try {
+//            h= HttpManager.GetRequest("http://10.0.0.42:9090/getMeetings",mymap);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        myMeetings1=(ArrayList<Meeting>) h.getData();
 
         layoutlist=findViewById(R.id.moreinfo_linearlayout);
         showClasses();

@@ -1,6 +1,8 @@
 package impl;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,17 +21,27 @@ public class Tutor extends Person
 
     }
 
-    public Map<String, Object> getMap(){
-        Map<String, Object> tutorMap= new HashMap<>();
-        tutorMap.put("uID", uID);
-        tutorMap.put("firstName", firstName);
-        tutorMap.put("lastName", lastName);
-        tutorMap.put("email", email);
-        tutorMap.put("phoneNumber", phoneNumber);
-        return tutorMap;
+    public Tutor(JsonObject json){
+        this.uID=String.valueOf(json.get("uID"));
+        this.firstName=String.valueOf(json.get("firstName"));
+        this.lastName=String.valueOf(json.get("lastName"));
+        this.email=String.valueOf(json.get("email"));
+        this.phoneNumber=String.valueOf(json.get("phoneNumber"));
     }
+
+//    public Map<String, Object> getMyMap(){
+//        Map<String, Object> tutorMap= new HashMap<>();
+//        tutorMap.put("uID", uID);
+//        tutorMap.put("firstName", firstName);
+//        tutorMap.put("lastName", lastName);
+//        tutorMap.put("email", email);
+//        tutorMap.put("phoneNumber", phoneNumber);
+//        return tutorMap;
+//    }
 
     public String toJson(){
         return new Gson().toJson(this);
     }
+
+
 }

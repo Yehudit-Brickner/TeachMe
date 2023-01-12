@@ -15,17 +15,20 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
+import connection.HttpManager;
 import impl.Lesson;
 import impl.Meeting;
 import interfaces.ILesson;
 import interfaces.IMeeting;
 
-public class LessonDB extends Lesson
-{
+public class LessonDB extends Lesson {
     protected ArrayList<String> meetingIdList = new ArrayList<>();
     private static final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
@@ -45,50 +48,84 @@ public class LessonDB extends Lesson
         this.meetings = new ArrayList<>();
     }
 
-    public static boolean setLessonData(Lesson lesson)
-    {
-        // TODO: check if the tutor exists
-        if (lesson.getTutorId() == null || lesson.getTutorId().isEmpty())
+    public static boolean setLessonData(Lesson lesson) {
+//        // TODO: check if the tutor exists
+//        if (lesson.getTutorId() == null || lesson.getTutorId().isEmpty())
+//            return false;
+//
+//        // TODO: check if the lesson exists
+//        if (lesson.getLessonId() == null || lesson.getLessonId().isEmpty())
+//            return false;
+//
+//        CollectionReference lessonsColl = firestore.collection(PersonDataDB.COLL_NAME).document(lesson.getTutorId()).collection(Lesson.DOCK_NAME);
+//        lessonsColl.document(lesson.getLessonId()).set(lesson);
+//
+//        // TODO: add if document added successfully
+
+
+        HttpManager httpResponse = null;
+        String url=HttpManager.URL+"/set/lesson";
+        try {
+            httpResponse = HttpManager.PostRequest(url,lesson);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (httpResponse==null){
             return false;
+        }
+        String s=String.valueOf(httpResponse.getData());
 
-        // TODO: check if the lesson exists
-        if (lesson.getLessonId() == null || lesson.getLessonId().isEmpty())
-            return false;
-
-        CollectionReference lessonsColl = firestore.collection(PersonDataDB.COLL_NAME).document(lesson.getTutorId()).collection(Lesson.DOCK_NAME);
-        lessonsColl.document(lesson.getLessonId()).set(lesson);
-
-        // TODO: add if document added successfully
-
-        return true;
+        Boolean b = (Boolean) httpResponse.getData();
+        return b;
     }
     
-    public static Lesson getLessonFromDB(String Uid, String lessonId)
-    {
-        String tag = "LESSONS_DEBUG";
-        // for changeing option
-        Lesson lesson = new Lesson();
-        DocumentReference docRef = FirebaseFirestore.getInstance().collection(PersonDataDB.COLL_NAME).document(Uid).collection(DOCK_NAME).document(lessonId);
-        Task<DocumentSnapshot> task = docRef.get();
+    public static Lesson getLessonFromDB(String Uid, String lessonId) {
 
-        DataCenterDB.waitTaskComplete(task);
+//        String tag = "LESSONS_DEBUG";
+//        // for changeing option
+//        Lesson lesson = new Lesson();
+//        DocumentReference docRef = FirebaseFirestore.getInstance().collection(PersonDataDB.COLL_NAME).document(Uid).collection(DOCK_NAME).document(lessonId);
+//        Task<DocumentSnapshot> task = docRef.get();
+//
+//        DataCenterDB.waitTaskComplete(task);
+//
+//        if (task.isSuccessful()) {
+//            DocumentSnapshot document = task.getResult();
+//            if (document.exists()) {
+//
+//                Log.d("AUTH_DEBUG", "DocumentSnapshot data: " + document.getData().toString());
+//                lesson = document.toObject(Lesson.class);
+//            } else {
+//                Log.d(tag, "No such document");
+//            }
+//
+//        }
+//        else {
+//            Log.d(tag, "get failed with ", task.getException());
+//        }
+        HttpManager httpResponse = null;
+        String url=HttpManager.URL+"/get_tutor_lesson";
 
-        if (task.isSuccessful()) {
-            DocumentSnapshot document = task.getResult();
-            if (document.exists()) {
-
-                Log.d("AUTH_DEBUG", "DocumentSnapshot data: " + document.getData().toString());
-                lesson = document.toObject(Lesson.class);
-            } else {
-                Log.d(tag, "No such document");
-            }
-
+        try {
+            httpResponse = HttpManager.GetRequest(url, Map.of("UID",Uid,"LID",lessonId));
         }
-        else {
-            Log.d(tag, "get failed with ", task.getException());
+        catch (IOException e) {
+            e.printStackTrace();
         }
-        
-        return lesson;
+
+        if (httpResponse==null){
+            return null;
+        }
+
+
+        try {
+            return Lesson.ObjectToLesson(httpResponse.getData());
+        }
+        catch (Exception ex) {
+            return null;
+        }
+
     }
 
     public ArrayList<String> getMeetingIdList() {
@@ -99,9 +136,7 @@ public class LessonDB extends Lesson
         this.meetingIdList = meetingIdList;
     }
 
-
-    public static ArrayList<Lesson> getLessonsByTutorId(String tutorId)
-    {
+    public static ArrayList<Lesson> getLessonsByTutorId(String tutorId) {
         ArrayList<Lesson> lessons = new ArrayList<>();
         if (tutorId == null || tutorId.isEmpty())
             return lessons;
@@ -122,9 +157,7 @@ public class LessonDB extends Lesson
         return lessons;
     }
 
-
-    public static ArrayList<Lesson> getLessonsByName(String lessonName)
-    {
+    public static ArrayList<Lesson> getLessonsByName(String lessonName) {
         ArrayList<Lesson> lessons = new ArrayList<>();
         if (lessonName == null || lessonName.isEmpty())
             return lessons;
@@ -195,4 +228,6 @@ public class LessonDB extends Lesson
         return true;
 
     }
+
+
 }

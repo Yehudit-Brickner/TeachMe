@@ -1,5 +1,6 @@
 package impl;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -38,6 +39,15 @@ public class Person implements IPerson {
 
     public Person() {
     }
+
+    public Person(JsonObject json){
+        this.uID=String.valueOf(json.get("uID"));
+        this.firstName=String.valueOf(json.get("firstName"));
+        this.lastName=String.valueOf(json.get("lastName"));
+        this.email=String.valueOf(json.get("email"));
+        this.phoneNumber=String.valueOf(json.get("phoneNumber"));
+    }
+
 
     @Override
     public String getUID() {
