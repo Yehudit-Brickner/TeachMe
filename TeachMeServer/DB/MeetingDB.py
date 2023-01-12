@@ -32,6 +32,17 @@ class MeetingDB(Firestore_Base_DB):
             return meet.to_dict()
         raise DBErrorException("meeting doesn't exist")
 
+    def get_meeting_parms(self, tutor_id, lesson_id, meeting_id):
+        # Meetings are unique therefore will result only in one meeting.
+        meeting_data = self.db\
+            .collection(f"{util.DOCK_USER}/{tutor_id}/{util.DOCK_LESSON}/{lesson_id}/{util.DOCK_MEETINGS}")\
+            .document(meeting_id)
+        doc = meeting_data.get()
+        # meeting_data.collection(util.DOCK_LESSON).
+        if not doc.exists:
+            raise DBErrorException("meeting doesn't exist")
+        return doc.to_dict()
+
     #Get meetings by student id
     def get_student_meetings(self, student_id: str) -> list:
         if student_id is None or len(student_id) == 0:

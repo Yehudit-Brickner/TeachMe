@@ -99,6 +99,12 @@ def meetings():
     # return jsonify(db.get_meetings_by_time()), 200
 
 
+@app.route('/get/meeting/<uid>/<lid>/<mid>', methods=['GET'])
+def get_meeting(uid: str, lid: str, mid: str):
+    return utils.run_func(meeting_db.get_meeting_parms, uid, lid, mid)
+
+
+
 @app.route('/get/meetings/student/<student_id>', methods=['GET'])
 def get_student_meetings(student_id: str):
     return utils.run_func(meeting_db.get_student_meetings, student_id)
