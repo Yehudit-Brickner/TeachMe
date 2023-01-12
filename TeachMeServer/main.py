@@ -41,23 +41,28 @@ def index():
     return 'Flask is running!'
 
 
-@app.route('/success/<name>')
-def success(name):
-    return 'welcome %s' % name, 200
-#
+# @app.route('/success/<name>')
 # def success(name):
-#     return 'welcome %s' % name
+#     return 'welcome %s' % name, 200
+# #
+# # def success(name):
+# #     return 'welcome %s' % name
+#
+#
+# @app.route('/success/<name>/<a>/<b>')
+# def success_new(name, a, b):
+#     return f'welcome {name} --> {a} --> {b}', 200
 
 
-@app.route('/login', methods=['POST', 'GET'])
-def login():
-    if request.method == 'POST':
-        request_dict = request.get_json()
-        user = request_dict['nm']
-        return utils.run_func(success, user)    # redirect(url_for('success', name=user))
-    else:
-        user = request.args.get('nm')
-        return jsonify(db.get_users()), 200
+# @app.route('/login', methods=['POST', 'GET'])
+# def login():
+#     if request.method == 'POST':
+#         request_dict = request.get_json()
+#         user = request_dict['nm']
+#         return utils.run_func(success, user)    # redirect(url_for('success', name=user))
+#     else:
+#         user = request.args.get('nm')
+#         return jsonify(db.get_users()), 200
 
 
 @app.route('/get_tutor_lesson', methods=['GET'])
@@ -99,10 +104,13 @@ def meetings():
     # return jsonify(db.get_meetings_by_time()), 200
 
 
-@app.route('/get/meeting/<uid>/<lid>/<mid>', methods=['GET'])
-def get_meeting(uid: str, lid: str, mid: str):
-    return utils.run_func(meeting_db.get_meeting_parms, uid, lid, mid)
+@app.route('/get/meeting', methods=['GET'])
+def get_meeting():
+    uid = request.args.get('UID', default='', type=str)
+    lid = request.args.get('LID', default='', type=str)
+    mid = request.args.get('MID', default='', type=str)
 
+    return utils.run_func(meeting_db.get_meeting_parms, uid, lid, mid)
 
 
 @app.route('/get/meetings/student/<student_id>', methods=['GET'])
@@ -112,7 +120,7 @@ def get_student_meetings(student_id: str):
 
 @app.route('/get/meetings/tutor/<tutor_id>', methods=['GET'])
 def get_tutor_meetings(tutor_id: str):
-    return utils.run_func(meeting_db.get_student_meetings, tutor_id)
+    return utils.run_func(meeting_db.get_tutor_meetings, tutor_id)
 
 
 @app.route('/set/meeting', methods=['POST'])
