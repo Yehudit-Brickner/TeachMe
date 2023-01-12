@@ -21,7 +21,7 @@ import java.util.Map;
 
 public class HttpManager {
     static final int OK = 200;
-    static final int ERR = 400;
+    static final int ERR = 301;
     public static final String URL = "https://giladon.pythonanywhere.com";
 
     private int code;
@@ -33,13 +33,11 @@ public class HttpManager {
     }
 
     public static HttpManager handleData(int code, String data) {
-
-
         Gson gson = new Gson();
         Type type = new TypeToken<Map<String, Object>>(){}.getType();
         Map<String, Object> map = gson.fromJson(data, type);
-//        if (code == ERR)
-//            return new HttpManager(code, map.get("error"));
+        if (code == ERR)
+            return new HttpManager(code, map.get("error"));
         if (code == OK)
             return new HttpManager(code, map.get("result"));
         // if ok return object else return null
@@ -63,21 +61,19 @@ public class HttpManager {
         URL url = new URL(urlStr);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
-        con.setDoOutput(true);
-        con.setRequestProperty("Content-Type", "application/json");
 
         int responseCode = con.getResponseCode();
         System.out.println("Response code: " + responseCode);
 
         String data="";
-//        data = getDataFromConnection(con);
-        if (responseCode==OK) {
-             data = getDataFromConnection(con);
-
-        }
-        else{
-            data ="{error:error }";
-        }
+        data = getDataFromConnection(con);
+//        if (responseCode==OK) {
+//             data = getDataFromConnection(con);
+//
+//        }
+//        else{
+//            data ="{error:error }";
+//        }
 
 //        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 //        String inputLine;
