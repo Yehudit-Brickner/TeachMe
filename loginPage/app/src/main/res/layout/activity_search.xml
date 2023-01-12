@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:text="* if you don't pick dates the default is to show lessons that have meetings from today and onward"
                 android:textColor="@color/white"
-                android:textSize="10sp"
+                android:textSize="12sp"
                 android:gravity="center"
                 ></TextView>
         </LinearLayout>

@@ -52,6 +52,8 @@ public class MeetingDB
         return meetings;
     }
 
+
+
     public static boolean setMeeting(Meeting meeting) {
 
         DocumentReference docRef;
@@ -142,6 +144,9 @@ public class MeetingDB
         if(!document.exists())
             return null;
         return document.toObject(Meeting.class);
+
+
+
 
     }
 }
