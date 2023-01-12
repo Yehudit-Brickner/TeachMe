@@ -27,5 +27,8 @@ public class LessonMeetingController {
     public static boolean updateMeeting(Meeting m){
         return lessonMeetingModel.updateMeeting(m);
     }
+    public static void createLesson(Lesson l){
+        lessonMeetingModel.createLesson(l);
+    }
 
 }

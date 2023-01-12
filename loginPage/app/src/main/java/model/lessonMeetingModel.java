@@ -30,6 +30,8 @@ public class lessonMeetingModel {
         return MeetingDB.setMeeting(m);
     }
 
-
+    public static void createLesson(Lesson l){
+        LessonDB.setLessonData(l);
+    }
 
 }

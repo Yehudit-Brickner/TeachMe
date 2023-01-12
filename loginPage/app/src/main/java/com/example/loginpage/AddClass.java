@@ -30,6 +30,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import connection.HttpManager;
+import controller.LessonMeetingController;
 import db.LessonDB;
 import db.MeetingDB;
 import impl.DateFunctions;
@@ -221,17 +222,13 @@ public class AddClass extends AppCompatActivity {
                 error = true;
             }
             else {
-                l = LessonDB.getLessonFromDB(UID, classname.getText().toString());
+                l= LessonMeetingController.getLesson(UID, classname.getText().toString());
+//                l = LessonDB.getLessonFromDB(UID, classname.getText().toString());
                 if (l==null || !l.getLessonId().equals(classname.getText().toString())) {
                     l = new Lesson(classname.getText().toString(), UID, price.getText().toString(), "");
-                    LessonDB.setLessonData(l);
+//                    LessonDB.setLessonData(l);
+                    LessonMeetingController.createLesson(l);
 
-
-//                    try {
-//                        HttpManager.PostRequest("http://10.0.0.42:9090",l);
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
                 }
             }
 
@@ -286,8 +283,8 @@ public class AddClass extends AppCompatActivity {
             if (!error) {
                 for (int i = 0; i < newMeetings.size(); i++) {
 //                    if(checkTimes(newMeetings.get(i))) {
-
-                        MeetingDB.setMeeting(newMeetings.get(i));
+                            LessonMeetingController.updateMeeting(newMeetings.get(i));
+//                        MeetingDB.setMeeting(newMeetings.get(i));
 //                        l.addMeeting(newMeetings.get(i));
 //                    }
                 }
