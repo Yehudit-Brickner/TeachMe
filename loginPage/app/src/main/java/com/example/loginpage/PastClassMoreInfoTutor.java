@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,10 +14,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import controller.PastFutureClassMoreInfoController;
-import db.LessonDB;
-import db.MeetingDB;
-import db.PersonDataDB;
+import controller.LessonMeetingController;
 import impl.Lesson;
 import impl.Meeting;
 import impl.Student;
@@ -58,13 +54,13 @@ public class PastClassMoreInfoTutor extends AppCompatActivity {
 //        m= MeetingDB.getMeeting(MID);
 //        t = PersonDataDB.getTutorFromDB(m.getTutorId());
 //        l= LessonDB.getLessonFromDB(t.getUID(),m.getLessonId());
-        m = PastFutureClassMoreInfoController.getMeeting(MID);
-        t = PastFutureClassMoreInfoController.getTutor(m.getTutorId());
-        l = PastFutureClassMoreInfoController.getLesson(t.getUID(),m.getLessonId());
+        m = LessonMeetingController.getMeeting(MID);
+        t = LessonMeetingController.getTutor(m.getTutorId());
+        l = LessonMeetingController.getLesson(t.getUID(),m.getLessonId());
 
         if (m.getStudentId()!="" && m.getStudentId()!=null) {
 //            s = PersonDataDB.getStudentFromDB(m.getStudentId());
-            s=PastFutureClassMoreInfoController.getStudent(m.getStudentId());
+            s= LessonMeetingController.getStudent(m.getStudentId());
         }
 
 
@@ -107,7 +103,7 @@ public class PastClassMoreInfoTutor extends AppCompatActivity {
             public void onClick(View view) {
                 m.setSummary(summary.getText().toString());
 //                LessonDB.setLessonData(l);
-               if(PastFutureClassMoreInfoController.updateMeeting(m)) {
+               if(LessonMeetingController.updateMeeting(m)) {
                    Toast.makeText(getApplicationContext(), "summary updated", Toast.LENGTH_LONG).show();
                }
                else{

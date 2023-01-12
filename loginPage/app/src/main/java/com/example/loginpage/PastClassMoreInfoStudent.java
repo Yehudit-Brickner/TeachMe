@@ -12,10 +12,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import controller.PastFutureClassMoreInfoController;
-import db.LessonDB;
-import db.MeetingDB;
-import db.PersonDataDB;
+import controller.LessonMeetingController;
 import impl.Lesson;
 import impl.Meeting;
 import impl.Tutor;
@@ -51,9 +48,9 @@ public class PastClassMoreInfoStudent extends AppCompatActivity {
 //        m= MeetingDB.getMeeting(MID);
 //        t = PersonDataDB.getTutorFromDB(m.getTutorId());
 //        l= LessonDB.getLessonFromDB(t.getUID(),m.getLessonId());
-        m = PastFutureClassMoreInfoController.getMeeting(MID);
-        t = PastFutureClassMoreInfoController.getTutor(m.getTutorId());
-        l = PastFutureClassMoreInfoController.getLesson(t.getUID(),m.getLessonId());
+        m = LessonMeetingController.getMeeting(MID);
+        t = LessonMeetingController.getTutor(m.getTutorId());
+        l = LessonMeetingController.getLesson(t.getUID(),m.getLessonId());
 
 
         classname =(TextView)findViewById(R.id.pcmi_classname);

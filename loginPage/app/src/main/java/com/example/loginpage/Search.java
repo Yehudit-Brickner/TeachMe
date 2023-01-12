@@ -29,6 +29,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Locale;
 
+import controller.SearchController;
 import db.LessonDB;
 import impl.DateFunctions;
 import impl.Lesson;
@@ -55,8 +56,8 @@ public class Search extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        Pickclasses= LessonDB.getLessonsNames();
-
+//        Pickclasses= LessonDB.getLessonsNames();
+        Pickclasses= SearchController.lessonNames();
         Collections.sort(Pickclasses);
         Pickclasses.add(0,"class name");
 
@@ -91,38 +92,71 @@ public class Search extends AppCompatActivity {
         searchbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean error= false;
-                info= new ArrayList<String>();
-                if (pickedClass != "" && pickedClass != "class name" && pickedClass!=null) {
-                    info.add(pickedClass);
-                    if (!dateButton1.getText().toString().equals("pick start search date")) {
-                        info.add(dateButton1.getText().toString());
-                        if (!dateButton2.getText().toString().equals("pick end search date")) {
-                            info.add(dateButton2.getText().toString());
-                        } else {
-                            info.add(null);
-                        }
-                    }
-                    else{
-                        if (!dateButton2.getText().toString().equals("pick end search date")){
-                            error= true;
-                            Toast.makeText(getApplicationContext(), "you need to pick the start date", Toast.LENGTH_LONG).show();
-                        }
-                        info.add(null);
-                        info.add(null);
-                    }
-                    if (error==false) {
-                        Intent i = new Intent(Search.this, SearchResults.class);
-                        i.putStringArrayListExtra("info", info);
-                        startActivity(i);
-                    }
-                }
-                else {
-                    Toast.makeText(getApplicationContext(), "you need to pick a class", Toast.LENGTH_LONG).show();
-                }
+                clickedSearch();
+//                boolean error= false;
+//                info= new ArrayList<String>();
+//                if (pickedClass != "" && pickedClass != "class name" && pickedClass!=null) {
+//                    info.add(pickedClass);
+//                    if (!dateButton1.getText().toString().equals("pick start search date")) {
+//                        info.add(dateButton1.getText().toString());
+//                        if (!dateButton2.getText().toString().equals("pick end search date")) {
+//                            info.add(dateButton2.getText().toString());
+//                        } else {
+//                            info.add(null);
+//                        }
+//                    }
+//                    else{
+//                        if (!dateButton2.getText().toString().equals("pick end search date")){
+//                            error= true;
+//                            Toast.makeText(getApplicationContext(), "you need to pick the start date", Toast.LENGTH_LONG).show();
+//                        }
+//                        info.add(null);
+//                        info.add(null);
+//                    }
+//                    if (error==false) {
+//                        Intent i = new Intent(Search.this, SearchResults.class);
+//                        i.putStringArrayListExtra("info", info);
+//                        startActivity(i);
+//                    }
+//                }
+//                else {
+//                    Toast.makeText(getApplicationContext(), "you need to pick a class", Toast.LENGTH_LONG).show();
+//                }
             }
         });
 
+    }
+
+    public void clickedSearch(){
+        boolean error= false;
+        info= new ArrayList<String>();
+        if (pickedClass != "" && pickedClass != "class name" && pickedClass!=null) {
+            info.add(pickedClass);
+            if (!dateButton1.getText().toString().equals("pick start search date")) {
+                info.add(dateButton1.getText().toString());
+                if (!dateButton2.getText().toString().equals("pick end search date")) {
+                    info.add(dateButton2.getText().toString());
+                } else {
+                    info.add(null);
+                }
+            }
+            else{
+                if (!dateButton2.getText().toString().equals("pick end search date")){
+                    error= true;
+                    Toast.makeText(getApplicationContext(), "you need to pick the start date", Toast.LENGTH_LONG).show();
+                }
+                info.add(null);
+                info.add(null);
+            }
+            if (error==false) {
+                Intent i = new Intent(Search.this, SearchResults.class);
+                i.putStringArrayListExtra("info", info);
+                startActivity(i);
+            }
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "you need to pick a class", Toast.LENGTH_LONG).show();
+        }
     }
 
 

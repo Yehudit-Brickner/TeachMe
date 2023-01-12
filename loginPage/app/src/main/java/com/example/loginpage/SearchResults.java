@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 
+import controller.SearchController;
 import db.LessonDB;
 import db.PersonDataDB;
 import impl.Lesson;
@@ -85,17 +86,19 @@ public class SearchResults extends AppCompatActivity {
         myswitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (myswitch.isChecked()){
-                    showLessonByTutorName();
-                    Log.d("AUTH_DEBUG","switch is on");
-                }
-                else{
-                    showLessonByPrice();
-                    Log.d("AUTH_DEBUG","switch is off");
-                }
+                showLesson();
+//                if (myswitch.isChecked()){
+//                    showLessonByTutorName();
+//                    Log.d("AUTH_DEBUG","switch is on");
+//                }
+//                else{
+//                    showLessonByPrice();
+//                    Log.d("AUTH_DEBUG","switch is off");
+//                }
             }
         });
-        showLessonByPrice();
+//        showLessonByPrice();
+        showLesson();
 
     }
 
@@ -154,43 +157,56 @@ public class SearchResults extends AppCompatActivity {
     }
 
 
-    public void showLessonByPrice(){
+    public void showLesson(){
+        SearchController.switchClicked(myswitch,lessons);
         for (int i=layoutlist.getChildCount()-1; i>=0;i--) {
             layoutlist.removeView(layoutlist.getChildAt(i));
         }
-        Collections.sort(lessons, new Comparator<Lesson>(){
-            public int compare(Lesson l1, Lesson l2){
-                if(l1.getPrice().compareTo(l2.getPrice())<0)
-                    return 1;
-                else{
-                    return -1;
-                }
-            }
-        });
         for(int i=0; i<lessons.size();i++){
             addView(lessons.get(i));
         }
     }
-    public void showLessonByTutorName(){
-        for (int i=layoutlist.getChildCount()-1; i>=0;i--) {
-            layoutlist.removeView(layoutlist.getChildAt(i));
-        }
-        Collections.sort(lessons, new Comparator<Lesson>(){
-            public int compare(Lesson l1, Lesson l2){
-                Tutor t1= PersonDataDB.getTutorFromDB(l1.getTutorId());
-                String s1=t1.getFirstName()+" "+t1.getFirstName();
-                Tutor t2= PersonDataDB.getTutorFromDB(l2.getTutorId());
-                String s2=t2.getFirstName()+" "+t2.getFirstName();
-                if(s1.compareTo(s2)<0)
-                    return -1;
-                else{
-                    return 1;
-                }
-            }
-        });
-        for(int i=0; i<lessons.size();i++){
-            addView(lessons.get(i));
-        }
 
-    }
+
+//
+//    public void showLessonByPrice(){
+//        for (int i=layoutlist.getChildCount()-1; i>=0;i--) {
+//            layoutlist.removeView(layoutlist.getChildAt(i));
+//        }
+//        Collections.sort(lessons, new Comparator<Lesson>(){
+//            public int compare(Lesson l1, Lesson l2){
+//                if(l1.getPrice().compareTo(l2.getPrice())<0)
+//                    return 1;
+//                else{
+//                    return -1;
+//                }
+//            }
+//        });
+//        for(int i=0; i<lessons.size();i++){
+//            addView(lessons.get(i));
+//        }
+//    }
+
+//    public void showLessonByTutorName(){
+//        for (int i=layoutlist.getChildCount()-1; i>=0;i--) {
+//            layoutlist.removeView(layoutlist.getChildAt(i));
+//        }
+//        Collections.sort(lessons, new Comparator<Lesson>(){
+//            public int compare(Lesson l1, Lesson l2){
+//                Tutor t1= PersonDataDB.getTutorFromDB(l1.getTutorId());
+//                String s1=t1.getFirstName()+" "+t1.getFirstName();
+//                Tutor t2= PersonDataDB.getTutorFromDB(l2.getTutorId());
+//                String s2=t2.getFirstName()+" "+t2.getFirstName();
+//                if(s1.compareTo(s2)<0)
+//                    return -1;
+//                else{
+//                    return 1;
+//                }
+//            }
+//        });
+//        for(int i=0; i<lessons.size();i++){
+//            addView(lessons.get(i));
+//        }
+//
+//    }
 }

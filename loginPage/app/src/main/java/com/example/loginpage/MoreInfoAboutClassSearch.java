@@ -28,6 +28,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import connection.HttpManager;
+import controller.LessonMeetingController;
+import controller.SearchController;
 import db.LessonDB;
 import db.PersonDataDB;
 import impl.Lesson;
@@ -69,10 +71,13 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
         Tid=intent.getStringExtra("TID");
         Log.d("AUTH_DEBUG","LID= "+Lid+" TID= "+Tid);
 
-        mylesson= LessonDB.getLessonFromDB(Tid,Lid);
+//        mylesson= LessonDB.getLessonFromDB(Tid,Lid);
+        mylesson= LessonMeetingController.getLesson(Tid,Lid);
 
-        Log.d("AUTH_DEBUG","more info, "+mylesson.toString());
-        mytutor= PersonDataDB.getTutorFromDB(Tid);
+
+//        Log.d("AUTH_DEBUG","more info, "+mylesson.toString());
+//        mytutor= PersonDataDB.getTutorFromDB(Tid);
+        mytutor= LessonMeetingController.getTutor(Tid);
 
         classname=(TextView)findViewById(R.id.classname_moreinfo);;
         classname.setText(Lid);
@@ -81,6 +86,8 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+
+        // **** need to change to better func then add to MVC ****
         myMeetings1=mylesson.getMeetings();
 
 //        Map<String,String> mymap=new HashMap<>();
@@ -130,14 +137,15 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
             acceptclass.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    updateUI(user);
-                    String UID = user.getUid();
-                    Log.d("AUTH_DEBUG", "UID = " + UID);
-                    m.setStudentId(UID);
-                    LessonDB.setLessonData(mylesson);
-                    Toast.makeText(getApplicationContext(), "you are signed up!", Toast.LENGTH_LONG).show();
-                    reshowClasses();
+                    acceptclassClicked(m);
+//                    FirebaseUser user = mAuth.getCurrentUser();
+//                    updateUI(user);
+//                    String UID = user.getUid();
+//                    Log.d("AUTH_DEBUG", "UID = " + UID);
+//                    m.setStudentId(UID);
+//                    LessonDB.setLessonData(mylesson);
+//                    Toast.makeText(getApplicationContext(), "you are signed up!", Toast.LENGTH_LONG).show();
+//                    reshowClasses();
                 }
             });
             layoutlist.addView(myview);
@@ -167,17 +175,18 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
     }
 
     public void showClasses(){
-        Collections.sort(myMeetings1, new Comparator<Meeting>(){
-            public int compare(Meeting m1, Meeting m2){
-                Timestamp t1=m1.getStartDateTime();
-                Timestamp t2=m2.getStartDateTime();
-                if(t1.compareTo(t2)<0)
-                    return -1;
-                else{
-                    return 1;
-                }
-            }
-        });
+        SearchController.orderMeetings(myMeetings1);
+//        Collections.sort(myMeetings1, new Comparator<Meeting>(){
+//            public int compare(Meeting m1, Meeting m2){
+//                Timestamp t1=m1.getStartDateTime();
+//                Timestamp t2=m2.getStartDateTime();
+//                if(t1.compareTo(t2)<0)
+//                    return -1;
+//                else{
+//                    return 1;
+//                }
+//            }
+//        });
         int count=0;
         if( myMeetings1!=null) {
             for (int i = 0; i < myMeetings1.size(); i++) {
@@ -197,5 +206,30 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
             layoutlist.removeView(layoutlist.getChildAt(i));
         }
         showClasses();
+    }
+
+
+    public void acceptclassClicked(Meeting m){
+        FirebaseUser user = mAuth.getCurrentUser();
+        updateUI(user);
+        String UID = user.getUid();
+        Log.d("AUTH_DEBUG", "UID = " + UID);
+
+//        m.setStudentId(UID);
+
+        if(LessonMeetingController.updateMeeting(m)){
+            Toast.makeText(getApplicationContext(), "you are signed up!", Toast.LENGTH_LONG).show();
+            LessonDB.setLessonData(mylesson);
+            reshowClasses();
+        }
+        else{
+            LessonDB.setLessonData(mylesson);
+            Toast.makeText(getApplicationContext(), "something went wrong", Toast.LENGTH_LONG).show();
+            reshowClasses();
+        }
+
+
+
+
     }
 }

@@ -7,30 +7,23 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
 
-import controller.PastFutureClassMoreInfoController;
-import db.LessonDB;
-import db.MeetingDB;
-import db.PersonDataDB;
+import controller.LessonMeetingController;
 import impl.Lesson;
 import impl.Meeting;
 import impl.Student;
 import impl.Tutor;
-import model.PastFutureClassMoreInfoModel;
 
 public class FutureClassMoreInfoTutor extends AppCompatActivity {
 
@@ -65,14 +58,14 @@ public class FutureClassMoreInfoTutor extends AppCompatActivity {
 //        t = PersonDataDB.getTutorFromDB(m.getTutorId());
 //        l = LessonDB.getLessonFromDB(t.getUID(),m.getLessonId());
 
-        m= PastFutureClassMoreInfoController.getMeeting(MID);
-        t= PastFutureClassMoreInfoController.getTutor(m.getTutorId());
-        l= PastFutureClassMoreInfoController.getLesson(t.getUID(),m.getLessonId());
+        m= LessonMeetingController.getMeeting(MID);
+        t= LessonMeetingController.getTutor(m.getTutorId());
+        l= LessonMeetingController.getLesson(t.getUID(),m.getLessonId());
 
         sId=m.getStudentId();
         if(sId!="") {
 //            s = PersonDataDB.getStudentFromDB(m.getStudentId());
-            s=PastFutureClassMoreInfoController.getStudent(sId);
+            s= LessonMeetingController.getStudent(sId);
         }
 
         classname =(TextView)findViewById(R.id.fcmi_classname);

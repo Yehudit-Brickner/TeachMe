@@ -8,7 +8,7 @@ import impl.Meeting;
 import impl.Student;
 import impl.Tutor;
 
-public class PastFutureClassMoreInfoModel {
+public class lessonMeetingModel {
 
     public static Lesson getLesson( String Tid,String Lid){
         return LessonDB.getLessonFromDB(Tid,Lid);
@@ -29,4 +29,7 @@ public class PastFutureClassMoreInfoModel {
     public static boolean updateMeeting(Meeting m){
         return MeetingDB.setMeeting(m);
     }
+
+
+
 }
