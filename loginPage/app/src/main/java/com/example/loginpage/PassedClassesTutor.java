@@ -109,6 +109,8 @@ public class PassedClassesTutor extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i =new Intent(PassedClassesTutor.this, PastClassMoreInfoTutor.class);
                 i.putExtra("mID",m.getMeetingId());
+                i.putExtra("lID",m.getLessonId());
+                i.putExtra("tID",m.getTutorId());
                 startActivity(i);
             }
         });

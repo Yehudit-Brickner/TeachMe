@@ -114,7 +114,9 @@ public class FutureClassesStudent extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i =new Intent(FutureClassesStudent.this, FutureClassMoreInfoStudent.class);
-                i.putExtra("MID",m.getMeetingId());
+                i.putExtra("mID",m.getMeetingId());
+                i.putExtra("lID",m.getLessonId());
+                i.putExtra("tID",m.getTutorId());
                 startActivity(i);
             }
         });

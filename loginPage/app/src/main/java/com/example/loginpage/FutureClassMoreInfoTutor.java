@@ -30,6 +30,8 @@ public class FutureClassMoreInfoTutor extends AppCompatActivity {
 
     private Intent intent;
     private String MID;
+    private String LID;
+    private String TID;
     private String sId;
     private Meeting m;
     private Lesson l;
@@ -53,14 +55,11 @@ public class FutureClassMoreInfoTutor extends AppCompatActivity {
 
         intent=getIntent();
         MID = intent.getStringExtra("mID");
-
-//        m= MeetingDB.getMeeting(MID);
-//        t = PersonDataDB.getTutorFromDB(m.getTutorId());
-//        l = LessonDB.getLessonFromDB(t.getUID(),m.getLessonId());
-
-        m= LessonMeetingController.getMeeting(MID);
-        t= LessonMeetingController.getTutor(m.getTutorId());
-        l= LessonMeetingController.getLesson(t.getUID(),m.getLessonId());
+        TID = intent.getStringExtra("tID");
+        LID = intent.getStringExtra("lID");
+        m= LessonMeetingController.getMeeting(TID,LID,MID);
+        t= LessonMeetingController.getTutor(TID);
+        l= LessonMeetingController.getLesson(TID,LID);
 
         sId=m.getStudentId();
         if(sId!="") {
