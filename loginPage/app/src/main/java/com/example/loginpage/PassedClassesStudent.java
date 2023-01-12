@@ -28,6 +28,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 
+import controller.PastFutureClassesController;
 import db.MeetingDB;
 import db.PersonDataDB;
 import impl.Meeting;
@@ -68,33 +69,18 @@ public class PassedClassesStudent extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         UID=user.getUid();
-        meetings= MeetingDB.getStudentMeetings(UID);
+
+        meetings=PastFutureClassesController.getStudentMeetings(UID);
+        passedMeetings=PastFutureClassesController.getPastMeetings(meetings);
 
         myswitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (myswitch.isChecked()){
-                    showMeetingsByClass();
-                    Log.d("AUTH_DEBUG","switch is on");
-                }
-                else{
-                    showMeetingsByDate();
-                    Log.d("AUTH_DEBUG","switch is off");
-                }
+                showMeeting();
             }
         });
 
-        passedMeetings=new ArrayList<>();
-        date = Calendar.getInstance().getTime();
-        now= new Timestamp(date);
-        for (int i=0; i< meetings.size();i++){
-            Timestamp t = meetings.get(i).getStartDateTime();
-            if(now.compareTo(t)>=0) {
-                passedMeetings.add(meetings.get(i));
-            }
-        }
-        showMeetingsByDate();
-
+        showMeeting();
 
     }
 
@@ -149,40 +135,11 @@ public class PassedClassesStudent extends AppCompatActivity {
         return true;
     }
 
-    public void showMeetingsByDate(){
+    public void showMeeting(){
+        PastFutureClassesController.switchclicked(myswitch,passedMeetings,-1);
         for (int i=layoutlist.getChildCount()-1; i>=0;i--) {
             layoutlist.removeView(layoutlist.getChildAt(i));
         }
-        Collections.sort(passedMeetings, new Comparator<Meeting>(){
-            public int compare(Meeting m1, Meeting m2){
-                Timestamp t1=m1.getStartDateTime();
-                Timestamp t2=m2.getStartDateTime();
-                if(t1.compareTo(t2)<0)
-                    return 1;
-                else{
-                    return -1;
-                }
-            }
-        });
-
-        for (int i=0; i<passedMeetings.size(); i++){
-            addView(passedMeetings.get(i));
-        }
-    }
-
-    public void showMeetingsByClass(){
-        for (int i=layoutlist.getChildCount()-1; i>=0;i--) {
-            layoutlist.removeView(layoutlist.getChildAt(i));
-        }
-        Collections.sort(passedMeetings, new Comparator<Meeting>(){
-            public int compare(Meeting m1, Meeting m2){
-                if(m1.getLessonId().compareTo(m2.getLessonId())<0)
-                    return -1;
-                else{
-                    return 1;
-                }
-            }
-        });
         for (int i=0; i<passedMeetings.size(); i++){
             addView(passedMeetings.get(i));
         }
