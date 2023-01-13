@@ -25,6 +25,8 @@ public class PastClassMoreInfoTutor extends AppCompatActivity {
 
     private Intent intent;
     private String MID;
+    private String LID;
+    private String TID;
     private Meeting m;
     private Lesson l;
     private Tutor t;
@@ -49,14 +51,14 @@ public class PastClassMoreInfoTutor extends AppCompatActivity {
         setContentView(R.layout.activity_past_class_more_info_tutor);
 
         intent=getIntent();
-        MID=intent.getStringExtra("mID");
+        MID = intent.getStringExtra("mID");
+        TID = intent.getStringExtra("tID");
+        LID = intent.getStringExtra("lID");
+        m= LessonMeetingController.getMeeting(TID,LID,MID);
+        t= LessonMeetingController.getTutor(TID);
+        l= LessonMeetingController.getLesson(TID,LID);
 
-//        m= MeetingDB.getMeeting(MID);
-//        t = PersonDataDB.getTutorFromDB(m.getTutorId());
-//        l= LessonDB.getLessonFromDB(t.getUID(),m.getLessonId());
-        m = LessonMeetingController.getMeeting(MID);
-        t = LessonMeetingController.getTutor(m.getTutorId());
-        l = LessonMeetingController.getLesson(t.getUID(),m.getLessonId());
+
 
         if (m.getStudentId()!="" && m.getStudentId()!=null) {
 //            s = PersonDataDB.getStudentFromDB(m.getStudentId());

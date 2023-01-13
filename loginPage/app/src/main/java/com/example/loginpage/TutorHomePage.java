@@ -33,6 +33,8 @@ public class TutorHomePage extends AppCompatActivity {
     public FirebaseUser user;
     public ImageButton profile;
     public Button add;
+    public Button createLesson;
+    public Button myLesson;
     public Button pastclasses;
     public Button futureclasses;
     public Button signout;
@@ -63,6 +65,28 @@ public class TutorHomePage extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        createLesson=(Button)findViewById(R.id.createLesson) ;
+        createLesson.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent i =new Intent(TutorHomePage.this, AddLesson.class);
+                startActivity(i);
+            }
+        });
+
+        myLesson=(Button)findViewById(R.id.mylessons);
+        myLesson.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent i =new Intent(TutorHomePage.this, ShowLessons.class);
+                startActivity(i);
+            }
+        });
+
+
+
+
 
         add=(Button) findViewById(R.id.add);
         add.setOnClickListener(new View.OnClickListener(){

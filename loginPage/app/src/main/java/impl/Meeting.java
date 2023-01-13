@@ -78,6 +78,8 @@ public class Meeting implements IMeeting, Comparable<Meeting>
     }
 
 
+
+
     @Override
     public String getMeetingId() {
         return meetingId;
@@ -287,5 +289,16 @@ public class Meeting implements IMeeting, Comparable<Meeting>
     public String toJson(){
         return new Gson().toJson(this);
     }
+
+
+    public static Meeting fromObject(Object o) {
+        if (o == null)
+            return null;
+
+        Gson gson = new Gson ();
+        String json = gson.toJson(o);
+        return gson.fromJson(json, Meeting.class);
+    }
+
 }
 

@@ -22,6 +22,8 @@ public class FutureClassMoreInfoStudent extends AppCompatActivity {
 
     private Intent intent;
     private String MID;
+    private String LID;
+    private String TID;
     private Meeting m;
     private Tutor t;
     private Lesson l;
@@ -46,14 +48,14 @@ public class FutureClassMoreInfoStudent extends AppCompatActivity {
         setContentView(R.layout.activity_future_class_more_info_student);
 
         intent=getIntent();
-        MID = intent.getStringExtra("MID");
+        MID = intent.getStringExtra("mID");
+        TID = intent.getStringExtra("tID");
+        LID = intent.getStringExtra("lID");
+        m= LessonMeetingController.getMeeting(TID,LID,MID);
+        t= LessonMeetingController.getTutor(TID);
+        l= LessonMeetingController.getLesson(TID,LID);
 
-//        m= MeetingDB.getMeeting(MID);
-//        t = PersonDataDB.getTutorFromDB(m.getTutorId());
-//        l= LessonDB.getLessonFromDB(t.getUID(),m.getLessonId());
-        m = LessonMeetingController.getMeeting(MID);
-        t = LessonMeetingController.getTutor(m.getTutorId());
-        l = LessonMeetingController.getLesson(t.getUID(),m.getLessonId());
+
 
 
         classname =(TextView)findViewById(R.id.fcmi_classname);

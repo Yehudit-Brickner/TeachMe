@@ -12,8 +12,8 @@ public class LessonMeetingController {
         return lessonMeetingModel.getLesson(Tid, Lid);
     }
 
-    public static Meeting getMeeting(String Mid){
-        return lessonMeetingModel.getMeeting(Mid);
+    public static Meeting getMeeting(String TID, String LID, String MID){
+        return lessonMeetingModel.getMeeting(TID,LID,MID);
     }
 
     public static Tutor getTutor(String Tid){
@@ -27,6 +27,11 @@ public class LessonMeetingController {
     public static boolean updateMeeting(Meeting m){
         return lessonMeetingModel.updateMeeting(m);
     }
+
+    public static boolean setMeeting(Meeting m){
+        return lessonMeetingModel.updateMeeting(m);
+    }
+
     public static void createLesson(Lesson l){
         lessonMeetingModel.createLesson(l);
     }

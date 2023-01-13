@@ -17,6 +17,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Objects;
 
 import connection.HttpManager;
@@ -136,14 +137,23 @@ public class MeetingDB
     }
 
 
-    public static Meeting getMeeting(String mID){
-        DocumentReference docRef = firestore.collection("meetings").document(mID);
-        Task<DocumentSnapshot> task = docRef.get();
-        DataCenterDB.waitTaskComplete(task);
-        DocumentSnapshot document = task.getResult();
-        if(!document.exists())
-            return null;
-        return document.toObject(Meeting.class);
+    public static Meeting getMeeting(String TID, String LID, String MID){
+        try {
+            HttpManager httpResponse = HttpManager.GetRequest("/get/meeting", Map.of("UID", TID, "LID", LID, "MID", MID));
+
+            if (httpResponse.getCode() == HttpManager.ERR)
+                return null;
+
+            if (httpResponse.getCode() != HttpManager.OK)
+                return null;
+
+            return Meeting.fromObject(httpResponse.getData());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
 
 
 

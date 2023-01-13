@@ -14,8 +14,8 @@ public class lessonMeetingModel {
         return LessonDB.getLessonFromDB(Tid,Lid);
     }
 
-    public static Meeting getMeeting(String Mid){
-        return MeetingDB.getMeeting(Mid);
+    public static Meeting getMeeting(String TID, String LID, String MID){
+        return MeetingDB.getMeeting(TID,LID,MID);
     }
 
     public static Tutor getTutor(String Tid){
@@ -27,6 +27,10 @@ public class lessonMeetingModel {
     }
 
     public static boolean updateMeeting(Meeting m){
+        return MeetingDB.setMeeting(m);
+    }
+
+    public static boolean setMeeting(Meeting m){
         return MeetingDB.setMeeting(m);
     }
 
