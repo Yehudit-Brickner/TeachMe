@@ -206,5 +206,9 @@ public class HttpManager
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
+//        Gson gson = new Gson();
+//        String s = gson.toJson(new Lesson());
+//        Object JS = gson.fromJson(s, Object.class);
+//
 //    }
 }

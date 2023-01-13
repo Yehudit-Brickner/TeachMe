@@ -15,9 +15,8 @@ class MeetingDB(Firestore_Base_DB):
     def get_meeting_tutorid_lessonid(self, tutor_id: str, lesson_id: str) -> list:
         if tutor_id is None or len(tutor_id) == 0:
             print("no tutor")
-            raise DBErrorException("didn't  enter tutor id")
-        meetings = self.db.collection_group(util.DOCK_MEETINGS).where("tutorId", "==", tutor_id)\
-                                                               .where("lessonId", "==", lesson_id).stream()
+            raise DBErrorException("didn't enter tutor id")
+        meetings = self.db.collection(f"{util.DOCK_USER}/{tutor_id}/{util.DOCK_LESSON}/{lesson_id}/{util.DOCK_MEETINGS}").stream()
         return self.get_meeting_list(meetings)
 
     #Get meeting by meeting object
@@ -64,13 +63,11 @@ class MeetingDB(Firestore_Base_DB):
 
     #Created this function because I had repitive code.
     def get_meeting_list(self, meetings):
-        error = 0
         meetings_list = []
         for meet in meetings:
-            error = error + 1
             meetings_list.append(meet.to_dict())
-        if error == 0:
-            raise DBErrorException("meeting doesn't exist")
+        # if len(meetings_list) == 0:
+        #     raise DBErrorException("meeting doesn't exist")
         return meetings_list
 
     def set_meeting(self, meeting: dict):
@@ -91,6 +88,7 @@ class MeetingDB(Firestore_Base_DB):
 
         meeting["meetingId"] = meeting_id
         ref.set(meeting)
+        return True
 
     def update_meeting(self, meeting: dict):
         # So we go through only collections , until we need the document, so its: collection().document()

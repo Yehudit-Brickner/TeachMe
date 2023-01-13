@@ -2,7 +2,9 @@ package impl;
 
 import com.google.firebase.firestore.IgnoreExtraProperties;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.internal.LinkedTreeMap;
 
 import java.util.ArrayList;
 import java.util.Arrays;

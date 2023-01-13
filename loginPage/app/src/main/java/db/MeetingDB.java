@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.android.gms.tasks.Task;
 
+import com.google.common.reflect.TypeToken;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -33,52 +34,80 @@ public class MeetingDB
     private static final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
     public static ArrayList<Meeting> getMeetingsByTutorAndLessonId(String tutorId, String lessonId) {
-        ArrayList<Meeting> meetings = new ArrayList<>();
-        if (tutorId == null || tutorId.isEmpty())
-            return meetings;
+//        ArrayList<Meeting> meetings = new ArrayList<>();
+//        if (tutorId == null || tutorId.isEmpty())
+//            return meetings;
+//
+//        CollectionReference lessonsCol = firestore.collection(PersonDataDB.COLL_NAME).document(tutorId)
+//                .collection(ILesson.DOCK_NAME).document(lessonId).collection(IMeeting.DOCK_NAME);
+//
+//        Task<QuerySnapshot> task = lessonsCol.get();
+//
+//        DataCenterDB.waitTaskComplete(task);
+//
+//        if (task.isSuccessful()) {
+//
+//            for (QueryDocumentSnapshot document : task.getResult()) {
+//                Log.d("QUERY_TEST", document.getId() + " => " + document.getData());
+//                meetings.add(document.toObject(Meeting.class));
+//            }
+//        }
+        try {
+            HttpManager httpResponse = HttpManager.GetRequest("/get/meetings",
+                    Map.of("TID", tutorId, "LID", lessonId));
 
-        CollectionReference lessonsCol = firestore.collection(PersonDataDB.COLL_NAME).document(tutorId)
-                .collection(ILesson.DOCK_NAME).document(lessonId).collection(IMeeting.DOCK_NAME);
+            if (httpResponse.getCode() == HttpManager.ERR)
+                return new ArrayList<>();
 
-        Task<QuerySnapshot> task = lessonsCol.get();
+            if (httpResponse.getCode() != HttpManager.OK)
+                return new ArrayList<>();
 
-        DataCenterDB.waitTaskComplete(task);
+            return toArrayMeeting((ArrayList<Object>)httpResponse.getData());
 
-        if (task.isSuccessful()) {
-
-            for (QueryDocumentSnapshot document : task.getResult()) {
-                Log.d("QUERY_TEST", document.getId() + " => " + document.getData());
-                meetings.add(document.toObject(Meeting.class));
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return meetings;
+
+        return new ArrayList<>();
     }
 
     public static boolean setMeeting(Meeting meeting) {
 
-        DocumentReference docRef;
+//        DocumentReference docRef;
+//
+//        if (meeting.getMeetingId() == null || meeting.getMeetingId().isEmpty())
+//        {
+//            docRef = firestore
+//                    .collection(PersonDataDB.COLL_NAME).document(meeting.getTutorId())
+//                    .collection(ILesson.DOCK_NAME).document(meeting.getLessonId())
+//                    .collection(IMeeting.DOCK_NAME).document();
+//
+//            String meetingId = docRef.getId();
+//            meeting.setMeetingId(meetingId);
+//        }
+//        else
+//        {
+//            docRef = firestore
+//                    .collection(PersonDataDB.COLL_NAME).document(meeting.getTutorId())
+//                    .collection(ILesson.DOCK_NAME).document(meeting.getLessonId())
+//                    .collection(IMeeting.DOCK_NAME).document(meeting.getMeetingId());
+//        }
+//        docRef.set(meeting);
+//        firestore.collection(IMeeting.DOCK_NAME).document(meeting.getMeetingId()).set(meeting);
+//
+//        return true;
 
-        if (meeting.getMeetingId() == null || meeting.getMeetingId().isEmpty())
-        {
-            docRef = firestore
-                    .collection(PersonDataDB.COLL_NAME).document(meeting.getTutorId())
-                    .collection(ILesson.DOCK_NAME).document(meeting.getLessonId())
-                    .collection(IMeeting.DOCK_NAME).document();
 
-            String meetingId = docRef.getId();
-            meeting.setMeetingId(meetingId);
+        try {
+            HttpManager httpResponse = HttpManager.PostRequest("/set/meeting", meeting);
+            String s = String.valueOf(httpResponse.getData());
+            return (httpResponse.getCode() == HttpManager.OK);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        else
-        {
-            docRef = firestore
-                    .collection(PersonDataDB.COLL_NAME).document(meeting.getTutorId())
-                    .collection(ILesson.DOCK_NAME).document(meeting.getLessonId())
-                    .collection(IMeeting.DOCK_NAME).document(meeting.getMeetingId());
-        }
-        docRef.set(meeting);
-        firestore.collection(IMeeting.DOCK_NAME).document(meeting.getMeetingId()).set(meeting);
 
-        return true;
+        return false;
+
 
 
 //        HttpManager httpResponse = null;
@@ -157,6 +186,20 @@ public class MeetingDB
 
     }
 
+    public static ArrayList<Meeting> toArrayMeeting(ArrayList<Object> objects){
+        if (objects == null)
+            return null;
+
+        ArrayList<Meeting> meetings = new ArrayList<>();
+        for (Object o: objects)
+        {
+            Meeting meeting = Meeting.fromObject(o);
+            if (meeting == null)
+                continue;
+            meetings.add(meeting);
+        }
+        return meetings;
+    }
 
 }
 

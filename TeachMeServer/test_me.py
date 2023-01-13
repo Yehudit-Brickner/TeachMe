@@ -1,8 +1,8 @@
-from DB import *
+# from DB import *
+# # from db_try import Firestore_DB
+# from DB.Lesson_DB import Lesson_DB
+# from DB.MeetingDB import MeetingDB
 # from db_try import Firestore_DB
-from DB.Lesson_DB import Lesson_DB
-from DB.MeetingDB import MeetingDB
-from db_try import Firestore_DB
 
 # d = Firestore_DB()
 # d.get_meetings("infi")
@@ -26,3 +26,16 @@ from db_try import Firestore_DB
 # # lesson = {""}
 #
 # print(MeetingDB().get_student_meetings("david_ehevich"))
+
+from flask import jsonify, json
+
+data = {"key": "value"}
+response = jsonify(data)
+
+# parse the json object from the response
+json_data = json.loads(response.get_data())
+
+# print the json object
+print(json.dumps(json_data, indent=4))
+
+

@@ -69,10 +69,16 @@ def index():
 def get_tutor_lesson():
     uid = request.args.get('UID', default='', type=str)
     lesson_id = request.args.get('LID', default='', type=str)
-    return utils.run_func(lessons_db.get_lesson_from_db, uid, lesson_id)
+    mess, code = utils.run_func(lessons_db.get_lesson_from_db, uid, lesson_id)
+    print(mess.get_json())
+    return mess, code
 
 
-@app.route('/get/lessons', methods=['GET'])
+@app.route('/get/lessons/names', methods=['GET'])
+def get_lesson_names():
+    return utils.run_func(lessons_db.get_lessons_names)
+
+@app.route('/get/lessons/by_name', methods=['GET'])
 def get_lessons():
     lesson_name = request.args.get('LID', default=None, type=str)
     start_time = request.args.get('start', default=None, type=str)
@@ -100,7 +106,9 @@ def meetings():
     lesson_id = request.args.get('LID', default='', type=str)
     tutor_id = request.args.get('TID', default='', type=str)
     print(lesson_id)
-    return utils.run_func(meeting_db.get_meeting_tutorid_lessonid, lesson_id, tutor_id)
+    mess, code = utils.run_func(meeting_db.get_meeting_tutorid_lessonid, tutor_id, lesson_id)
+    print(mess.get_json())
+    return mess, code
     # return jsonify(db.get_meetings_by_time()), 200
 
 
@@ -110,7 +118,9 @@ def get_meeting():
     lid = request.args.get('LID', default='', type=str)
     mid = request.args.get('MID', default='', type=str)
 
-    return utils.run_func(meeting_db.get_meeting_parms, uid, lid, mid)
+    mess, code = utils.run_func(meeting_db.get_meeting_parms, uid, lid, mid)
+    print(mess.get_json())
+    return mess, code
 
 
 @app.route('/get/meetings/student/<student_id>', methods=['GET'])
@@ -126,7 +136,9 @@ def get_tutor_meetings(tutor_id: str):
 @app.route('/set/meeting', methods=['POST'])
 def set_meeting():
     request_dict = request.get_json()
-    return utils.run_func(meeting_db.set_meeting, request_dict)
+    mess, code = utils.run_func(meeting_db.set_meeting, request_dict)
+    print(mess.get_json())
+    return mess, code
 
 
 @app.route('/update/meeting', methods=['POST'])

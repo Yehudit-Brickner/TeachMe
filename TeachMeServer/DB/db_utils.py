@@ -14,7 +14,7 @@ class db_utils():
 
     @staticmethod
     def str_to_datetime(s):
-        for form in [db_utils.DATE_TIME_FORMAT, db_utils.DATE_FORMAT]:      # , db_utils.TIME_FORMAT]:
+        for form in [db_utils.DATE_TIME_FORMAT, db_utils.DATE_FORMAT, "%d/%m/%Y"]:      # , db_utils.TIME_FORMAT]:
             try:
                 return datetime.strptime(s, form)
             except:
@@ -35,3 +35,4 @@ class db_utils():
 # date_time_str = '2023-09-18 23:55'
 #
 # print(db_utils.str_to_datetime(date_time_str))
+# print(db_utils.str_to_datetime("13/1/2023"))

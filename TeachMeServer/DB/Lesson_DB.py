@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import firebase_admin
 from firebase_admin import credentials
@@ -52,6 +52,7 @@ class Lesson_DB(Firestore_Base_DB):
         meetings = self.db.collection_group(utils.DOCK_MEETINGS).where("lessonId", "==", name) \
             .where("startDateTime", ">=", start_dt)
         if end_dt is not None:
+            end_dt += timedelta(days=1)
             meetings = meetings.where("endDateTime", "<=", end_dt)
         meetings = meetings.stream()
 
@@ -72,3 +73,10 @@ class Lesson_DB(Firestore_Base_DB):
                 pass
 
         return lessons
+
+    def get_lessons_names(self):
+        doc_lessons = self.db.collection_group(utils.DOCK_LESSON).get()
+        names = set()
+        for lesson in doc_lessons:
+            names.add(lesson.id)
+        return list(names)
