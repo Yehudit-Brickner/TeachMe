@@ -247,7 +247,7 @@ public class AddMeetings extends AppCompatActivity {
             }
             if (!error) {
                 Log.d("AUTH_DEBUG", dateButton.getText().toString() + "\n" + datetimes + "\n" + datetimee + "\n" + String.valueOf(zoom.isChecked()) + "\n" + String.valueOf(inperson.isChecked()));
-                Meeting m = new Meeting(l.getLessonId(), dateButton.getText().toString(), Starttime.getText().toString(),
+                Meeting m = new Meeting(LID, dateButton.getText().toString(), Starttime.getText().toString(),
                         dateButton.getText().toString(), Endtime.getText().toString(), TID, zoom.isChecked(),
                         inperson.isChecked(),city.getText().toString());
                 Log.d("AUTH_DEBUG", m.toString());

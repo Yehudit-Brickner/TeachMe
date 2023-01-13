@@ -63,7 +63,7 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:text="create lesson"
-            android:textSize="35dp" />
+            android:textSize="25dp" />
 
 
         <Button
@@ -78,7 +78,7 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:text="Add meetings to class"
-            android:textSize="20dp" />
+            android:textSize="15dp" />
 
         <Button
             android:id="@+id/mylessons"
@@ -91,8 +91,8 @@
             android:gravity="center"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:text="my lessons"
-            android:textSize="20dp" />
+            android:text="lessons and create meetings"
+            android:textSize="25dp" />
 
             <Button
                 android:id="@+id/upcoming"
@@ -104,7 +104,7 @@
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="future classes"
-                android:textSize="35dp"
+                android:textSize="25dp"
                 android:layout_weight="1"
 
                  />
@@ -119,10 +119,8 @@
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="passed classes"
-                android:textSize="35dp"
+                android:textSize="25dp"
             />
-
-
 
 
     </LinearLayout>
@@ -134,7 +132,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/design_default_color_secondary"
         android:text="sign out"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
