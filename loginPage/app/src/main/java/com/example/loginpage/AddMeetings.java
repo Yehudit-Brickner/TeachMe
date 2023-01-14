@@ -216,9 +216,9 @@ public class AddMeetings extends AppCompatActivity {
     public void pressedCreate() {
         Log.d("AUTH_DEBUG", "pressed button create");
 
-//        mAuth = FirebaseAuth.getInstance();
-//        user = mAuth.getCurrentUser();
-//        String UID = user.getUid();
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        TID = user.getUid();
         error = false;
         error_notified=false;
 
@@ -251,6 +251,7 @@ public class AddMeetings extends AppCompatActivity {
                         dateButton.getText().toString(), Endtime.getText().toString(), TID, zoom.isChecked(),
                         inperson.isChecked(),city.getText().toString());
                 Log.d("AUTH_DEBUG", m.toString());
+
                 newMeetings.add(m);
 
             }

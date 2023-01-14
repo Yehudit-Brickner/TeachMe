@@ -42,6 +42,9 @@ public class PersonDataDB
     }
 
     public static Student getStudentFromDB(String uID) {
+        if (uID==""){
+            return null;
+        }
         DocumentReference docRef = firestore.collection(COLL_NAME).document(uID);
 
         Task<DocumentSnapshot> task = docRef.get();

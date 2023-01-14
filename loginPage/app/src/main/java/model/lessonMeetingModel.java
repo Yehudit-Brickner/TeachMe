@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 import db.LessonDB;
 import db.MeetingDB;
 import db.PersonDataDB;
@@ -32,6 +34,11 @@ public class lessonMeetingModel {
 
     public static boolean setMeeting(Meeting m){
         return MeetingDB.setMeeting(m);
+    }
+
+
+    public static ArrayList<Lesson> getLessonbyTutor(String TID){
+       return LessonDB.getLessonsByTutorId(TID);
     }
 
     public static void createLesson(Lesson l){

@@ -109,23 +109,6 @@ public class MeetingDB
 
         return false;
 
-
-
-//        HttpManager httpResponse = null;
-//        String url=HttpManager.URL+"/set/meeting";
-//        try {
-//            httpResponse = HttpManager.PostRequest(url,meeting);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        if (httpResponse==null){
-//            return false;
-//        }
-//        String s=String.valueOf(httpResponse.getData());
-//
-//        Boolean b = (Boolean) httpResponse.getData();
-//        return b;
     }
 
     public static ArrayList<Meeting> getStudentMeetings(String StudentId) {

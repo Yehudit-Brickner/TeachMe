@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.ArrayList;
+
 import impl.Lesson;
 import impl.Meeting;
 import impl.Student;
@@ -29,7 +31,11 @@ public class LessonMeetingController {
     }
 
     public static boolean setMeeting(Meeting m){
-        return lessonMeetingModel.updateMeeting(m);
+        return lessonMeetingModel.setMeeting(m);
+    }
+
+    public static ArrayList<Lesson> getLessonbyTutor(String TID){
+        return lessonMeetingModel.getLessonbyTutor(TID);
     }
 
     public static void createLesson(Lesson l){

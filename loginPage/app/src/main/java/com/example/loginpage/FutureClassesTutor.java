@@ -67,28 +67,11 @@ public class FutureClassesTutor extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showMeeting();
-//                if (myswitch.isChecked()){
-//                    showMeetingsByClass();
-//                    Log.d("AUTH_DEBUG","switch is on");
-//                }
-//                else{
-//                    showMeetingsByDate();
-//                    Log.d("AUTH_DEBUG","switch is off");
-//                }
             }
         });
         showMeeting();
 
-//        futureMeetings=new ArrayList<>();
-//        date = Calendar.getInstance().getTime();
-//        now= new Timestamp(date);
-//        for (int i=0; i< meetings.size();i++){
-//            Timestamp t = meetings.get(i).getStartDateTime();
-//            if(now.compareTo(t)<=0) {
-//                futureMeetings.add(meetings.get(i));
-//            }
-//        }
-//        showMeetingsByDate();
+
 
     }
 
@@ -100,7 +83,8 @@ public class FutureClassesTutor extends AppCompatActivity {
         classname.setText(m.getLessonId());
 
         studentname= (TextView)myview.findViewById(R.id.StudentName_rcdt);
-        if(m.getStudentId()!="" && m.getStudentId()!=null) {
+        System.out.println(m.getStudentId());
+        if(!m.getStudentId().equals("")) {
             s = PersonDataDB.getStudentFromDB((m.getStudentId()));
             if (s != null) {
                 studentname.setText(s.getFirstName() + " " + s.getLastName());
@@ -163,41 +147,6 @@ public class FutureClassesTutor extends AppCompatActivity {
         }
     }
 
-//    public void showMeetingsByDate(){
-//        for (int i=layoutlist.getChildCount()-1; i>=0;i--) {
-//            layoutlist.removeView(layoutlist.getChildAt(i));
-//        }
-//        Collections.sort(futureMeetings, new Comparator<Meeting>(){
-//            public int compare(Meeting m1, Meeting m2){
-//                Timestamp t1=m1.getStartDateTime();
-//                Timestamp t2=m2.getStartDateTime();
-//                if(t1.compareTo(t2)<0)
-//                    return -1;
-//                else{
-//                    return 1;
-//                }
-//            }
-//        });
-//        for (int i=0; i<futureMeetings.size(); i++){
-//            addView(futureMeetings.get(i));
-//        }
-//    }
-//
-//    public void showMeetingsByClass(){
-//        for (int i=layoutlist.getChildCount()-1; i>=0;i--) {
-//            layoutlist.removeView(layoutlist.getChildAt(i));
-//        }
-//        Collections.sort(futureMeetings, new Comparator<Meeting>(){
-//            public int compare(Meeting m1, Meeting m2){
-//                if(m1.getLessonId().compareTo(m2.getLessonId())<0)
-//                    return -1;
-//                else{
-//                    return 1;
-//                }
-//            }
-//        });
-//        for (int i=0; i<futureMeetings.size(); i++){
-//            addView(futureMeetings.get(i));
-//        }
-//    }
+
+
 }

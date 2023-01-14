@@ -60,8 +60,7 @@ public class PastClassMoreInfoTutor extends AppCompatActivity {
 
 
 
-        if (m.getStudentId()!="" && m.getStudentId()!=null) {
-//            s = PersonDataDB.getStudentFromDB(m.getStudentId());
+        if (!m.getStudentId().equals("") ) {
             s= LessonMeetingController.getStudent(m.getStudentId());
         }
 

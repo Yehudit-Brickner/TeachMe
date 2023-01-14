@@ -62,8 +62,7 @@ public class FutureClassMoreInfoTutor extends AppCompatActivity {
         l= LessonMeetingController.getLesson(TID,LID);
 
         sId=m.getStudentId();
-        if(sId!="") {
-//            s = PersonDataDB.getStudentFromDB(m.getStudentId());
+        if(!sId.equals("")) {
             s= LessonMeetingController.getStudent(sId);
         }
 
@@ -71,7 +70,7 @@ public class FutureClassMoreInfoTutor extends AppCompatActivity {
         classname.setText(classname.getText().toString()+ m.getLessonId());
 
         studentname =(TextView)findViewById(R.id.fcmi_studentname);
-        if (sId!="") {
+        if (!sId.equals("")) {
             studentname.setText(studentname.getText().toString() + s.getFirstName() + " " + s.getLastName());
         }
         date =(TextView)findViewById(R.id.fcmi_date);

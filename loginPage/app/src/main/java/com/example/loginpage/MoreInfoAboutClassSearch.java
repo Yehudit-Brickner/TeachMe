@@ -215,7 +215,7 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
         String UID = user.getUid();
         Log.d("AUTH_DEBUG", "UID = " + UID);
 
-//        m.setStudentId(UID);
+        m.setStudentId(UID);
 
         if(LessonMeetingController.updateMeeting(m)){
             Toast.makeText(getApplicationContext(), "you are signed up!", Toast.LENGTH_LONG).show();

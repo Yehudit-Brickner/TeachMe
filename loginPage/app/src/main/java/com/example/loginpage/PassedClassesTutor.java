@@ -83,7 +83,7 @@ public class PassedClassesTutor extends AppCompatActivity {
         classname.setText(m.getLessonId());
 
         studentname= (TextView)myview.findViewById(R.id.StudentName_rcdt);
-        if(m.getStudentId()!="" && m.getStudentId()!=null) {
+        if(!m.getStudentId().equals("")) {
             s = PersonDataDB.getStudentFromDB(m.getStudentId());
             if (s != null) {
                 studentname.setText(s.getFirstName() + " " + s.getLastName());

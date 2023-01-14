@@ -22,6 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
+import controller.LessonMeetingController;
 import db.LessonDB;
 import db.PersonDataDB;
 import impl.Lesson;
@@ -57,8 +58,8 @@ public class ShowLessons extends AppCompatActivity {
         UID = user.getUid();
 
         layoutlist = findViewById(R.id.layout_list);
-        mylessons = LessonDB.getLessonsByTutorId(UID);
-
+//        mylessons = LessonDB.getLessonsByTutorId(UID);
+        mylessons= LessonMeetingController.getLessonbyTutor(UID);
         showlessons();
 
 
