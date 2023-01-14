@@ -24,8 +24,8 @@ public class HttpManager
 {
     public static final int OK = 200;
     public static final int ERR = 301;
-
-    public static final String URL = "http://10.0.0.42:9090";//"https://giladon.pythonanywhere.com";
+    public static final String URL = "http://10.12.2.34:9090";
+//    public static final String URL = "https://giladon.pythonanywhere.com/";
 
     private int code;
     private Object data;
@@ -195,5 +195,20 @@ public class HttpManager
                 '}';
     }
 
-
+//    public static void main(String[] args) {
+//        String uid = "oXgq1ihTqmZWWezZER2MaoBw2V52";
+//        String lid = "C++";
+//
+//        try {
+//            HttpManager httpResp = HttpManager.GetRequest("/get_tutor_lesson", Map.of("UID", uid, "LID", lid));
+//
+//            System.out.println(Lesson.ObjectToLesson(httpResp.data));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        Gson gson = new Gson();
+//        String s = gson.toJson(new Lesson());
+//        Object JS = gson.fromJson(s, Object.class);
+//
+//    }
 }

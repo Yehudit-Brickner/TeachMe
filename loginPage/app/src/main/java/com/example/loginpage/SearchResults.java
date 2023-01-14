@@ -60,7 +60,9 @@ public class SearchResults extends AppCompatActivity {
         Intent intent=getIntent();
         info = intent.getStringArrayListExtra("info");
         pickedclass=info.get(0);
-        lessons = LessonDB.getLessonsByName(pickedclass);
+        String startDate = info.get(1);
+        String endDate = info.get(2);
+        lessons = LessonDB.getLessonsByName(pickedclass, startDate, endDate);
 
 
 //        myNumber=intent.getStringExtra("num");

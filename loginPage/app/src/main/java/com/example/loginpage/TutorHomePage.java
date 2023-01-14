@@ -88,14 +88,14 @@ public class TutorHomePage extends AppCompatActivity {
 
 
 
-        add=(Button) findViewById(R.id.add);
-        add.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Intent i =new Intent(TutorHomePage.this, AddClass.class);
-                startActivity(i);
-            }
-        });
+//        add=(Button) findViewById(R.id.add);
+//        add.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view) {
+//                Intent i =new Intent(TutorHomePage.this, AddClass.class);
+//                startActivity(i);
+//            }
+//        });
 
         pastclasses=(Button) findViewById(R.id.passed);
         pastclasses.setOnClickListener(new View.OnClickListener(){

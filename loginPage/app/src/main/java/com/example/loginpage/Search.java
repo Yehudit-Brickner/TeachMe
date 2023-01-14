@@ -56,6 +56,8 @@ public class Search extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+
+
 //        Pickclasses= LessonDB.getLessonsNames();
         Pickclasses= SearchController.lessonNames();
         Collections.sort(Pickclasses);
@@ -125,7 +127,11 @@ public class Search extends AppCompatActivity {
             }
         });
 
+
+
     }
+
+
 
     public void clickedSearch(){
         boolean error= false;
@@ -188,6 +194,7 @@ public class Search extends AppCompatActivity {
         initDatePicker(dateButton2);
         datePickerDialog.show();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -66,19 +66,19 @@
             android:textSize="25dp" />
 
 
-        <Button
-            android:id="@+id/add"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:layout_weight="1"
-            android:background="#30ffffff"
-            android:gravity="center"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:text="Add meetings to class"
-            android:textSize="15dp" />
+<!--        <Button-->
+<!--            android:id="@+id/add"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:layout_marginBottom="20dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:background="#30ffffff"-->
+<!--            android:gravity="center"-->
+<!--            android:paddingTop="10dp"-->
+<!--            android:paddingBottom="10dp"-->
+<!--            android:text="Add meetings to class"-->
+<!--            android:textSize="15dp" />-->
 
         <Button
             android:id="@+id/mylessons"
@@ -91,7 +91,7 @@
             android:gravity="center"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:text="lessons and create meetings"
+            android:text="my lessons and create meetings"
             android:textSize="25dp" />
 
             <Button

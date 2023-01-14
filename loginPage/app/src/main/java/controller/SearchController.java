@@ -21,7 +21,7 @@ public class SearchController {
         return SearchModel.lessonNames();
     }
 
-    public static void switchClicked(Switch myswitch,ArrayList<Lesson> lessons){
+    public static void switchClicked(Switch myswitch, ArrayList<Lesson> lessons){
         if (myswitch.isChecked()) {
             Collections.sort(lessons, new Comparator<Lesson>(){
                 public int compare(Lesson l1, Lesson l2){

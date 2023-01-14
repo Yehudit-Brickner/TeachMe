@@ -175,7 +175,7 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
     }
 
     public void showClasses(){
-        SearchController.orderMeetings(myMeetings1);
+//        SearchController.orderMeetings(myMeetings1);
 //        Collections.sort(myMeetings1, new Comparator<Meeting>(){
 //            public int compare(Meeting m1, Meeting m2){
 //                Timestamp t1=m1.getStartDateTime();
