@@ -61,19 +61,19 @@ public class FutureClassMoreInfoStudent extends AppCompatActivity {
         classname =(TextView)findViewById(R.id.fcmi_classname);
         classname.setText(classname.getText().toString()+m.getLessonId());
 
-        tutorname =(TextView)findViewById(R.id.fcmi_classname);
+        tutorname =(TextView)findViewById(R.id.fcmi_tutorname);
         tutorname.setText(tutorname.getText().toString()+t.getFirstName()+ " "+t.getLastName() );
 
-        date =(TextView)findViewById(R.id.fcmi_classname);
+        date =(TextView)findViewById(R.id.fcmi_date);
         date.setText(date.getText().toString()+ m.getDateStart());
 
-        starttime =(TextView)findViewById(R.id.fcmi_classname);
+        starttime =(TextView)findViewById(R.id.fcmi_starttime);
         starttime.setText(starttime.getText().toString()+ m.getTimeStart());
 
-        endtime =(TextView)findViewById(R.id.fcmi_classname);
+        endtime =(TextView)findViewById(R.id.fcmi_endtime);
         endtime.setText(endtime.getText().toString()+ m.getTimeEnd() );
 
-        price =(TextView)findViewById(R.id.fcmi_classname);
+        price =(TextView)findViewById(R.id.fcmi_price_per_hour);
         price.setText(price.getText().toString()+ l.getPrice() );
 
 

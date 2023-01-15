@@ -80,7 +80,7 @@ public class FutureClassesStudent extends AppCompatActivity {
             }
         });
 
-
+        showMeeting();
 
 
     }
