@@ -31,6 +31,7 @@ import connection.HttpManager;
 import controller.LessonMeetingController;
 import controller.SearchController;
 import db.LessonDB;
+import db.MeetingDB;
 import db.PersonDataDB;
 import impl.Lesson;
 import impl.Meeting;
@@ -46,7 +47,7 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
     private Lesson mylesson;
     private String Lid;
     private String Tid;
-    private  ArrayList<Meeting> myMeetings1;
+    private  ArrayList<Meeting> myMeetings;
     private Tutor mytutor;
     private View myview;
     private TextView date;
@@ -57,6 +58,8 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
     private TextView price;
     private TextView acceptclass;
 
+    private String startdate;
+    private String enddate;
 
 
     @Override
@@ -69,14 +72,14 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
         Intent intent=getIntent();
         Lid=intent.getStringExtra("LID");
         Tid=intent.getStringExtra("TID");
+        startdate=intent.getStringExtra("startdate");
+        enddate=intent.getStringExtra("enddate");
+
         Log.d("AUTH_DEBUG","LID= "+Lid+" TID= "+Tid);
 
-//        mylesson= LessonDB.getLessonFromDB(Tid,Lid);
+
         mylesson= LessonMeetingController.getLesson(Tid,Lid);
 
-
-//        Log.d("AUTH_DEBUG","more info, "+mylesson.toString());
-//        mytutor= PersonDataDB.getTutorFromDB(Tid);
         mytutor= LessonMeetingController.getTutor(Tid);
 
         classname=(TextView)findViewById(R.id.classname_moreinfo);;
@@ -87,19 +90,11 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
 
-        // **** need to change to better func then add to MVC ****
-        myMeetings1=mylesson.getMeetings();
 
-//        Map<String,String> mymap=new HashMap<>();
-//        mymap.put("lessonId",Lid);
-//        mymap.put("tutorId",Tid);
-//        HttpManager h=new HttpManager();
-//        try {
-//            h= HttpManager.GetRequest("http://10.0.0.42:9090/getMeetings",mymap);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        myMeetings1=(ArrayList<Meeting>) h.getData();
+
+        myMeetings= MeetingDB.getMeetingsByTutorAndLessonId(Tid,Lid);
+
+        myMeetings= SearchController.betweenDates(myMeetings,startdate,enddate);
 
         layoutlist=findViewById(R.id.moreinfo_linearlayout);
         showClasses();
@@ -138,14 +133,6 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     acceptclassClicked(m);
-//                    FirebaseUser user = mAuth.getCurrentUser();
-//                    updateUI(user);
-//                    String UID = user.getUid();
-//                    Log.d("AUTH_DEBUG", "UID = " + UID);
-//                    m.setStudentId(UID);
-//                    LessonDB.setLessonData(mylesson);
-//                    Toast.makeText(getApplicationContext(), "you are signed up!", Toast.LENGTH_LONG).show();
-//                    reshowClasses();
                 }
             });
             layoutlist.addView(myview);
@@ -175,24 +162,13 @@ public class MoreInfoAboutClassSearch extends AppCompatActivity {
     }
 
     public void showClasses(){
-//        SearchController.orderMeetings(myMeetings1);
-//        Collections.sort(myMeetings1, new Comparator<Meeting>(){
-//            public int compare(Meeting m1, Meeting m2){
-//                Timestamp t1=m1.getStartDateTime();
-//                Timestamp t2=m2.getStartDateTime();
-//                if(t1.compareTo(t2)<0)
-//                    return -1;
-//                else{
-//                    return 1;
-//                }
-//            }
-//        });
+
         int count=0;
-        if( myMeetings1!=null) {
-            for (int i = 0; i < myMeetings1.size(); i++) {
-                if (myMeetings1.get(i).getStudentId().equals("")) {
+        if( myMeetings!=null) {
+            for (int i = 0; i < myMeetings.size(); i++) {
+                if (myMeetings.get(i).getStudentId().equals("")) {
                     count++;
-                    addView(myMeetings1.get(i));
+                    addView(myMeetings.get(i));
                 }
             }
         }

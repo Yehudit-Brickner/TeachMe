@@ -4,9 +4,13 @@ import android.widget.Switch;
 
 import com.google.firebase.Timestamp;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 
 import db.PersonDataDB;
 import impl.Lesson;
@@ -64,5 +68,59 @@ public class SearchController {
                 }
             }
         });
+    }
+
+
+    public static ArrayList<Meeting> betweenDates(ArrayList<Meeting> meetings, String StartDate, String EndDate ){
+        Date date1;
+        Date date2;
+        Timestamp t1=null;
+        Timestamp t2=null;
+        if (StartDate==null) {
+            return meetings;
+        }
+        else{
+            try {
+                date1=new SimpleDateFormat("dd/MM/yyyy").parse(StartDate);
+                t1=new Timestamp(date1);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        if(EndDate!=null){
+            try {
+//                date2=new SimpleDateFormat("dd/MM/yyyy").parse(EndDate);
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(new SimpleDateFormat("dd/MM/yyyy").parse( EndDate ) );
+                cal.add( Calendar.DATE, 1 );
+                date2=cal.getTime();
+                t2=new Timestamp(date2);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        ArrayList<Meeting> newMeetings= new ArrayList<>();
+
+        if (t1!=null && t2!=null){
+            for (int i=0; i< meetings.size();i++){
+                if (meetings.get(i).getStartDateTime().compareTo(t1)>=0 && meetings.get(i).getStartDateTime().compareTo(t2)<=0){
+                    newMeetings.add(meetings.get(i));
+                }
+            }
+            return newMeetings;
+        }
+
+        if(t1!=null && t2==null){
+            for (int i=0; i< meetings.size();i++){
+                if (meetings.get(i).getStartDateTime().compareTo(t1)>=0 ){
+                    newMeetings.add(meetings.get(i));
+                }
+            }
+            return newMeetings;
+        }
+
+
+
+        return meetings;
     }
 }

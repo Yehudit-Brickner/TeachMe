@@ -49,6 +49,9 @@ public class SearchResults extends AppCompatActivity {
     private Button moreinfo;
     private ArrayList<String> info;
 
+    private String startDate ;
+    private String endDate ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +63,12 @@ public class SearchResults extends AppCompatActivity {
         Intent intent=getIntent();
         info = intent.getStringArrayListExtra("info");
         pickedclass=info.get(0);
-        String startDate = info.get(1);
-        String endDate = info.get(2);
-        lessons = LessonDB.getLessonsByName(pickedclass, startDate, endDate);
+        startDate = info.get(1);
+        endDate = info.get(2);
+        lessons = LessonDB.getLessonsByName(pickedclass, null, null);
+
+
+//        lessons = LessonDB.getLessonsByName(pickedclass, startDate, endDate);
 
 
         layoutlist=findViewById(R.id.layout_list_src);
@@ -108,6 +114,8 @@ public class SearchResults extends AppCompatActivity {
                 Intent i = new Intent(SearchResults.this, MoreInfoAboutClassSearch.class);
                 i.putExtra("LID", l.getLessonId());
                 i.putExtra("TID",l.getTutorId());
+                i.putExtra("startdate", startDate);
+                i.putExtra("enddate",endDate);
                 startActivity(i);
             }
         });
