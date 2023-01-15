@@ -76,13 +76,13 @@ public class PastClassMoreInfoStudent extends AppCompatActivity {
 
 
         zoom =(TextView)findViewById(R.id.pcmi_zoom);
-        price.setText(zoom.getText().toString()+ String.valueOf(m.isZoom()));
+        zoom.setText(zoom.getText().toString()+ String.valueOf(m.isZoom()));
 
         inperson =(TextView)findViewById(R.id.pcmi_inperson);
-        price.setText(inperson.getText().toString()+ String.valueOf(m.isInPerson()));
+        inperson.setText(inperson.getText().toString()+ String.valueOf(m.isInPerson()));
 
         city =(TextView)findViewById(R.id.pcmi_city);
-        price.setText(city.getText().toString()+ m.getCity());
+        city.setText(city.getText().toString()+ m.getCity());
 
 
         whatsapp =(ImageButton)findViewById(R.id.whatsappbtn1);

@@ -103,7 +103,7 @@
                 android:background="#30ffffff"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="future classes"
+                android:text="future meetings"
                 android:textSize="25dp"
                 android:layout_weight="1"
 
@@ -118,7 +118,7 @@
                 android:background="#30ffffff"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="passed classes"
+                android:text="passed meetings"
                 android:textSize="25dp"
             />
 

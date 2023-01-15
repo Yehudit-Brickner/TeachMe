@@ -65,23 +65,6 @@ public class SearchResults extends AppCompatActivity {
         lessons = LessonDB.getLessonsByName(pickedclass, startDate, endDate);
 
 
-//        myNumber=intent.getStringExtra("num");
-//        Log.d("AUTH_DEBUG","myNumber= " +myNumber);
-//        if (myNumber.equals("1")){
-//            pickedclass = intent.getStringExtra("class");
-//            Log.d("AUTH_DEBUG","search results: mynumber= "+myNumber+" class = "+ pickedclass);
-//            lessons = LessonDB.getLessonsByName(pickedclass);
-//        }
-//        else if( myNumber.equals("2")){
-//            pickedclass=intent.getStringExtra("class");
-//            pickeddate=intent.getStringExtra("date");
-//            Log.d("AUTH_DEBUG","search results: mynumber= "+myNumber+" class = "+ pickedclass+", date = "+pickeddate);
-//            lessons = LessonDB.getLessonsByName(pickedclass);
-//        }
-//        else{
-//            Log.d("AUTH_DEBUG","myNumber= " +myNumber);
-//        }
-
         layoutlist=findViewById(R.id.layout_list_src);
         myswitch=(Switch)findViewById(R.id.switch_sc);
 
@@ -89,17 +72,8 @@ public class SearchResults extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showLesson();
-//                if (myswitch.isChecked()){
-//                    showLessonByTutorName();
-//                    Log.d("AUTH_DEBUG","switch is on");
-//                }
-//                else{
-//                    showLessonByPrice();
-//                    Log.d("AUTH_DEBUG","switch is off");
-//                }
             }
         });
-//        showLessonByPrice();
         showLesson();
 
     }
@@ -169,46 +143,4 @@ public class SearchResults extends AppCompatActivity {
         }
     }
 
-
-//
-//    public void showLessonByPrice(){
-//        for (int i=layoutlist.getChildCount()-1; i>=0;i--) {
-//            layoutlist.removeView(layoutlist.getChildAt(i));
-//        }
-//        Collections.sort(lessons, new Comparator<Lesson>(){
-//            public int compare(Lesson l1, Lesson l2){
-//                if(l1.getPrice().compareTo(l2.getPrice())<0)
-//                    return 1;
-//                else{
-//                    return -1;
-//                }
-//            }
-//        });
-//        for(int i=0; i<lessons.size();i++){
-//            addView(lessons.get(i));
-//        }
-//    }
-
-//    public void showLessonByTutorName(){
-//        for (int i=layoutlist.getChildCount()-1; i>=0;i--) {
-//            layoutlist.removeView(layoutlist.getChildAt(i));
-//        }
-//        Collections.sort(lessons, new Comparator<Lesson>(){
-//            public int compare(Lesson l1, Lesson l2){
-//                Tutor t1= PersonDataDB.getTutorFromDB(l1.getTutorId());
-//                String s1=t1.getFirstName()+" "+t1.getFirstName();
-//                Tutor t2= PersonDataDB.getTutorFromDB(l2.getTutorId());
-//                String s2=t2.getFirstName()+" "+t2.getFirstName();
-//                if(s1.compareTo(s2)<0)
-//                    return -1;
-//                else{
-//                    return 1;
-//                }
-//            }
-//        });
-//        for(int i=0; i<lessons.size();i++){
-//            addView(lessons.get(i));
-//        }
-//
-//    }
 }
