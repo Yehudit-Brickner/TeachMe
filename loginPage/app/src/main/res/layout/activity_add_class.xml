@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background1"
     tools:context=".AddClass">
-
 
     <LinearLayout
         android:id="@+id/llayout"
@@ -17,6 +17,7 @@
         android:layout_marginEnd="10dp"
         android:orientation="vertical"
         android:padding="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -48,7 +49,7 @@
                 android:inputType="text"
                 android:padding="5dp"
                 android:textColor="@color/white"
-                android:textColorHint="#786A6A"
+                android:textColorHint="@color/mygray"
                 android:textSize="20sp"
                 android:textStyle="normal"
                 tools:layout_editor_absoluteX="139dp"
@@ -58,6 +59,7 @@
         </LinearLayout>
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -69,587 +71,82 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="5dp"
-                android:text="Price"
+                android:text="Price per hour"
                 android:textColor="@color/white"
                 android:textSize="18sp"></TextView>
 
             <EditText
                 android:id="@+id/Eprice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="186dp"
+                android:layout_height="44dp"
                 android:layout_weight="1.5"
                 android:hint="price"
                 android:inputType="numberDecimal"
                 android:padding="5dp"
                 android:textColor="@color/white"
-                android:textColorHint="#786A6A"
+                android:textColorHint="@color/mygray"
                 android:textSize="18sp"></EditText>
 
         </LinearLayout>
+
     </LinearLayout>
 
-
-    <TextView
-        android:id="@+id/mytext"
-        android:layout_width="350dp"
+    <Button
+        android:id="@+id/add"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="@color/design_default_color_secondary"
         android:gravity="center"
-        android:text="Please fill in the amount of meetings you want to add"
+        android:text="add meeting"
         android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/layout_list_acr1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.534"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llayout"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <LinearLayout
-        android:id="@+id/layout_list_acr1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/round1"
-        android:orientation="vertical"
-        android:padding="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/layout_list_acr2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mytext">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp">
-
-            <TextView
-                android:id="@+id/starttime_acr1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="5dp"
-                android:text="start time:"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="71dp"
-                tools:layout_editor_absoluteY="82dp" />
-
-            <EditText
-                android:id="@+id/Estarttime_acr1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.25"
-                android:hint="16:00"
-                android:inputType="time"
-                android:padding="5dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/white"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="132dp"
-                tools:layout_editor_absoluteY="71dp" />
-
-            <TextView
-                android:id="@+id/endtime_acr1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="5dp"
-                android:text="end time:"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                tools:layout_editor_absoluteX="183dp"
-                tools:layout_editor_absoluteY="82dp" />
-
-            <EditText
-                android:id="@+id/Eendtime_acr1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="18:00"
-                android:inputType="time"
-                android:padding="5dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/white"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="241dp"
-                tools:layout_editor_absoluteY="71dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/date_acr1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:padding="5dp"
-                android:text="date:"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="71dp"
-                tools:layout_editor_absoluteY="35dp" />
-
-            <EditText
-                android:id="@+id/Edate_acr1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="01/01/2020"
-                android:inputType="date"
-                android:padding="5dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/white"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="102dp"
-                tools:layout_editor_absoluteY="26dp" />
-
-            <CheckBox
-                android:id="@+id/checkBox_zoom_acr1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Zoom"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="90dp"
-                tools:layout_editor_absoluteY="116dp" />
-
-            <CheckBox
-                android:id="@+id/checkBox2_inperson_acr1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="In person"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="173dp"
-                tools:layout_editor_absoluteY="116dp" />
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/layout_list_acr2"
-        android:layout_width="match_parent"
-        android:layout_height="96dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/round1"
-        android:orientation="vertical"
-        android:padding="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/layout_list_acr3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_list_acr1">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp">
-
-            <TextView
-                android:id="@+id/starttime_acr2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="5dp"
-                android:text="start time:"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="71dp"
-                tools:layout_editor_absoluteY="82dp" />
-
-            <EditText
-                android:id="@+id/Estarttime_acr2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.25"
-                android:hint="16:00"
-                android:inputType="time"
-                android:padding="5dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/white"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="132dp"
-                tools:layout_editor_absoluteY="71dp" />
-
-            <TextView
-                android:id="@+id/endtime_acr2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="5dp"
-                android:text="end time:"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                tools:layout_editor_absoluteX="183dp"
-                tools:layout_editor_absoluteY="82dp" />
-
-            <EditText
-                android:id="@+id/Eendtime_acr2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="18:00"
-                android:inputType="time"
-                android:padding="5dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/white"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="241dp"
-                tools:layout_editor_absoluteY="71dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/date_acr2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:padding="5dp"
-                android:text="date:"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="71dp"
-                tools:layout_editor_absoluteY="35dp" />
-
-            <EditText
-                android:id="@+id/Edate_acr2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="01/01/2020"
-                android:inputType="date"
-                android:padding="5dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/white"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="102dp"
-                tools:layout_editor_absoluteY="26dp" />
-
-            <CheckBox
-                android:id="@+id/checkBox_zoom_acr2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Zoom"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="90dp"
-                tools:layout_editor_absoluteY="116dp" />
-
-            <CheckBox
-                android:id="@+id/checkBox2_inperson_acr2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="In person"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="173dp"
-                tools:layout_editor_absoluteY="116dp" />
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_list_acr3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/round1"
-        android:orientation="vertical"
-        android:padding="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/layout_list_acr4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_list_acr2">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp">
-
-            <TextView
-                android:id="@+id/starttime_acr3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="5dp"
-                android:text="start time:"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="71dp"
-                tools:layout_editor_absoluteY="82dp" />
-
-            <EditText
-                android:id="@+id/Estarttime_acr3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.25"
-                android:hint="16:00"
-                android:inputType="time"
-                android:padding="5dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/white"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="132dp"
-                tools:layout_editor_absoluteY="71dp" />
-
-            <TextView
-                android:id="@+id/endtime_acr3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="5dp"
-                android:text="end time:"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                tools:layout_editor_absoluteX="183dp"
-                tools:layout_editor_absoluteY="82dp" />
-
-            <EditText
-                android:id="@+id/Eendtime_acr3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="18:00"
-                android:inputType="time"
-                android:padding="5dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/white"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="241dp"
-                tools:layout_editor_absoluteY="71dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/date_acr3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:padding="5dp"
-                android:text="date:"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="71dp"
-                tools:layout_editor_absoluteY="35dp" />
-
-            <EditText
-                android:id="@+id/Edate_acr3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="01/01/2020"
-                android:inputType="date"
-                android:padding="5dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/white"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="102dp"
-                tools:layout_editor_absoluteY="26dp" />
-
-            <CheckBox
-                android:id="@+id/checkBox_zoom_acr3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Zoom"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="90dp"
-                tools:layout_editor_absoluteY="116dp" />
-
-            <CheckBox
-                android:id="@+id/checkBox2_inperson_acr3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="In person"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="173dp"
-                tools:layout_editor_absoluteY="116dp" />
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/layout_list_acr4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/round1"
-        android:orientation="vertical"
-        android:padding="5dp"
         app:layout_constraintBottom_toTopOf="@+id/createbtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_list_acr3">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp">
-
-            <TextView
-                android:id="@+id/starttime_acr4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="5dp"
-                android:text="start time:"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="71dp"
-                tools:layout_editor_absoluteY="82dp" />
-
-            <EditText
-                android:id="@+id/Estarttime_acr4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.25"
-                android:hint="16:00"
-                android:inputType="time"
-                android:padding="5dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/white"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="132dp"
-                tools:layout_editor_absoluteY="71dp" />
-
-            <TextView
-                android:id="@+id/endtime_acr4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="5dp"
-                android:text="end time:"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                tools:layout_editor_absoluteX="183dp"
-                tools:layout_editor_absoluteY="82dp" />
-
-            <EditText
-                android:id="@+id/Eendtime_acr4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="18:00"
-                android:inputType="time"
-                android:padding="5dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/white"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="241dp"
-                tools:layout_editor_absoluteY="71dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/date_acr4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:padding="5dp"
-                android:text="date:"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="71dp"
-                tools:layout_editor_absoluteY="35dp" />
-
-            <EditText
-                android:id="@+id/Edate_acr4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="01/01/2020"
-                android:inputType="date"
-                android:padding="5dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/white"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="102dp"
-                tools:layout_editor_absoluteY="26dp" />
-
-            <CheckBox
-                android:id="@+id/checkBox_zoom_acr4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Zoom"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="90dp"
-                tools:layout_editor_absoluteY="116dp" />
-
-            <CheckBox
-                android:id="@+id/checkBox2_inperson_acr4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="In person"
-                android:textSize="13sp"
-                tools:layout_editor_absoluteX="173dp"
-                tools:layout_editor_absoluteY="116dp" />
-        </LinearLayout>
-
-
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/llayout"></Button>
 
     <Button
         android:id="@+id/createbtn"
         android:layout_width="225dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/design_default_color_secondary"
         android:gravity="center"
         android:text="create"
         android:textColor="@color/white"
-        android:backgroundTint="@color/design_default_color_secondary"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"></Button>
-
-    <!--    <ImageButton-->
-<!--        android:id="@+id/addbtn"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="44dp"-->
-<!--        android:layout_marginEnd="46dp"-->
-<!--        android:layout_marginBottom="25dp"-->
-<!--        android:src="@drawable/ic_baseline_add_24"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/createbtn" />-->
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add"></Button>
 
 
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createbtn">
+
+
+        <LinearLayout
+            android:id="@+id/layout_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.031">
+
+        </LinearLayout>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,8 @@
 package impl;
 
 import com.google.firebase.Timestamp;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 
 import java.text.DateFormat;
@@ -24,13 +26,15 @@ public class Meeting implements IMeeting, Comparable<Meeting>
     protected String timeStart;
     protected String dateEnd;
     protected String timeEnd;
-
+//    protected String date;
     protected Timestamp startDateTime;
     protected Timestamp endDateTime;
     protected String tutorId;
     protected String studentId;
     protected boolean zoom;
     protected boolean inPerson;
+    protected String city;
+    protected String summary;
 
 
     public Meeting()
@@ -38,19 +42,42 @@ public class Meeting implements IMeeting, Comparable<Meeting>
     }
 
     public Meeting(String lessonId, String dateStart, String timeStart, String dateEnd,
-
-                   String timeEnd,String tutorId, boolean zoom, boolean inPerson) {
+                   String timeEnd,String tutorId, boolean zoom, boolean inPerson, String city) {
 
         this.lessonId=lessonId;
         this.meetingId ="";
         setStart(dateStart, timeStart);
         setEnd(dateEnd, timeEnd);
+        this.dateStart=dateStart;
+        this.dateEnd=dateEnd;
         this.tutorId = tutorId;
         this.studentId = "";
         this.zoom = zoom;
         this.inPerson = inPerson;
+        this.city=city;
+        this.summary="";
+        this.timeStart=timeStart;
+        this.timeEnd=timeEnd;
     }
-    
+
+    public Meeting(JsonObject json){
+        this.lessonId=String.valueOf(json.get("lessonId"));
+        this.meetingId=String.valueOf(json.get("meetingId"));
+        this.dateStart=String.valueOf(json.get("dateStart"));
+        this.dateEnd=String.valueOf(json.get("dateEnd"));
+        this.tutorId=String.valueOf(json.get("tutorId"));
+        this.studentId=String.valueOf(json.get("studentId"));
+        this.zoom=Boolean.valueOf(String.valueOf(json.get("zoom")));
+        this.inPerson=Boolean.valueOf(String.valueOf(json.get("inPerson")));
+        this.city=String.valueOf(json.get("city"));
+        this.summary=String.valueOf(json.get("summary"));
+        this.timeStart=String.valueOf(json.get("timeStart"));
+        this.timeEnd=String.valueOf(json.get("timeEnd"));
+        setStart(dateStart, timeStart);
+        setEnd(dateEnd, timeEnd);
+    }
+
+
     @Override
     public String getMeetingId() {
         return meetingId;
@@ -101,13 +128,11 @@ public class Meeting implements IMeeting, Comparable<Meeting>
         return lessonId;
     }
 
-    private void setStart(String date, String time)
-    {
+    private void setStart(String date, String time) {
         startDateTime = new Timestamp(getDate(date + " " + time));
     }
 
-    private void setEnd(String date, String time)
-    {
+    private void setEnd(String date, String time) {
         endDateTime = new Timestamp(getDate(date + " " + time));
     }
 
@@ -164,6 +189,18 @@ public class Meeting implements IMeeting, Comparable<Meeting>
 
     }
 
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
     @Override
     public String toString() {
         return "Meeting{" +
@@ -196,8 +233,7 @@ public class Meeting implements IMeeting, Comparable<Meeting>
 
 
 
-    public Map<String, Object> toMap()
-    {
+    public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
         map.put("meetingId", meetingId);
         map.put("startDateTime", startDateTime);
@@ -225,5 +261,46 @@ public class Meeting implements IMeeting, Comparable<Meeting>
         return dateFormat.format(date);
     }
 
+
+//    public Map<String, Object> getMyMap(){
+//        Map<String, Object> meetingMap= new HashMap<>();
+//        meetingMap.put("meetingId", this.meetingId);
+//        meetingMap.put("lessonId", this.lessonId);
+//        meetingMap.put("tutorId", this.tutorId);
+//        meetingMap.put("dateStart", this.dateStart);
+//        meetingMap.put("timeStart", this.timeStart);
+//        meetingMap.put("dateEnd", this.dateEnd);
+//        meetingMap.put("timeEnd", this.timeEnd);
+//        meetingMap.put("startDateTime", this.startDateTime);
+//        meetingMap.put("endDateTime", this.endDateTime);
+//        meetingMap.put("studentId", this.studentId);
+//        meetingMap.put("zoom", this.zoom);
+//        meetingMap.put("inPerson", this.inPerson);
+//        meetingMap.put("city", this.city);
+//        meetingMap.put("summary", this.summary);
+//        meetingMap.put("timeStart", this.timeStart);
+//        meetingMap.put("timeEnd", this.timeEnd);
+//        return meetingMap;
+//
+//    }
+
+    public String toJson(){
+        return new Gson().toJson(this);
+    }
+
+    public static Meeting fromObject(Object o){
+        if (o == null)
+            return null;
+
+        Gson gson = new Gson ();
+        String json = gson.toJson(o);
+        try {
+            return gson.fromJson(json, Meeting.class);
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
 }
 

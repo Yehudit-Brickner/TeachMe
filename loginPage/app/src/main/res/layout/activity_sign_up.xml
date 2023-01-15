@@ -74,7 +74,7 @@
                 android:hint="your first name"
                 android:inputType="text"
                 android:textColor="@color/white"
-                android:textColorHint="@android:color/darker_gray"
+                android:textColorHint="@color/mygray"
                 android:textSize="15sp" />
         </LinearLayout>
 
@@ -101,7 +101,7 @@
                 android:layout_weight="1.5"
                 android:inputType="text"
                 android:hint="your last name"
-                android:textColorHint="@android:color/darker_gray"
+                android:textColorHint="@color/mygray"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
         </LinearLayout>
@@ -131,119 +131,16 @@
                 android:ems="10"
                 android:inputType="phone"
                 android:hint="your phone number"
-                android:textColorHint="@android:color/darker_gray"
+                android:textColorHint="@color/mygray"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
 
         </LinearLayout>
 
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:paddingBottom="15dp"-->
-<!--            android:paddingTop="15dp"-->
-<!--            android:orientation="horizontal">-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/textEmail"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="1"-->
-<!--                android:text="email"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:textSize="18sp" />-->
-
-<!--            <EditText-->
-<!--                android:id="@+id/editEmail"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="1.5"-->
-<!--                android:hint="your email"-->
-<!--                android:ems="10"-->
-<!--                android:inputType="textEmailAddress"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:textColorHint="@android:color/darker_gray"-->
-<!--                android:textSize="15sp" />-->
-<!--        </LinearLayout>-->
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:paddingBottom="15dp"-->
-<!--            android:paddingTop="15dp"-->
-<!--            android:orientation="horizontal">-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/textpassword1"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="1"-->
-<!--                android:text="password"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:textSize="16sp" />-->
-
-<!--            <EditText-->
-<!--                android:id="@+id/editpassword"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="1.5"-->
-<!--                android:ems="10"-->
-<!--                android:hint="password"-->
-<!--                android:inputType="textPassword"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:textColorHint="@android:color/darker_gray"-->
-<!--                android:textSize="15sp" />-->
-<!--        </LinearLayout>-->
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:paddingBottom="20dp"-->
-<!--            android:paddingTop="20dp"-->
-<!--            android:orientation="horizontal">-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/textpassword"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="1"-->
-<!--                android:elegantTextHeight="true"-->
-<!--                android:text="validate password"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:textSize="18sp" />-->
-
-<!--            <EditText-->
-<!--                android:id="@+id/editpassword1"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="1.5"-->
-<!--                android:ems="10"-->
-<!--                android:hint="password"-->
-<!--                android:inputType="textPassword"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:textColorHint="@android:color/darker_gray"-->
-<!--                android:textSize="15sp" />-->
-<!--        </LinearLayout>-->
-
     </LinearLayout>
 
 
-<!--    <Button-->
-<!--        android:id="@+id/signupbtn"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/fields"-->
-<!--        android:layout_centerHorizontal="true"-->
-<!--        android:backgroundTint="@color/design_default_color_secondary"-->
-<!--        android:text="sign up"-->
-<!--        android:textSize="20sp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.498"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/fields"-->
-<!--        app:layout_constraintVertical_bias="0.195" />-->
+
 
     <ImageButton
         android:id="@+id/imageButton"

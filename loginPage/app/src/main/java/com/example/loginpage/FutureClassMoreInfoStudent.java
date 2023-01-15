@@ -4,52 +4,90 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import db.LessonDB;
-import db.MeetingDB;
-import db.PersonDataDB;
+import controller.LessonMeetingController;
 import impl.Lesson;
 import impl.Meeting;
 import impl.Tutor;
 
 public class FutureClassMoreInfoStudent extends AppCompatActivity {
 
+
+    private Intent intent;
+    private String MID;
+    private String LID;
+    private String TID;
+    private Meeting m;
+    private Tutor t;
+    private Lesson l;
+    private TextView classname;
+    private TextView tutorname;
+    private TextView date;
+    private TextView starttime;
+    private TextView endtime;
+    private TextView price;
+    private TextView zoom;
+    private TextView inperson;
+    private TextView city;
+    private ImageButton whatsapp;
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_future_class_more_info_student);
 
-        Intent intent=getIntent();
-        String MID = intent.getStringExtra("MID");
+        intent=getIntent();
+        MID = intent.getStringExtra("mID");
+        TID = intent.getStringExtra("tID");
+        LID = intent.getStringExtra("lID");
+        m= LessonMeetingController.getMeeting(TID,LID,MID);
+        t= LessonMeetingController.getTutor(TID);
+        l= LessonMeetingController.getLesson(TID,LID);
 
-        Meeting m= MeetingDB.getMeeting(MID);
-        Tutor t = PersonDataDB.getTutorFromDB(m.getTutorId());
-        Lesson l= LessonDB.getLessonFromDB(t.getUID(),m.getLessonId());
 
 
-        TextView classname =(TextView)findViewById(R.id.fcmi_classname);
+
+        classname =(TextView)findViewById(R.id.fcmi_classname);
         classname.setText(classname.getText().toString()+m.getLessonId());
 
-        TextView tutorname =(TextView)findViewById(R.id.fcmi_classname);
-                tutorname.setText(tutorname.getText().toString()+t.getFirstName()+ " "+t.getLastName() );
+        tutorname =(TextView)findViewById(R.id.fcmi_tutorname);
+        tutorname.setText(tutorname.getText().toString()+t.getFirstName()+ " "+t.getLastName() );
 
-        TextView date =(TextView)findViewById(R.id.fcmi_classname);
-                date.setText(date.getText().toString()+ m.getDateStart());
+        date =(TextView)findViewById(R.id.fcmi_date);
+        date.setText(date.getText().toString()+ m.getDateStart());
 
-        TextView starttime =(TextView)findViewById(R.id.fcmi_classname);
-                starttime.setText(starttime.getText().toString()+ m.getTimeStart());
+        starttime =(TextView)findViewById(R.id.fcmi_starttime);
+        starttime.setText(starttime.getText().toString()+ m.getTimeStart());
 
-        TextView endtime =(TextView)findViewById(R.id.fcmi_classname);
-                endtime.setText(endtime.getText().toString()+ m.getTimeEnd() );
+        endtime =(TextView)findViewById(R.id.fcmi_endtime);
+        endtime.setText(endtime.getText().toString()+ m.getTimeEnd() );
 
-        TextView price =(TextView)findViewById(R.id.fcmi_classname);
-                price.setText(price.getText().toString()+ l.getPrice() );
+        price =(TextView)findViewById(R.id.fcmi_price_per_hour);
+        price.setText(price.getText().toString()+ l.getPrice() );
 
-        ImageButton whatsapp =(ImageButton)findViewById(R.id.whatsappbtn2);
+
+        zoom =(TextView)findViewById(R.id.fcmi_zoom);
+        zoom.setText(zoom.getText().toString()+ String.valueOf(m.isZoom()));
+
+        inperson =(TextView)findViewById(R.id.fcmi_inperson);
+        inperson.setText(inperson.getText().toString()+ String.valueOf(m.isInPerson()));
+
+        city =(TextView)findViewById(R.id.fcmi_city);
+        city.setText(city.getText().toString()+ m.getCity());
+
+
+        whatsapp =(ImageButton)findViewById(R.id.whatsappbtn2);
 
         whatsapp.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -58,5 +96,23 @@ public class FutureClassMoreInfoStudent extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.topmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.topmenu:
+                Intent i =new Intent(FutureClassMoreInfoStudent.this, StudentHomePage.class);
+                startActivity(i);
+        }
+        return true;
     }
 }

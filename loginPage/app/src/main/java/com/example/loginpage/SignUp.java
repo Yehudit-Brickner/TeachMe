@@ -1,6 +1,6 @@
 package com.example.loginpage;
 
-import static db.SignUpDB.setPersonData;
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +28,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import controller.PersonController;
+import db.PersonDataDB;
 import impl.Person;
 import interfaces.IPerson;
 
@@ -99,7 +101,6 @@ public class SignUp extends AppCompatActivity {
 
         googleSignup.setOnClickListener(new View.OnClickListener() {
             @Override
-
             public void onClick(View view) {
                 if (isStudent || isTutor) {
                     System.out.println("pressed the google button");
@@ -110,8 +111,9 @@ public class SignUp extends AppCompatActivity {
                     IPerson p = new Person(UID,fname.getText().toString(),
                             lname.getText().toString(),
                             acct.getEmail(),phone.getText().toString());
-                    setPersonData(p,isTutor,isStudent);
-                    startActivity(new Intent(SignUp.this,NewLogin.class));
+//                    PersonDataDB.setPersonData(p,isTutor,isStudent);
+                    PersonController.setPerson(p,isTutor,isStudent);
+                    startActivity(new Intent(SignUp.this, Login.class));
                 }
                 else{
                     System.out.println("pressed the google button");
@@ -163,8 +165,10 @@ public class SignUp extends AppCompatActivity {
                             IPerson p = new Person(UID,fname.getText().toString(),
                                     lname.getText().toString(),
                                     acct.getEmail(),phone.getText().toString());
-                            setPersonData(p,isTutor,isStudent);
-                        } else {
+//                            PersonDataDB.setPersonData(p,isTutor,isStudent);
+                            PersonController.setPerson(p,isTutor,isStudent);
+                        }
+                        else {
                             // If sign in fails, display a message to the user.
                             Log.w("AUTH_DEBUG", "signInWithCredential:failure", task.getException());
                             updateUI(null);
@@ -217,7 +221,7 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onComplete( Task<Void> task) {
                 finish();
-                startActivity(new Intent(SignUp.this,NewLogin.class));
+                startActivity(new Intent(SignUp.this, Login.class));
             }
         });
     }

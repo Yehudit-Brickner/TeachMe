@@ -2,205 +2,323 @@ package com.example.loginpage;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+
+import connection.HttpManager;
+import controller.LessonMeetingController;
 import db.LessonDB;
 import db.MeetingDB;
+import impl.DateFunctions;
 import impl.Lesson;
 import impl.Meeting;
 
 public class AddClass extends AppCompatActivity {
 
-    public FirebaseFirestore firestore;
-    private FirebaseAuth mAuth;
-    private Button create;
-    public boolean error=false;
-    public boolean createLesson=false;
-    public LinearLayout mylayout;
-    public Lesson l;
 
+
+    private FirebaseFirestore firestore;
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
+    private Button create;
+    private Button add;
+    private boolean error=false;
+    private boolean error_notified=false;
+    private boolean createLesson=false;
+    private LinearLayout mylayout;
+    private Lesson l;
+    private DatePickerDialog datePickerDialog;
+    private TimePickerDialog timePickerDialog;
+    private ArrayList<Meeting> newMeetings;
+
+    private int hour, minute;
+    private String datetimes;
+    private String datetimee;
+    private Button Starttime;
+    private Button Endtime;
+    private Button dateButton;
+    private EditText city;
+    private CheckBox zoom;
+    private CheckBox inperson;
+    private Button remove;
+    private EditText classname;
+    private EditText price;
+    private String UID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_class);
-        error=false;
-        create=(Button)findViewById(R.id.createbtn);
-        create.setOnClickListener(new View.OnClickListener(){
+
+        mylayout = findViewById(R.id.layout_list);
+
+        add = (Button) findViewById(R.id.add);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("AUTH_DEBUG", "pressed button add in AddClass2");
+                boolean ok= checkPreivius();
+                if (ok) {
+                    addView();
+                }
+            }
+        });
+
+        create = (Button) findViewById(R.id.createbtn);
+        create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAuth = FirebaseAuth.getInstance();
-                FirebaseUser user = mAuth.getCurrentUser();
-                updateUI(user);
-                String UID=user.getUid();
-
-                EditText classname=(EditText)findViewById(R.id.editclass);
-                EditText price=(EditText)findViewById(R.id.Eprice);
-
-                if(classname.getText().toString().equals("") || price.getText().toString().equals("") ){
-                    Toast.makeText(getApplicationContext(), "please fill in the name and price", Toast.LENGTH_LONG).show();
-                    error=true;
-                }
-                else {
-                    l= LessonDB.getLessonFromDB(UID,classname.getText().toString());
-                    if (!l.getLessonId().equals(classname.getText().toString())){
-                        l=new Lesson(classname.getText().toString(),UID,price.getText().toString(),"");
-                        LessonDB.setLessonData(l);
-                    }
-
-                    Log.d("AUTH_DEBUG", l.toString());
-
-
-                    //meeting 1
-                    EditText date1 = (EditText) findViewById(R.id.Edate_acr1);
-                    EditText st1 = (EditText) findViewById(R.id.Estarttime_acr1);
-                    EditText et1 = (EditText) findViewById(R.id.Eendtime_acr1);
-                    CheckBox z1 = (CheckBox) findViewById(R.id.checkBox_zoom_acr1);
-                    CheckBox inp1 = (CheckBox) findViewById(R.id.checkBox2_inperson_acr1);
-
-                    if (date1.getText().toString().length() > 0 && st1.getText().toString().length() > 0 && et1.getText().toString().length() > 0) {
-                        String datetimes1 = date1.getText().toString() + " " + st1.getText().toString();
-                        String datetimee1 = date1.getText().toString() + " " + et1.getText().toString();
-                        if (inp1.isChecked() == false && z1.isChecked() == false) {
-                            Toast.makeText(getApplicationContext(), "please mark if meeting1 can be on zoom or is in person or both", Toast.LENGTH_LONG).show();
-                            error=true;
-                        }
-                        else {
-                            Log.d("AUTH_DEBUG", date1.getText().toString() + "\n" + datetimes1 + "\n" + datetimee1 + "\n" + String.valueOf(z1.isChecked()) + "\n" + String.valueOf(inp1.isChecked()));
-
-                            Meeting m=new Meeting(l.getLessonId(),date1.getText().toString(),st1.getText().toString(),
-                                    date1.getText().toString(),et1.getText().toString(),UID, z1.isChecked(),
-                                    inp1.isChecked());
-                            Log.d("AUTH_DEBUG",m.toString());
-
-                            MeetingDB.setMeeting(m);
-                            l.addMeeting(m);
-
-                            Toast.makeText(getApplicationContext(), "created meeting1", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                    else{
-                        Log.d("AUTH_DEBUG", "time or date is empty1");
-                    }
-
-
-
-                    //meeting 2
-                    EditText date2 = (EditText) findViewById(R.id.Edate_acr2);
-                    EditText st2 = (EditText) findViewById(R.id.Estarttime_acr2);
-                    EditText et2 = (EditText) findViewById(R.id.Eendtime_acr2);
-                    CheckBox z2 = (CheckBox) findViewById(R.id.checkBox_zoom_acr2);
-                    CheckBox inp2 = (CheckBox) findViewById(R.id.checkBox2_inperson_acr2);
-                    if (date2.getText().toString().length() > 0 && st2.getText().toString().length() > 0 && et2.getText().toString().length() > 0) {
-                        String datetimes2 = date2.getText().toString() + " " + st2.getText().toString();
-                        String datetimee2 = date2.getText().toString() + " " + et2.getText().toString();
-                        if (inp2.isChecked() == false && z2.isChecked() == false) {
-                            Toast.makeText(getApplicationContext(), "please mark if meeting2 can be on zoom or is in person or both", Toast.LENGTH_LONG).show();
-                            error=true;
-                        }
-                        else {
-                            Log.d("AUTH_DEBUG", date2.getText().toString() + "\n" + datetimes2 + "\n" + datetimee2 + "\n" + String.valueOf(z2.isChecked()) + "\n" + String.valueOf(inp2.isChecked()));
-                            Meeting m= new Meeting(l.getLessonId(),date2.getText().toString(),st2.getText().toString(),
-                                    date2.getText().toString(),et2.getText().toString(),UID,z2.isChecked(),
-                                    inp2.isChecked());
-                            MeetingDB.setMeeting(m);
-                            l.addMeeting(m);
-                            Toast.makeText(getApplicationContext(), "created meeting2", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                    else{
-                        Log.d("AUTH_DEBUG", "time or date is empty2");
-                    }
-
-
-
-                    //meeting 3
-                    EditText date3 = (EditText) findViewById(R.id.Edate_acr3);
-                    EditText st3 = (EditText) findViewById(R.id.Estarttime_acr3);
-                    EditText et3 = (EditText) findViewById(R.id.Eendtime_acr3);
-                    CheckBox z3 = (CheckBox) findViewById(R.id.checkBox_zoom_acr3);
-                    CheckBox inp3 = (CheckBox) findViewById(R.id.checkBox2_inperson_acr3);
-                    if (date3.getText().toString().length() > 0 && st3.getText().toString().length() > 0 && et3.getText().toString().length() > 0) {
-                        String datetimes3 = date3.getText().toString() + " " + st3.getText().toString();
-                        String datetimee3 = date3.getText().toString() + " " + et3.getText().toString();
-                        if (inp3.isChecked() == false && z3.isChecked() == false) {
-                            Toast.makeText(getApplicationContext(), "please mark if meeting3 can be on zoom or is in person or both", Toast.LENGTH_LONG).show();
-                            error=true;
-                        }
-                        else {
-                            Log.d("AUTH_DEBUG", date3.getText().toString() + "\n" + datetimes3 + "\n" + datetimee3 + "\n" + String.valueOf(z3.isChecked()) + "\n" + String.valueOf(inp3.isChecked()));
-                            Meeting m= new Meeting(l.getLessonId(),date3.getText().toString(),st3.getText().toString(),
-                                    date3.getText().toString(),et3.getText().toString(),UID,z3.isChecked(),
-                                    inp3.isChecked());
-                            MeetingDB.setMeeting(m);
-                            l.addMeeting(m);
-                            Toast.makeText(getApplicationContext(), "created meeting3", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                    else{
-                        Log.d("AUTH_DEBUG", "time or date is empty3");
-                    }
-
-
-                    //meeting 4
-                    EditText date4 = (EditText) findViewById(R.id.Edate_acr4);
-                    EditText st4 = (EditText) findViewById(R.id.Estarttime_acr4);
-                    EditText et4 = (EditText) findViewById(R.id.Eendtime_acr4);
-                    CheckBox z4 = (CheckBox) findViewById(R.id.checkBox_zoom_acr4);
-                    CheckBox inp4 = (CheckBox) findViewById(R.id.checkBox2_inperson_acr4);
-                    if (date4.getText().toString().length() > 0 && st4.getText().toString().length() > 0 && et4.getText().toString().length() > 0) {
-                        String datetimes4 = date4.getText().toString() + " " + st4.getText().toString();
-                        String datetimee4 = date4.getText().toString() + " " + et4.getText().toString();
-                        if (inp4.isChecked() == false && z4.isChecked() == false) {
-                            Toast.makeText(getApplicationContext(), "please mark if meeting4 can be on zoom or is in person or both", Toast.LENGTH_LONG).show();
-                            error=true;
-                        }
-                        else {
-                            Log.d("AUTH_DEBUG", date4.getText().toString() + "\n" + datetimes4 + "\n" + datetimee4 + "\n" + String.valueOf(z4.isChecked()) + "\n" + String.valueOf(inp4.isChecked()));
-                            Meeting m= new Meeting(l.getLessonId(),date4.getText().toString(),st4.getText().toString(),
-                                    date4.getText().toString(),et4.getText().toString(),UID,z4.isChecked(),
-                                    inp4.isChecked());
-                            MeetingDB.setMeeting(m);
-                            l.addMeeting(m);
-                            Toast.makeText(getApplicationContext(), "created meeting4", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                    else{
-                        Log.d("AUTH_DEBUG", "time or date is empty4");
-                    }
-                }
-
-//                LessonDB.addMeetingsToLessonDB(l);
-                LessonDB.setLessonData(l);
-
-                if (!error) {
-                    Log.d("AUTH_DEBUG", l.toString());
-                    Intent i = new Intent(AddClass.this, TutorHomePage.class);
-                    startActivity(i);
-                }
+                pressedCreate();
             }
         });
 
     }
 
 
+    public boolean checkPreivius(){
+        int count= mylayout.getChildCount();
+        count-=1;
+        error=false;
 
-    public void updateUI(FirebaseUser user) {
+        if (count>=0) {
+            dateButton = mylayout.getChildAt(count).findViewById(R.id.datePickerButton);
+            Starttime = mylayout.getChildAt(count).findViewById(R.id.timeButtonStart);
+            Endtime = mylayout.getChildAt(count).findViewById(R.id.timeButtonEnd);
+            city = mylayout.getChildAt(count).findViewById(R.id.Ecity_acr);
+            zoom = mylayout.getChildAt(count).findViewById(R.id.checkBox_zoom_acr);
+            inperson = mylayout.getChildAt(count).findViewById(R.id.checkBox2_inperson_acr);
+
+            if (dateButton.getText().toString().equals("date") || Starttime.getText().toString().contains("select time") || Endtime.getText().toString().contains("select time")) {
+                error = true;
+                Toast.makeText(getApplicationContext(), "please fill in date and times", Toast.LENGTH_LONG).show();
+            }
+
+            if (inperson.isChecked() == false && zoom.isChecked() == false) {
+                error = true;
+                Toast.makeText(getApplicationContext(), "please fill in checkbox", Toast.LENGTH_LONG).show();
+            }
+            if (inperson.isChecked() == true && city.getText().toString().equals("")) {
+                error = true;
+                Toast.makeText(getApplicationContext(), "please fill in city", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        return !error;
     }
+
+    public void addView(){
+        View myview = getLayoutInflater().inflate(R.layout.add_class_row,null,false);
+
+        Starttime =(Button)myview.findViewById(R.id.timeButtonStart);
+        Endtime =(Button)myview.findViewById(R.id.timeButtonEnd);
+        dateButton =(Button)myview.findViewById(R.id.datePickerButton);
+        city =(EditText)myview.findViewById(R.id.Ecity_acr);
+        zoom =(CheckBox)myview.findViewById(R.id.checkBox_zoom_acr);
+        inperson =(CheckBox)myview.findViewById(R.id.checkBox2_inperson_acr);
+        remove =(Button)myview.findViewById(R.id.buttonremove);
+        remove.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Log.d("AUTH_DEBUG","pressed button remove");
+                RemoveView(myview);
+            }
+        });
+
+        mylayout.addView(myview);
+    }
+
+    public void RemoveView(View v){
+        mylayout.removeView(v);
+    }
+
+    public void initDatePicker() {
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                String date = DateFunctions.makeDateString(day, month, year);
+                dateButton.setText(date);
+            }
+        };
+
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int style = AlertDialog.THEME_HOLO_LIGHT;
+        datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
+    }
+
+    public void openDatePicker(View view) {
+        initDatePicker();
+        datePickerDialog.show();
+    }
+
+    public void popTimePickerStart(View view) {
+        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
+                hour= selectedHour;
+                minute=selectedMinute;
+                Starttime.setText(String.format(Locale.getDefault(), "%02d:%02d",hour,minute));
+            }
+        };
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, onTimeSetListener, hour,minute,true);
+        timePickerDialog.setTitle("Select time");
+        timePickerDialog.show();
+    }
+
+    public void popTimePickerEnd(View view) {
+        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
+                hour= selectedHour;
+                minute=selectedMinute;
+                Endtime.setText(String.format(Locale.getDefault(), "%02d:%02d",hour,minute));
+            }
+        };
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, onTimeSetListener, hour,minute,true);
+        timePickerDialog.setTitle("Select time");
+        timePickerDialog.show();
+    }
+
+    public void pressedCreate() {
+        Log.d("AUTH_DEBUG", "pressed button create");
+//        boolean ok = checkPreivius();
+//        if (ok) {
+            mAuth = FirebaseAuth.getInstance();
+            user = mAuth.getCurrentUser();
+            String UID = user.getUid();
+            error = false;
+            error_notified=false;
+            classname = (EditText) findViewById(R.id.editclass);
+            price = (EditText) findViewById(R.id.Eprice);
+
+            if (classname.getText().toString().equals("") || price.getText().toString().equals("")) {
+                error = true;
+            }
+            else {
+                l= LessonMeetingController.getLesson(UID, classname.getText().toString());
+//                l = LessonDB.getLessonFromDB(UID, classname.getText().toString());
+                if (l==null || !l.getLessonId().equals(classname.getText().toString())) {
+                    l = new Lesson(classname.getText().toString(), UID, price.getText().toString(), "");
+//                    LessonDB.setLessonData(l);
+                    LessonMeetingController.createLesson(l);
+
+                }
+            }
+
+            newMeetings = new ArrayList<>();
+            if (!error) {
+                for (int i = 0; i < mylayout.getChildCount(); i++) {
+
+                    dateButton = mylayout.getChildAt(i).findViewById(R.id.datePickerButton);
+                    Starttime = mylayout.getChildAt(i).findViewById(R.id.timeButtonStart);
+                    Endtime = mylayout.getChildAt(i).findViewById(R.id.timeButtonEnd);
+                    city = mylayout.getChildAt(i).findViewById(R.id.Ecity_acr);
+                    zoom = mylayout.getChildAt(i).findViewById(R.id.checkBox_zoom_acr);
+                    inperson = mylayout.getChildAt(i).findViewById(R.id.checkBox2_inperson_acr);
+                    if (dateButton.getText().toString().equals("date") || Starttime.getText().toString().contains("select time") || Endtime.getText().toString().contains("select time")) {
+                        error = true;
+                    } else {
+                        if (!dateButton.getText().toString().equals("date") && !Starttime.getText().toString().contains("select time") && !Endtime.getText().toString().contains("select time")) {
+                            datetimes = dateButton.getText().toString() + " " + Starttime.getText().toString();
+                            datetimee = dateButton.getText().toString() + " " + Endtime.getText().toString();
+                        }
+                    }
+                    if (inperson.isChecked() == false && zoom.isChecked() == false) {
+                        error = true;
+                    }
+                    if (inperson.isChecked() == true && city.getText().toString().equals("")) {
+                        error = true;
+                    }
+                    if (!error) {
+                        Log.d("AUTH_DEBUG", dateButton.getText().toString() + "\n" + datetimes + "\n" + datetimee + "\n" + String.valueOf(zoom.isChecked()) + "\n" + String.valueOf(inperson.isChecked()));
+                        Meeting m = new Meeting(l.getLessonId(), dateButton.getText().toString(), Starttime.getText().toString(),
+                                dateButton.getText().toString(), Endtime.getText().toString(), UID, zoom.isChecked(),
+                                inperson.isChecked(),city.getText().toString());
+                        Log.d("AUTH_DEBUG", m.toString());
+                        newMeetings.add(m);
+
+                    }
+                    else {
+                        Log.d("AUTH_DEBUG", "there was a problem");
+                        int x= i+1;
+                        error_notified=true;
+                        Toast.makeText(getApplicationContext(), "something caused an error, in meeting "+ x, Toast.LENGTH_LONG).show();
+                        break;
+                    }
+                }
+            }
+            else {
+                if (!error_notified) {
+                    error_notified=true;
+                    Toast.makeText(getApplicationContext(), "something caused an error, please check that everything is filled in", Toast.LENGTH_LONG).show();
+                }
+            }
+            if (!error) {
+                for (int i = 0; i < newMeetings.size(); i++) {
+//                    if(checkTimes(newMeetings.get(i))) {
+                            LessonMeetingController.updateMeeting(newMeetings.get(i));
+//                        MeetingDB.setMeeting(newMeetings.get(i));
+//                        l.addMeeting(newMeetings.get(i));
+//                    }
+                }
+//                LessonDB.setLessonData(l);
+                Intent i = new Intent(AddClass.this, TutorHomePage.class);
+                startActivity(i);
+            }
+            else {
+                if (!error_notified) {
+                    Toast.makeText(getApplicationContext(), "something caused an error, please check that everything is filled in", Toast.LENGTH_LONG).show();
+                }
+            }
+
+    }
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.topmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.topmenu:
+                Intent i =new Intent(AddClass.this, TutorHomePage.class);
+                startActivity(i);
+        }
+        return true;
+    }
+
 
 }

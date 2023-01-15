@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -17,14 +20,27 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import controller.PersonController;
+import db.PersonDataDB;
+import impl.Student;
 
 public class StudentHomePage extends AppCompatActivity {
 
     private FirebaseFirestore firestore;
-    GoogleSignInOptions gso;
-    GoogleSignInClient gsc;
-
+    public GoogleSignInOptions gso;
+    public GoogleSignInClient gsc;
+    public FirebaseAuth mAuth;
+    public FirebaseUser user;
+    public ImageButton profile;
+    public Button search;
+    public Button passed;
+    public Button upcoming;
+    public Button signout;
+    public String UID;
+    public Student s;
 
 
     @Override
@@ -32,68 +48,62 @@ public class StudentHomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_home_page);
 
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        gsc = GoogleSignIn.getClient(StudentHomePage.this,gso);
-
         TextView studentName = (TextView) findViewById(R.id.name);
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-        if(acct!=null){
-            String personName = acct.getDisplayName();
-            String s=studentName.getText().toString()+personName;
-            studentName.setText(s);
-        }
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        UID=user.getUid();
+//        s= PersonDataDB.getStudentFromDB(UID);
+        s= PersonController.getStudent(UID);
+
+        studentName.setText(studentName.getText().toString()+ s.getFirstName()+ " "+ s.getLastName());
 
 
-        ImageButton profile=(ImageButton) findViewById(R.id.profile);
+        profile=(ImageButton) findViewById(R.id.profile);
         profile.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Log.d("AUTH_DEBUG","pressed button profile - student");
                 Intent i =new Intent(StudentHomePage.this, StudentUpdateInfo.class);
                 startActivity(i);
             }
         });
 
 
-        Button search=(Button) findViewById(R.id.search);
+        search=(Button) findViewById(R.id.search);
         search.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Log.d("AUTH_DEBUG","pressed button search");
                 Intent i =new Intent(StudentHomePage.this, Search.class);
                 startActivity(i);
             }
         });
 
-        Button upcoming=(Button) findViewById(R.id.upcoming);
+        upcoming=(Button) findViewById(R.id.upcoming);
         upcoming.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Log.d("AUTH_DEBUG","pressed button upcoming classes - student");
                 Intent i =new Intent(StudentHomePage.this, FutureClassesStudent.class);
                 startActivity(i);
             }
         });
 
-        Button passed=(Button) findViewById(R.id.passed);
+        passed=(Button) findViewById(R.id.passed);
         passed.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Log.d("AUTH_DEBUG","pressed button passed classes - student");
                 Intent i =new Intent(StudentHomePage.this, PassedClassesStudent.class);
                 startActivity(i);
             }
         });
 
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gsc = GoogleSignIn.getClient(StudentHomePage.this,gso);
 
-
-        Button signout=(Button) findViewById(R.id.signoutbtn);
+        signout=(Button) findViewById(R.id.signoutbtn);
         signout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("AUTH_DEBUG","pressed button signout- student");
                 signOut();
-                Intent i =new Intent(StudentHomePage.this, NewLogin.class);
+                Intent i =new Intent(StudentHomePage.this, Login.class);
                 startActivity(i);
             }
         });
@@ -110,4 +120,6 @@ public class StudentHomePage extends AppCompatActivity {
             }
         });
     }
+
+
 }

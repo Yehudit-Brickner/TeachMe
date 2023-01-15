@@ -1,4 +1,7 @@
 package impl;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.security.MessageDigest;
@@ -11,8 +14,7 @@ import db.DataCenterDB;
 import interfaces.IPerson;
 
 
-public class Person implements IPerson
-{
+public class Person implements IPerson {
     protected String uID = "";
     protected String firstName = "";
     protected String lastName = "";
@@ -37,6 +39,15 @@ public class Person implements IPerson
 
     public Person() {
     }
+
+    public Person(JsonObject json){
+        this.uID=String.valueOf(json.get("uID"));
+        this.firstName=String.valueOf(json.get("firstName"));
+        this.lastName=String.valueOf(json.get("lastName"));
+        this.email=String.valueOf(json.get("email"));
+        this.phoneNumber=String.valueOf(json.get("phoneNumber"));
+    }
+
 
     @Override
     public String getUID() {
@@ -85,8 +96,7 @@ public class Person implements IPerson
     }
 
     @Override
-    public Map<String, Object> getPersonMap()
-    {
+    public Map<String, Object> getPersonMap() {
         Map<String, Object> map = new HashMap<>();
         map.put("uID", uID);
         map.put("firstName", firstName);
@@ -118,5 +128,21 @@ public class Person implements IPerson
     @Override
     public int hashCode() {
         return Objects.hash(uID);
+    }
+
+
+//    public Map<String, Object> getMap() {
+//        Map<String, Object> personMap = new HashMap<>();
+//        personMap.put("uID", this.uID);
+//        personMap.put("firstName", this.firstName);
+//        personMap.put("lastName", this.lastName);
+//        personMap.put("email", this.email);
+//        personMap.put("phoneNumber", this.phoneNumber);
+//        return personMap;
+//
+//    }
+
+    public String toJson(){
+        return new Gson().toJson(this);
     }
 }

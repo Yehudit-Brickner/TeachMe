@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.common.reflect.TypeToken;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -14,18 +15,23 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 
+import connection.HttpManager;
 import impl.Lesson;
 import impl.Meeting;
 import interfaces.ILesson;
 import interfaces.IMeeting;
 
-public class LessonDB extends Lesson
-{
+public class LessonDB extends Lesson {
     protected ArrayList<String> meetingIdList = new ArrayList<>();
     private static final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
@@ -45,50 +51,45 @@ public class LessonDB extends Lesson
         this.meetings = new ArrayList<>();
     }
 
-    public static boolean setLessonData(Lesson lesson)
-    {
-        // TODO: check if the tutor exists
-        if (lesson.getTutorId() == null || lesson.getTutorId().isEmpty())
+    public static boolean setLessonData(Lesson lesson) {
+        HttpManager httpResponse = null;
+        try {
+            httpResponse = HttpManager.PostRequest("/set/lesson", lesson);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (httpResponse==null){
             return false;
+        }
+        String s = String.valueOf(httpResponse.getData());
 
-        // TODO: check if the lesson exists
-        if (lesson.getLessonId() == null || lesson.getLessonId().isEmpty())
-            return false;
-
-        CollectionReference lessonsColl = firestore.collection(PersonDataDB.COLL_NAME).document(lesson.getTutorId()).collection(Lesson.DOCK_NAME);
-        lessonsColl.document(lesson.getLessonId()).set(lesson);
-
-        // TODO: add if document added successfully
-
-        return true;
+        return (httpResponse.getCode() == HttpManager.OK);
     }
     
-    public static Lesson getLessonFromDB(String Uid, String lessonId)
-    {
-        String tag = "LESSONS_DEBUG";
-        // for changeing option
-        Lesson lesson = new Lesson();
-        DocumentReference docRef = FirebaseFirestore.getInstance().collection(PersonDataDB.COLL_NAME).document(Uid).collection(DOCK_NAME).document(lessonId);
-        Task<DocumentSnapshot> task = docRef.get();
+    public static Lesson getLessonFromDB(String Uid, String lessonId) {
 
-        DataCenterDB.waitTaskComplete(task);
+        try {
+            HttpManager httpResponse = HttpManager.GetRequest("/get_tutor_lesson",
+                    Map.of("UID", Uid, "LID", lessonId));
 
-        if (task.isSuccessful()) {
-            DocumentSnapshot document = task.getResult();
-            if (document.exists()) {
+            if (httpResponse.getCode() == HttpManager.ERR)
+                return null;
 
-                Log.d("AUTH_DEBUG", "DocumentSnapshot data: " + document.getData().toString());
-                lesson = document.toObject(Lesson.class);
-            } else {
-                Log.d(tag, "No such document");
-            }
+            if (httpResponse.getCode() != HttpManager.OK)
+                return null;
 
+            Lesson lesson = Lesson.ObjectToLesson(httpResponse.getData());
+            lesson.setMeetings(MeetingDB.getMeetingsByTutorAndLessonId(Uid, lessonId));
+
+            return lesson;
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        else {
-            Log.d(tag, "get failed with ", task.getException());
-        }
-        
-        return lesson;
+
+        return null;
+
     }
 
     public ArrayList<String> getMeetingIdList() {
@@ -99,9 +100,7 @@ public class LessonDB extends Lesson
         this.meetingIdList = meetingIdList;
     }
 
-
-    public static ArrayList<Lesson> getLessonsByTutorId(String tutorId)
-    {
+    public static ArrayList<Lesson> getLessonsByTutorId(String tutorId) {
         ArrayList<Lesson> lessons = new ArrayList<>();
         if (tutorId == null || tutorId.isEmpty())
             return lessons;
@@ -122,35 +121,32 @@ public class LessonDB extends Lesson
         return lessons;
     }
 
+    public static ArrayList<Lesson> getLessonsByName(String lessonName, String startDate, String endDate) {
+        Log.d("RUNNING", "RUNNING getLessonsByName");
 
-    public static ArrayList<Lesson> getLessonsByName(String lessonName)
-    {
-        ArrayList<Lesson> lessons = new ArrayList<>();
-        if (lessonName == null || lessonName.isEmpty())
-            return lessons;
+        try {
+            System.out.println(lessonName);
+            System.out.println(startDate);
+            System.out.println(endDate);
+            HttpManager httpResponse = HttpManager.GetRequest("/get/lessons/by_name",
+                    Map.of("LID", lessonName + "", "start", startDate + "", "end", endDate + ""));
 
-        Query lessonsCol = firestore.collectionGroup(IMeeting.DOCK_NAME).whereGreaterThan("startDateTime", Timestamp.now());
+            if (httpResponse.getCode() == HttpManager.ERR)
+                return new ArrayList<>();
 
-        Task<QuerySnapshot> task = lessonsCol.get();
+            if (httpResponse.getCode() != HttpManager.OK)
+                return new ArrayList<>();
 
-        DataCenterDB.waitTaskComplete(task);
+//            ArrayList<Object> objects = (ArrayList<Object>) httpResponse.getData();
+//            ArrayList<Lesson> lessons = new ArrayList<>();
+//            for (Object o: objects)
+//                lessons.add(Lesson.ObjectToLesson(o));
+            return toArrayLesson(httpResponse.getData());
 
-        HashSet<Lesson> lessonHashSet = new HashSet<>();
-        if (task.isSuccessful()) {
-            for (QueryDocumentSnapshot document : task.getResult()) {
-                Log.d("QUERY_TEST", document.getId() + " => " + document.getData());
-                PathParse parser = new PathParse(document.getReference().getPath());
-                if (parser.getDataFromParsed(ILesson.DOCK_NAME) == null || parser.getDataFromParsed(PersonDataDB.COLL_NAME) == null)
-                    continue;
-
-
-                if (!parser.getDataFromParsed(ILesson.DOCK_NAME).equals(lessonName))
-                    continue;
-
-                lessonHashSet.add(LessonDB.getLessonFromDB(parser.getDataFromParsed(PersonDataDB.COLL_NAME), parser.getDataFromParsed(ILesson.DOCK_NAME)));
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return new ArrayList<>(lessonHashSet);
+        return new ArrayList<>();
     }
     
     public static ArrayList<String> getLessonsNames(){
@@ -162,21 +158,37 @@ public class LessonDB extends Lesson
 //        // Format the date using the SimpleDateFormat object
 //        String formattedDate = dateFormat.format(currentDate);
 
-        Query lessonsCol = firestore.collectionGroup(IMeeting.DOCK_NAME).whereGreaterThan("startDateTime", Timestamp.now());
-//        Query lessonsCol = firestore.collectionGroup(IMeeting.DOCK_NAME).whereGreaterThan("startDate", Timestamp.now());
-        Task<QuerySnapshot> task = lessonsCol.get();
-        DataCenterDB.waitTaskComplete(task);
-        HashSet<String> lessonHashSet = new HashSet<>();
-        if (task.isSuccessful()) {
-            for (QueryDocumentSnapshot document : task.getResult()) {
-                Log.d("QUERY_TEST", document.getId() + " => " + document.getData());
-                PathParse parser = new PathParse(document.getReference().getPath());
-                if (parser.getDataFromParsed(ILesson.DOCK_NAME) == null || parser.getDataFromParsed(PersonDataDB.COLL_NAME) == null)
-                    continue;
-                lessonHashSet.add(parser.getDataFromParsed(ILesson.DOCK_NAME));
-            }
+//        Query lessonsCol = firestore.collectionGroup(IMeeting.DOCK_NAME).whereGreaterThan("startDateTime", Timestamp.now());
+////        Query lessonsCol = firestore.collectionGroup(IMeeting.DOCK_NAME).whereGreaterThan("startDate", Timestamp.now());
+//        Task<QuerySnapshot> task = lessonsCol.get();
+//        DataCenterDB.waitTaskComplete(task);
+//        HashSet<String> lessonHashSet = new HashSet<>();
+//        if (task.isSuccessful()) {
+//            for (QueryDocumentSnapshot document : task.getResult()) {
+//                Log.d("getLessonsNames", document.getId() + " => " + document.getData());
+//                PathParse parser = new PathParse(document.getReference().getPath());
+//                if (parser.getDataFromParsed(ILesson.DOCK_NAME) == null || parser.getDataFromParsed(PersonDataDB.COLL_NAME) == null)
+//                    continue;
+//                lessonHashSet.add(parser.getDataFromParsed(ILesson.DOCK_NAME));
+//            }
+//        }
+//        return new ArrayList<>(lessonHashSet);
+        Log.d("RUNNING", "RUNNING getLessonsNames");
+        try {
+            HttpManager httpResponse = HttpManager.GetRequest("/get/lessons/names");
+
+            if (httpResponse.getCode() == HttpManager.ERR)
+                return new ArrayList<>();
+
+            if (httpResponse.getCode() != HttpManager.OK)
+                return new ArrayList<>();
+
+            return (ArrayList<String>)(httpResponse.getData());
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return new ArrayList<>(lessonHashSet);
+        return new ArrayList<>();
     }
 
     public static boolean addMeetingsToLessonDB(Lesson lesson){
@@ -195,4 +207,15 @@ public class LessonDB extends Lesson
         return true;
 
     }
+
+    public static ArrayList<Lesson> toArrayLesson(Object o){
+        if (o == null)
+            return null;
+
+        Gson gson = new Gson ();
+
+        String json = gson.toJson(o);
+        return gson.fromJson(json, new TypeToken<ArrayList<Lesson>>(){}.getType());
+    }
+
 }

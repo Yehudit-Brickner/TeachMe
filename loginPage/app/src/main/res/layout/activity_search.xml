@@ -39,54 +39,107 @@
 
             <Spinner
                 android:id="@+id/classes_search_spinner"
-                android:layout_width="200dp"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:textSize="25sp"
                 android:padding="5dp"
                 android:inputType="text"
                 android:textColor="@color/white"
+                android:popupTheme="@android:style/ThemeOverlay.Material.Dark"
                 />
+
 
         </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="40dp"
-            android:paddingTop="40dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="* if you don't pick dates the default is to show lessons that have meetings from today and onward"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:gravity="center"
+                ></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="40dp">
 
             <TextView
-                android:id="@+id/date_search"
-                android:layout_width="0dp"
+                android:id="@+id/date_search_start"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Date"
+                android:padding="5dp"
+                android:text="Start Date"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/datePickerButtonStart"
+                style="?android:spinnerStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="openDatePickerStart"
+                android:text="pick begin search date"
                 android:padding="5dp"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/choosedate_search"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5"
-                android:inputType="date"
-                android:hint="dd/mm/yyyy"
-                android:textColorHint="#786A6A"
-                android:padding="5dp"
-                android:textColor="@color/white"
-                android:textSize="25sp" />
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="40dp"
+            android:orientation="horizontal"
             android:paddingTop="40dp"
-            android:orientation="horizontal">
+            android:paddingBottom="40dp">
+
+            <TextView
+                android:id="@+id/date_search_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="End Date"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/datePickerButtonEnd"
+                style="?android:spinnerStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="openDatePickerEnd"
+                android:text="pick end search date"
+                android:padding="5dp"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+
+
+
+        </LinearLayout>
+
+
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:paddingBottom="40dp"-->
+<!--            android:paddingTop="40dp"-->
+<!--            android:orientation="horizontal">-->
 
 <!--            <TextView-->
 <!--                android:id="@+id/city_search"-->
@@ -103,12 +156,13 @@
 <!--                android:layout_width="200dp"-->
 <!--                android:layout_height="wrap_content"-->
 <!--                android:textSize="25sp"-->
+<!--                android:layout_weight="1"-->
 <!--                android:inputType="text"-->
 <!--                android:padding="5dp"-->
 <!--                android:textColor="@color/white"-->
 <!--                />-->
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
 
         <LinearLayout
@@ -117,6 +171,8 @@
             android:paddingBottom="40dp"
             android:paddingTop="40dp"
             android:orientation="horizontal">
+
+
 
 <!--            <TextView-->
 <!--                android:id="@+id/zp_search"-->

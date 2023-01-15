@@ -1,7 +1,15 @@
 package impl;
 
+import com.google.firebase.firestore.IgnoreExtraProperties;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.internal.LinkedTreeMap;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import interfaces.ILesson;
@@ -13,7 +21,7 @@ public class Lesson implements ILesson
     protected String tutorId = "";
     protected String price = "";
     protected String freeText = "";
-    protected ArrayList<Meeting> meetings = null;
+    protected transient ArrayList<Meeting> meetings = null;
 
 
     public Lesson()
@@ -22,7 +30,7 @@ public class Lesson implements ILesson
 
     public Lesson(String lessonId, ArrayList<Meeting> meetings) {
         this.lessonId = lessonId;
-        this.meetings = meetings;
+//        this.meetings = meetings;
     }
 
     public Lesson(String lessonId, String tutorId, String price, String freeText) {
@@ -34,9 +42,16 @@ public class Lesson implements ILesson
         this.tutorId = tutorId;
         this.price = price;
         this.freeText = freeText;
-        this.meetings = meetings;
+//        this.meetings = meetings;
     }
-
+    public Lesson(JsonObject json){
+        this.lessonId=String.valueOf(json.get("lessonId"));
+        this.tutorId=String.valueOf(json.get("tutorId"));
+        this.price=String.valueOf(json.get("price"));
+        this.freeText=String.valueOf(json.get("freeText"));
+//        this.meetings=String.valueOf(json.get("meetings"));
+        this.meetings=null;
+    }
 
     @Override
     public String getLessonId() {
@@ -79,6 +94,14 @@ public class Lesson implements ILesson
         }
     }
 
+    public String getFreeText() {
+        return freeText;
+    }
+
+    public void setFreeText(String freeText) {
+        this.freeText = freeText;
+    }
+
     @Override
     public String toString() {
         String retStr = "Lesson{";
@@ -102,5 +125,29 @@ public class Lesson implements ILesson
     @Override
     public int hashCode() {
         return Objects.hash(lessonId, tutorId);
+    }
+
+
+//    public Map<String, Object> getMyMap(){
+//        Map<String, Object> lessonMap= new HashMap<>();
+//        lessonMap.put("lessonId", this.lessonId);
+//        lessonMap.put("tutorId", this.tutorId);
+//        lessonMap.put("price", this.price);
+//        lessonMap.put("freeText", this.freeText);
+//        return lessonMap;
+//    }
+
+    public String toJson(){
+      return new Gson().toJson(this);
+    }
+
+
+    public static Lesson ObjectToLesson(Object o){
+        if (o == null)
+            return null;
+
+        Gson gson = new Gson ();
+        String json = gson.toJson(o);
+        return gson.fromJson(json, Lesson.class);
     }
 }

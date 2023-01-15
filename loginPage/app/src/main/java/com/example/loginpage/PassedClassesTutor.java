@@ -4,36 +4,50 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 
-import db.MeetingDB;
+import controller.PastFutureClassesController;
 import db.PersonDataDB;
 import impl.Meeting;
 import impl.Student;
-import impl.Tutor;
 
 public class PassedClassesTutor extends AppCompatActivity {
 
 
-    public LinearLayout layoutlist;
-    public FirebaseFirestore firestore;
+
+    private FirebaseFirestore firestore;
     private FirebaseAuth mAuth;
+    private LinearLayout layoutlist;
+    private Switch myswitch;
+    private FirebaseUser user;
+    private String UID;
+    private ArrayList<Meeting> meetings;
+    private ArrayList<Meeting> passedMeetings;
+    private Date date;
+    private Timestamp now;
+    private View myview;
+    private TextView classname;
+    private TextView studentname;
+    private TextView textdate;
+    private TextView starttime;
+    private TextView endtime;
+    private Button moreinfo;
+    private Student s;
 
 
     @Override
@@ -42,50 +56,50 @@ public class PassedClassesTutor extends AppCompatActivity {
         setContentView(R.layout.activity_passed_classes_tutor);
 
         layoutlist=findViewById(R.id.layout_list);
+        myswitch=(Switch)findViewById(R.id.switch_pt);
 
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
-        String UID=user.getUid();
-        ArrayList<Meeting> meetings= MeetingDB.getStudentMeetings(UID);
+        user = mAuth.getCurrentUser();
+        UID=user.getUid();
 
-        Date date = Calendar.getInstance().getTime();
-        // Display a date in day, month, year format
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String today = formatter.format(date);
+        meetings= PastFutureClassesController.getTutorMeetings(UID);
+        passedMeetings= PastFutureClassesController.getPastMeetings(meetings);
 
-
-        for (int i=0; i< meetings.size();i++){
-            try {
-                if(dateisgood(today, meetings.get(i).getDateStart())){
-                    addView(meetings.get(i));
-                }
+        myswitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showMeeting();
             }
-            catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
+        });
+        showMeeting();
+
     }
 
     public void addView(Meeting m){
-        View myview = getLayoutInflater().inflate(R.layout.row_class_data_tutor,null,false);
 
-        TextView cn= (TextView)myview.findViewById(R.id.ClassName_rcdt);
-        cn.setText(m.getMeetingId());
+        myview = getLayoutInflater().inflate(R.layout.row_class_data_tutor,null,false);
 
-        TextView sn= (TextView)myview.findViewById(R.id.StudentName_rcdt);
-        Student s= PersonDataDB.getStudentFromDB(m.getStudentId());
-        sn.setText(s.getFirstName()+ " "+ s.getLastName());
+        classname= (TextView)myview.findViewById(R.id.ClassName_rcdt);
+        classname.setText(m.getLessonId());
 
-        TextView date= (TextView)myview.findViewById(R.id.Date_rcdt);
-        date.setText(m.getDateStart());
+        studentname= (TextView)myview.findViewById(R.id.StudentName_rcdt);
+        if(!m.getStudentId().equals("")) {
+            s = PersonDataDB.getStudentFromDB(m.getStudentId());
+            if (s != null) {
+                studentname.setText(s.getFirstName() + " " + s.getLastName());
+            }
+        }
 
-        TextView st= (TextView)myview.findViewById(R.id.StartTime_rcdt);
-        st.setText(m.getTimeStart());
+        textdate= (TextView)myview.findViewById(R.id.Date_rcdt);
+        textdate.setText(m.getDateStart());
 
-        TextView et= (TextView)myview.findViewById(R.id.EndTime_rcdt);
-        et.setText(m.getTimeEnd());
+        starttime= (TextView)myview.findViewById(R.id.StartTime_rcdt);
+        starttime.setText(m.getTimeStart());
 
-        Button moreinfo=(Button)myview.findViewById(R.id.moreinfo_rcdt);
+        endtime= (TextView)myview.findViewById(R.id.EndTime_rcdt);
+        endtime.setText(m.getTimeEnd());
+
+        moreinfo=(Button)myview.findViewById(R.id.moreinfo_rcdt);
 
 
         layoutlist.addView(myview);
@@ -95,25 +109,42 @@ public class PassedClassesTutor extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i =new Intent(PassedClassesTutor.this, PastClassMoreInfoTutor.class);
                 i.putExtra("mID",m.getMeetingId());
+                i.putExtra("lID",m.getLessonId());
+                i.putExtra("tID",m.getTutorId());
                 startActivity(i);
             }
         });
     }
 
 
-    public boolean dateisgood(String today, String other) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date d1 = sdf.parse(today);
-        Date d2=sdf.parse(other);
-        if (d1.before(d2)) {
-            return false;
-        } else if (d1.after(d2)) {
-            return true;
-        } else {
-            return true;
-        }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.topmenu, menu);
+        return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.topmenu:
+                Intent i =new Intent(PassedClassesTutor.this, TutorHomePage.class);
+                startActivity(i);
+        }
+        return true;
+    }
+
+
+    public void showMeeting(){
+        PastFutureClassesController.switchclicked(myswitch,passedMeetings,-1);
+        for (int i=layoutlist.getChildCount()-1; i>=0;i--) {
+            layoutlist.removeView(layoutlist.getChildAt(i));
+        }
+        for (int i=0; i<passedMeetings.size(); i++){
+            addView(passedMeetings.get(i));
+        }
+    }
 
 
 }
